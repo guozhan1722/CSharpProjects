@@ -351,6 +351,7 @@
             this.webBrowser2.Name = "webBrowser2";
             this.webBrowser2.Size = new System.Drawing.Size(561, 299);
             this.webBrowser2.TabIndex = 2;
+            this.webBrowser2.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.ShowPath);
             // 
             // webBrowser3
             // 
@@ -360,6 +361,7 @@
             this.webBrowser3.Name = "webBrowser3";
             this.webBrowser3.Size = new System.Drawing.Size(561, 297);
             this.webBrowser3.TabIndex = 3;
+            this.webBrowser3.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.ShowPath);
             // 
             // webBrowser4
             // 
@@ -369,6 +371,7 @@
             this.webBrowser4.Name = "webBrowser4";
             this.webBrowser4.Size = new System.Drawing.Size(561, 299);
             this.webBrowser4.TabIndex = 4;
+            this.webBrowser4.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.ShowPath);
             // 
             // FormExplorer
             // 
