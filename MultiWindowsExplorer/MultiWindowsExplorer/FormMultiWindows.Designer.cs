@@ -11,8 +11,16 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        private void StoreUrlValue()
+        {
+            for(int i=0; i<explorerNum;i++)
+            {
+                AppSettings.UpdateSettings(appSettingKeys[i], pathTxt[i].Text);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
+            StoreUrlValue();
             if (disposing && (components != null))
             {
                 components.Dispose();

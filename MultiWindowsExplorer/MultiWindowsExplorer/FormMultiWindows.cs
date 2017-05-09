@@ -14,12 +14,13 @@ namespace MultiWindowsExplorer
     public partial class FormExplorer : Form
     {
         //FolderBrowserDialog folderBrowser;
-        private const int explorerNum = 4;
+        public const int explorerNum = 4;
         WebBrowser[] webBrowsers;
         Button[] openBtn;
         TextBox[] pathTxt;
         Button[] backBtn;
         Button[] forwardBtn;
+        String[] appSettingKeys;
 
         public FormExplorer()
         {
@@ -37,13 +38,14 @@ namespace MultiWindowsExplorer
             backBtn = new Button[explorerNum] { btnBack1, btnBack2, btnBack3, btnBack4 };
             forwardBtn = new Button[explorerNum] { btnForward1, btnForward2, btnForward3, btnForward4 };
             pathTxt = new TextBox[explorerNum] { txtPath1, txtPath2, txtPath3, txtPath4 };
+            appSettingKeys = new String[explorerNum]{"url1","url2","url3","url4"};
         }
 
         private void SetRootPath()
         {
             for (int i = 0; i < explorerNum;i++ )
             {
-                pathTxt[i].Text = ConfigurationManager.AppSettings["url1"];
+                pathTxt[i].Text = AppSettings.ReadSetting(appSettingKeys[i]);
                 //pathTxt[i].Text = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
                 webBrowsers[i].Url = new Uri(pathTxt[i].Text);
             }
@@ -131,7 +133,7 @@ namespace MultiWindowsExplorer
             try
             {
                 pathTxt[position].Text = wBrowser.Url.LocalPath;
-                ConfigurationManager.AppSettings["url1"] = pathTxt[position].Text;
+                //AppSettings.UpdateSettings(appSettingKeys[position], pathTxt[position].Text);
             }
             catch (Exception ex)
             {

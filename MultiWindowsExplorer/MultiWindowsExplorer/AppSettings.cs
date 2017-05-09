@@ -9,36 +9,34 @@ namespace MultiWindowsExplorer
 {
     class AppSettings
     {
-        public void ReadSetting(string key)
+        public static String ReadSetting(String key)
         {
+            String result = "Not Found";
             try
             {
                 var appSettings = ConfigurationManager.AppSettings;
-                string result = appSettings[key] ?? "Not Found";
-                Console.WriteLine(result);
+                result = appSettings[key] ?? "Not Found";
             }
             catch (ConfigurationErrorsException)
             {
                 Console.WriteLine("Error reading app settings");
             }
+
+            return result;
         }
 
-        static void AddUpdateAppSettings(string key, string value)
+        public static void UpdateSettings(String key, String value)
         {
             try
             {
                 var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 var settings = configFile.AppSettings.Settings;
-                if (settings[key] == null)
-                {
-                    settings.Add(key, value);
-                }
-                else
+                if (settings[key] != null)
                 {
                     settings[key].Value = value;
+                    configFile.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
                 }
-                configFile.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
             }
             catch (ConfigurationErrorsException)
             {
