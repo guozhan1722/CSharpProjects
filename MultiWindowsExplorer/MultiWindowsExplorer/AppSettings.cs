@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace MultiWindowsExplorer
 {
-    class AppSettings
+    public class AppSettings
     {
         public static String ReadSetting(String key)
         {
@@ -16,10 +17,11 @@ namespace MultiWindowsExplorer
             {
                 var appSettings = ConfigurationManager.AppSettings;
                 result = appSettings[key] ?? "Not Found";
+                //result = appSettings[key];
             }
-            catch (ConfigurationErrorsException)
+            catch (ConfigurationErrorsException cex)
             {
-                Console.WriteLine("Error reading app settings");
+                MessageBox.Show(cex.Message.ToString());
             }
 
             return result;
@@ -38,10 +40,15 @@ namespace MultiWindowsExplorer
                     ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
                 }
             }
-            catch (ConfigurationErrorsException)
+            catch (ConfigurationErrorsException cex)
             {
-                Console.WriteLine("Error writing app settings");
+                MessageBox.Show(cex.Message.ToString());
             }
+        }
+
+        public static int add(int num1, int num2)
+        {
+            return num1+num2;
         }
 
     }

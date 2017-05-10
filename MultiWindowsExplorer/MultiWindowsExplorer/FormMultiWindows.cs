@@ -27,7 +27,7 @@ namespace MultiWindowsExplorer
             InitializeComponent();
 
             AddComponentToGroup();
-            SetRootPath();
+            SetAllRootPath();
             
         }
 
@@ -41,17 +41,22 @@ namespace MultiWindowsExplorer
             appSettingKeys = new String[explorerNum]{"url1","url2","url3","url4"};
         }
 
-        private void SetRootPath()
+        private void SetRootPath(int position)
+        {
+            String rootPath = AppSettings.ReadSetting(appSettingKeys[position]);
+            pathTxt[position].Text = rootPath;
+            webBrowsers[position].Url = new Uri(rootPath);
+        }
+
+        private void SetAllRootPath()
         {
             for (int i = 0; i < explorerNum;i++ )
             {
-                pathTxt[i].Text = AppSettings.ReadSetting(appSettingKeys[i]);
-                //pathTxt[i].Text = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                webBrowsers[i].Url = new Uri(pathTxt[i].Text);
+                SetRootPath(i);
             }
         }
 
-        int GetButtonAreaPosition(Button btn)
+        private int GetButtonAreaPosition(Button btn)
         {
 
             for(int i=0;i<explorerNum;i++)
@@ -65,7 +70,7 @@ namespace MultiWindowsExplorer
             return 0;
         }
 
-        int GetWebBrowserPosition(WebBrowser wBrowser)
+        private int GetWebBrowserPosition(WebBrowser wBrowser)
         {
             for (int i = 0; i < explorerNum; i++)
             {
@@ -80,11 +85,11 @@ namespace MultiWindowsExplorer
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            int number = GetButtonAreaPosition(sender as Button);
+            int position = GetButtonAreaPosition(sender as Button);
 
             try
             {
-                webBrowsers[number].Url = new Uri(pathTxt[number].Text);
+                webBrowsers[position].Url = new Uri(pathTxt[position].Text);
             }
             catch (Exception ex)
             {
@@ -108,11 +113,11 @@ namespace MultiWindowsExplorer
 
         private void btnForward_Click(object sender, EventArgs e)
         {
-            int number = GetButtonAreaPosition(sender as Button);
+            int position = GetButtonAreaPosition(sender as Button);
 
-            if (webBrowsers[number].CanGoForward)
+            if (webBrowsers[position].CanGoForward)
             {
-                webBrowsers[number].GoForward();
+                webBrowsers[position].GoForward();
             }
         }
 
@@ -128,8 +133,9 @@ namespace MultiWindowsExplorer
 
         private void ShowPath(object sender, WebBrowserNavigatedEventArgs e)
         {
-            int position = GetWebBrowserPosition(sender as WebBrowser);
             WebBrowser wBrowser = sender as WebBrowser;
+            int position = GetWebBrowserPosition(wBrowser);
+            
             try
             {
                 pathTxt[position].Text = wBrowser.Url.LocalPath;

@@ -71,6 +71,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.OutsetDouble;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -84,13 +85,14 @@
             this.tableLayoutPanel1.Controls.Add(this.webBrowser4, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1134, 674);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1512, 830);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel5
@@ -105,20 +107,22 @@
             this.tableLayoutPanel5.Controls.Add(this.txtPath4, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnOpen4, 3, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(570, 339);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(761, 419);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(561, 27);
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(744, 32);
             this.tableLayoutPanel5.TabIndex = 7;
             // 
             // btnBack4
             // 
             this.btnBack4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnBack4.Location = new System.Drawing.Point(3, 3);
+            this.btnBack4.Location = new System.Drawing.Point(4, 4);
+            this.btnBack4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBack4.Name = "btnBack4";
-            this.btnBack4.Size = new System.Drawing.Size(50, 21);
+            this.btnBack4.Size = new System.Drawing.Size(66, 24);
             this.btnBack4.TabIndex = 0;
             this.btnBack4.Text = "<<";
             this.btnBack4.UseVisualStyleBackColor = true;
@@ -127,9 +131,10 @@
             // btnForward4
             // 
             this.btnForward4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnForward4.Location = new System.Drawing.Point(59, 3);
+            this.btnForward4.Location = new System.Drawing.Point(78, 4);
+            this.btnForward4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnForward4.Name = "btnForward4";
-            this.btnForward4.Size = new System.Drawing.Size(50, 21);
+            this.btnForward4.Size = new System.Drawing.Size(66, 24);
             this.btnForward4.TabIndex = 1;
             this.btnForward4.Text = ">>";
             this.btnForward4.UseVisualStyleBackColor = true;
@@ -138,18 +143,20 @@
             // txtPath4
             // 
             this.txtPath4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath4.Location = new System.Drawing.Point(115, 3);
+            this.txtPath4.Location = new System.Drawing.Point(152, 4);
+            this.txtPath4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPath4.Multiline = true;
             this.txtPath4.Name = "txtPath4";
-            this.txtPath4.Size = new System.Drawing.Size(330, 21);
+            this.txtPath4.Size = new System.Drawing.Size(438, 24);
             this.txtPath4.TabIndex = 2;
             // 
             // btnOpen4
             // 
             this.btnOpen4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOpen4.Location = new System.Drawing.Point(451, 3);
+            this.btnOpen4.Location = new System.Drawing.Point(598, 4);
+            this.btnOpen4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOpen4.Name = "btnOpen4";
-            this.btnOpen4.Size = new System.Drawing.Size(107, 21);
+            this.btnOpen4.Size = new System.Drawing.Size(142, 24);
             this.btnOpen4.TabIndex = 3;
             this.btnOpen4.Text = "Open";
             this.btnOpen4.UseVisualStyleBackColor = true;
@@ -167,20 +174,22 @@
             this.tableLayoutPanel4.Controls.Add(this.txtPath2, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnOpen2, 3, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 339);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(7, 419);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(561, 27);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(743, 32);
             this.tableLayoutPanel4.TabIndex = 6;
             // 
             // btnBack2
             // 
             this.btnBack2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnBack2.Location = new System.Drawing.Point(3, 3);
+            this.btnBack2.Location = new System.Drawing.Point(4, 4);
+            this.btnBack2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBack2.Name = "btnBack2";
-            this.btnBack2.Size = new System.Drawing.Size(50, 21);
+            this.btnBack2.Size = new System.Drawing.Size(66, 24);
             this.btnBack2.TabIndex = 0;
             this.btnBack2.Text = "<<";
             this.btnBack2.UseVisualStyleBackColor = true;
@@ -189,9 +198,10 @@
             // btnForward2
             // 
             this.btnForward2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnForward2.Location = new System.Drawing.Point(59, 3);
+            this.btnForward2.Location = new System.Drawing.Point(78, 4);
+            this.btnForward2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnForward2.Name = "btnForward2";
-            this.btnForward2.Size = new System.Drawing.Size(50, 21);
+            this.btnForward2.Size = new System.Drawing.Size(66, 24);
             this.btnForward2.TabIndex = 1;
             this.btnForward2.Text = ">>";
             this.btnForward2.UseVisualStyleBackColor = true;
@@ -200,18 +210,20 @@
             // txtPath2
             // 
             this.txtPath2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath2.Location = new System.Drawing.Point(115, 3);
+            this.txtPath2.Location = new System.Drawing.Point(152, 4);
+            this.txtPath2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPath2.Multiline = true;
             this.txtPath2.Name = "txtPath2";
-            this.txtPath2.Size = new System.Drawing.Size(330, 21);
+            this.txtPath2.Size = new System.Drawing.Size(437, 24);
             this.txtPath2.TabIndex = 2;
             // 
             // btnOpen2
             // 
             this.btnOpen2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOpen2.Location = new System.Drawing.Point(451, 3);
+            this.btnOpen2.Location = new System.Drawing.Point(597, 4);
+            this.btnOpen2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOpen2.Name = "btnOpen2";
-            this.btnOpen2.Size = new System.Drawing.Size(107, 21);
+            this.btnOpen2.Size = new System.Drawing.Size(142, 24);
             this.btnOpen2.TabIndex = 3;
             this.btnOpen2.Text = "Open";
             this.btnOpen2.UseVisualStyleBackColor = true;
@@ -229,20 +241,22 @@
             this.tableLayoutPanel3.Controls.Add(this.txtPath3, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnOpen3, 3, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(570, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(761, 7);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(561, 27);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(744, 32);
             this.tableLayoutPanel3.TabIndex = 5;
             // 
             // btnBack3
             // 
             this.btnBack3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnBack3.Location = new System.Drawing.Point(3, 3);
+            this.btnBack3.Location = new System.Drawing.Point(4, 4);
+            this.btnBack3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBack3.Name = "btnBack3";
-            this.btnBack3.Size = new System.Drawing.Size(50, 21);
+            this.btnBack3.Size = new System.Drawing.Size(66, 24);
             this.btnBack3.TabIndex = 0;
             this.btnBack3.Text = "<<";
             this.btnBack3.UseVisualStyleBackColor = true;
@@ -251,9 +265,10 @@
             // btnForward3
             // 
             this.btnForward3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnForward3.Location = new System.Drawing.Point(59, 3);
+            this.btnForward3.Location = new System.Drawing.Point(78, 4);
+            this.btnForward3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnForward3.Name = "btnForward3";
-            this.btnForward3.Size = new System.Drawing.Size(50, 21);
+            this.btnForward3.Size = new System.Drawing.Size(66, 24);
             this.btnForward3.TabIndex = 1;
             this.btnForward3.Text = ">>";
             this.btnForward3.UseVisualStyleBackColor = true;
@@ -262,18 +277,20 @@
             // txtPath3
             // 
             this.txtPath3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath3.Location = new System.Drawing.Point(115, 3);
+            this.txtPath3.Location = new System.Drawing.Point(152, 4);
+            this.txtPath3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPath3.Multiline = true;
             this.txtPath3.Name = "txtPath3";
-            this.txtPath3.Size = new System.Drawing.Size(330, 21);
+            this.txtPath3.Size = new System.Drawing.Size(438, 24);
             this.txtPath3.TabIndex = 2;
             // 
             // btnOpen3
             // 
             this.btnOpen3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOpen3.Location = new System.Drawing.Point(451, 3);
+            this.btnOpen3.Location = new System.Drawing.Point(598, 4);
+            this.btnOpen3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOpen3.Name = "btnOpen3";
-            this.btnOpen3.Size = new System.Drawing.Size(107, 21);
+            this.btnOpen3.Size = new System.Drawing.Size(142, 24);
             this.btnOpen3.TabIndex = 3;
             this.btnOpen3.Text = "Open";
             this.btnOpen3.UseVisualStyleBackColor = true;
@@ -291,20 +308,22 @@
             this.tableLayoutPanel2.Controls.Add(this.txtPath1, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnOpen1, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 7);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(561, 27);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(743, 32);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // btnBack1
             // 
             this.btnBack1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnBack1.Location = new System.Drawing.Point(3, 3);
+            this.btnBack1.Location = new System.Drawing.Point(4, 4);
+            this.btnBack1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBack1.Name = "btnBack1";
-            this.btnBack1.Size = new System.Drawing.Size(50, 21);
+            this.btnBack1.Size = new System.Drawing.Size(66, 25);
             this.btnBack1.TabIndex = 0;
             this.btnBack1.Text = "<<";
             this.btnBack1.UseVisualStyleBackColor = true;
@@ -313,9 +332,10 @@
             // btnForward1
             // 
             this.btnForward1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnForward1.Location = new System.Drawing.Point(59, 3);
+            this.btnForward1.Location = new System.Drawing.Point(78, 4);
+            this.btnForward1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnForward1.Name = "btnForward1";
-            this.btnForward1.Size = new System.Drawing.Size(50, 21);
+            this.btnForward1.Size = new System.Drawing.Size(66, 25);
             this.btnForward1.TabIndex = 1;
             this.btnForward1.Text = ">>";
             this.btnForward1.UseVisualStyleBackColor = true;
@@ -324,18 +344,20 @@
             // txtPath1
             // 
             this.txtPath1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath1.Location = new System.Drawing.Point(115, 3);
+            this.txtPath1.Location = new System.Drawing.Point(152, 4);
+            this.txtPath1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPath1.Multiline = true;
             this.txtPath1.Name = "txtPath1";
-            this.txtPath1.Size = new System.Drawing.Size(330, 21);
+            this.txtPath1.Size = new System.Drawing.Size(440, 25);
             this.txtPath1.TabIndex = 2;
             // 
             // btnOpen1
             // 
             this.btnOpen1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOpen1.Location = new System.Drawing.Point(451, 3);
+            this.btnOpen1.Location = new System.Drawing.Point(600, 4);
+            this.btnOpen1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOpen1.Name = "btnOpen1";
-            this.btnOpen1.Size = new System.Drawing.Size(107, 21);
+            this.btnOpen1.Size = new System.Drawing.Size(144, 25);
             this.btnOpen1.TabIndex = 3;
             this.btnOpen1.Text = "Open";
             this.btnOpen1.UseVisualStyleBackColor = true;
@@ -344,52 +366,57 @@
             // webBrowser1
             // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(3, 36);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Location = new System.Drawing.Point(7, 50);
+            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(561, 297);
+            this.webBrowser1.Size = new System.Drawing.Size(743, 358);
             this.webBrowser1.TabIndex = 1;
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.ShowPath);
             // 
             // webBrowser2
             // 
             this.webBrowser2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser2.Location = new System.Drawing.Point(3, 372);
-            this.webBrowser2.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser2.Location = new System.Drawing.Point(7, 462);
+            this.webBrowser2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.webBrowser2.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser2.Name = "webBrowser2";
-            this.webBrowser2.Size = new System.Drawing.Size(561, 299);
+            this.webBrowser2.Size = new System.Drawing.Size(743, 361);
             this.webBrowser2.TabIndex = 2;
             this.webBrowser2.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.ShowPath);
             // 
             // webBrowser3
             // 
             this.webBrowser3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser3.Location = new System.Drawing.Point(570, 36);
-            this.webBrowser3.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser3.Location = new System.Drawing.Point(761, 50);
+            this.webBrowser3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.webBrowser3.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser3.Name = "webBrowser3";
-            this.webBrowser3.Size = new System.Drawing.Size(561, 297);
+            this.webBrowser3.Size = new System.Drawing.Size(744, 358);
             this.webBrowser3.TabIndex = 3;
             this.webBrowser3.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.ShowPath);
             // 
             // webBrowser4
             // 
             this.webBrowser4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser4.Location = new System.Drawing.Point(570, 372);
-            this.webBrowser4.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser4.Location = new System.Drawing.Point(761, 462);
+            this.webBrowser4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.webBrowser4.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser4.Name = "webBrowser4";
-            this.webBrowser4.Size = new System.Drawing.Size(561, 299);
+            this.webBrowser4.Size = new System.Drawing.Size(744, 361);
             this.webBrowser4.TabIndex = 4;
             this.webBrowser4.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.ShowPath);
             // 
             // FormExplorer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1134, 674);
+            this.ClientSize = new System.Drawing.Size(1512, 830);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormExplorer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Multi File Explorer";
