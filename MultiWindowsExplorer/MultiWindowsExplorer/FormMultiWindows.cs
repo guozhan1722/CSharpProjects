@@ -56,27 +56,40 @@ namespace MultiWindowsExplorer
             }
         }
 
-        private int GetButtonAreaPosition(Button btn)
+        private int GetPositionBySender(object sender)
         {
-
-            for(int i=0;i<explorerNum;i++)
+            if (sender is Button)
             {
-                if((btn.Name == openBtn[i].Name) ||(btn.Name == backBtn[i].Name)||(btn.Name == forwardBtn[i].Name))
-                {
-                    return i;
+                var btn = sender as Button;
+                for (int i = 0; i < explorerNum; i++) { 
+                    if ((btn.Name == openBtn[i].Name) || (btn.Name == backBtn[i].Name) || (btn.Name == forwardBtn[i].Name))
+                    {
+                        return i;
+                    }
                 }
             }
 
-            return 0;
-        }
-
-        private int GetWebBrowserPosition(WebBrowser wBrowser)
-        {
-            for (int i = 0; i < explorerNum; i++)
+            else if (sender is WebBrowser)
             {
-                if (wBrowser.Name == webBrowsers[i].Name) 
+                var wBrowser = sender as WebBrowser;
+                for (int i = 0; i < explorerNum; i++)
                 {
-                    return i;
+                    if (wBrowser.Name == webBrowsers[i].Name)
+                    {
+                        return i;
+                    }
+                }
+            
+            }
+            else if (sender is TextBox)
+            {
+                var txt = sender as TextBox;
+                for (int i = 0; i < explorerNum; i++)
+                {
+                    if(txt.Name == pathTxt[i].Name)
+                    {
+                        return i;
+                    }
                 }
             }
 
@@ -85,7 +98,7 @@ namespace MultiWindowsExplorer
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            int position = GetButtonAreaPosition(sender as Button);
+            int position = GetPositionBySender(sender);
 
             try
             {
@@ -94,26 +107,13 @@ namespace MultiWindowsExplorer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
-                
+               
             }
-
-            //folderBrowser = new FolderBrowserDialog();
-            //folderBrowser.Description = "Select your path: ";
-            //folderBrowser.RootFolder = Environment.SpecialFolder.MyComputer;
-            //folderBrowser.ShowNewFolderButton = false;
-            
-            //if (folderBrowser.ShowDialog() == DialogResult.OK)
-            //{
-
-            //    pathTxt[number].Text = folderBrowser.SelectedPath;
-            //    webBrowsers[number].Url = new Uri(folderBrowser.SelectedPath);
-            //}
-            
         }
 
         private void btnForward_Click(object sender, EventArgs e)
         {
-            int position = GetButtonAreaPosition(sender as Button);
+            int position = GetPositionBySender(sender);
 
             if (webBrowsers[position].CanGoForward)
             {
@@ -123,31 +123,28 @@ namespace MultiWindowsExplorer
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            int number = GetButtonAreaPosition(sender as Button);
+            int position = GetPositionBySender(sender);
 
-            if (webBrowsers[number].CanGoBack)
+            if (webBrowsers[position].CanGoBack)
             {
-                webBrowsers[number].GoBack();
+                webBrowsers[position].GoBack();
             }
         }
 
         private void ShowPath(object sender, WebBrowserNavigatedEventArgs e)
         {
+            int position = GetPositionBySender(sender);
             WebBrowser wBrowser = sender as WebBrowser;
-            int position = GetWebBrowserPosition(wBrowser);
             
             try
             {
                 pathTxt[position].Text = wBrowser.Url.LocalPath;
-                //AppSettings.UpdateSettings(appSettingKeys[position], pathTxt[position].Text);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
-        
 
     }
 }
