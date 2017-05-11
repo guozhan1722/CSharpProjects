@@ -96,10 +96,8 @@ namespace MultiWindowsExplorer
             return 0;
         }
 
-        private void btnOpen_Click(object sender, EventArgs e)
+        private void UpdateWebBrowser(int position)
         {
-            int position = GetPositionBySender(sender);
-
             try
             {
                 webBrowsers[position].Url = new Uri(pathTxt[position].Text);
@@ -107,8 +105,15 @@ namespace MultiWindowsExplorer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
-               
             }
+
+        }
+
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            int position = GetPositionBySender(sender);
+            UpdateWebBrowser(position);
         }
 
         private void btnForward_Click(object sender, EventArgs e)
@@ -131,7 +136,7 @@ namespace MultiWindowsExplorer
             }
         }
 
-        private void ShowPath(object sender, WebBrowserNavigatedEventArgs e)
+        private void OnShowPath(object sender, WebBrowserNavigatedEventArgs e)
         {
             int position = GetPositionBySender(sender);
             WebBrowser wBrowser = sender as WebBrowser;
@@ -139,6 +144,18 @@ namespace MultiWindowsExplorer
             try
             {
                 pathTxt[position].Text = wBrowser.Url.LocalPath;
+
+                //Make sure will show up the last few of words
+                
+                int txtBoxCharNum =pathTxt[position].Size.Width /(int)pathTxt[position].Font.SizeInPoints;
+                if (pathTxt[position].Text.Length > txtBoxCharNum)
+                {
+                    int start = pathTxt[position].Text.Length - txtBoxCharNum;
+                    //pathTxt[position].Select(start, txtBoxCharNum);
+                    pathTxt[position].SelectionStart = start ;
+                    pathTxt[position].SelectionLength = txtBoxCharNum;
+                    pathTxt[position].ScrollToCaret();
+                }
             }
             catch (Exception ex)
             {
@@ -147,22 +164,16 @@ namespace MultiWindowsExplorer
         }
 
 
-        private void txtPath_KeyDown(object sender, KeyEventArgs e)
+        private void OntxtPathKeyDown(object sender, KeyEventArgs e)
         {
-            int position = GetPositionBySender(sender);
-            if(e.KeyCode == Keys.Return)
+            if(e.KeyCode != Keys.Return)
             {
-                try
-                {
-                    webBrowsers[position].Url = new Uri(pathTxt[position].Text);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-
-                }
+                return; 
             }
+            int position = GetPositionBySender(sender);
+            UpdateWebBrowser(position);
         }
+
 
     }
 }
