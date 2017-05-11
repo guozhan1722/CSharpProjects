@@ -146,5 +146,23 @@ namespace MultiWindowsExplorer
             }
         }
 
+
+        private void txtPath_KeyDown(object sender, KeyEventArgs e)
+        {
+            int position = GetPositionBySender(sender);
+            if(e.KeyCode == Keys.Return)
+            {
+                try
+                {
+                    webBrowsers[position].Url = new Uri(pathTxt[position].Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+
+                }
+            }
+        }
+
     }
 }
