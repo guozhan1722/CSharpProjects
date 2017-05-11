@@ -42,16 +42,18 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btnBack2 = new System.Windows.Forms.Button();
             this.btnForward2 = new System.Windows.Forms.Button();
-            this.txtPath2 = new System.Windows.Forms.TextBox();
             this.btnOpen2 = new System.Windows.Forms.Button();
+            this.txtPath2 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnBack3 = new System.Windows.Forms.Button();
             this.btnForward3 = new System.Windows.Forms.Button();
             this.btnOpen3 = new System.Windows.Forms.Button();
+            this.txtPath3 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnBack1 = new System.Windows.Forms.Button();
             this.btnForward1 = new System.Windows.Forms.Button();
             this.btnOpen1 = new System.Windows.Forms.Button();
+            this.txtPath1 = new System.Windows.Forms.TextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.webBrowser2 = new System.Windows.Forms.WebBrowser();
             this.webBrowser3 = new System.Windows.Forms.WebBrowser();
@@ -65,8 +67,6 @@
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnForward4 = new System.Windows.Forms.Button();
-            this.txtPath1 = new System.Windows.Forms.TextBox();
-            this.txtPath3 = new System.Windows.Forms.TextBox();
             this.txtPath4 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -158,6 +158,18 @@
             this.btnForward2.UseVisualStyleBackColor = true;
             this.btnForward2.Click += new System.EventHandler(this.btnForward_Click);
             // 
+            // btnOpen2
+            // 
+            this.btnOpen2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOpen2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpen2.Location = new System.Drawing.Point(422, 3);
+            this.btnOpen2.Name = "btnOpen2";
+            this.btnOpen2.Size = new System.Drawing.Size(100, 28);
+            this.btnOpen2.TabIndex = 3;
+            this.btnOpen2.Text = "Open";
+            this.btnOpen2.UseVisualStyleBackColor = true;
+            this.btnOpen2.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
             // txtPath2
             // 
             this.txtPath2.AcceptsReturn = true;
@@ -172,18 +184,6 @@
             this.txtPath2.TabIndex = 2;
             this.txtPath2.WordWrap = false;
             this.txtPath2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
-            // 
-            // btnOpen2
-            // 
-            this.btnOpen2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOpen2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpen2.Location = new System.Drawing.Point(422, 3);
-            this.btnOpen2.Name = "btnOpen2";
-            this.btnOpen2.Size = new System.Drawing.Size(100, 28);
-            this.btnOpen2.TabIndex = 3;
-            this.btnOpen2.Text = "Open";
-            this.btnOpen2.UseVisualStyleBackColor = true;
-            this.btnOpen2.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -240,6 +240,21 @@
             this.btnOpen3.UseVisualStyleBackColor = true;
             this.btnOpen3.Click += new System.EventHandler(this.btnOpen_Click);
             // 
+            // txtPath3
+            // 
+            this.txtPath3.AcceptsReturn = true;
+            this.txtPath3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtPath3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.txtPath3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPath3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPath3.Location = new System.Drawing.Point(95, 5);
+            this.txtPath3.Margin = new System.Windows.Forms.Padding(5);
+            this.txtPath3.Name = "txtPath3";
+            this.txtPath3.Size = new System.Drawing.Size(264, 22);
+            this.txtPath3.TabIndex = 2;
+            this.txtPath3.WordWrap = false;
+            this.txtPath3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 4;
@@ -249,14 +264,13 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.Controls.Add(this.btnBack1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnForward1, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnOpen1, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.txtPath1, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnOpen1, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(489, 34);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
@@ -286,7 +300,9 @@
             // 
             // btnOpen1
             // 
-            this.btnOpen1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOpen1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpen1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpen1.Location = new System.Drawing.Point(392, 3);
             this.btnOpen1.Name = "btnOpen1";
@@ -295,6 +311,23 @@
             this.btnOpen1.Text = "Open";
             this.btnOpen1.UseVisualStyleBackColor = true;
             this.btnOpen1.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
+            // txtPath1
+            // 
+            this.txtPath1.AcceptsReturn = true;
+            this.txtPath1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPath1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtPath1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.txtPath1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPath1.Location = new System.Drawing.Point(101, 5);
+            this.txtPath1.Margin = new System.Windows.Forms.Padding(5);
+            this.txtPath1.Name = "txtPath1";
+            this.txtPath1.Size = new System.Drawing.Size(283, 22);
+            this.txtPath1.TabIndex = 2;
+            this.txtPath1.WordWrap = false;
+            this.txtPath1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
             // webBrowser1
             // 
@@ -482,36 +515,6 @@
             this.btnForward4.Text = ">>";
             this.btnForward4.UseVisualStyleBackColor = true;
             this.btnForward4.Click += new System.EventHandler(this.btnForward_Click);
-            // 
-            // txtPath1
-            // 
-            this.txtPath1.AcceptsReturn = true;
-            this.txtPath1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtPath1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtPath1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath1.Location = new System.Drawing.Point(101, 5);
-            this.txtPath1.Margin = new System.Windows.Forms.Padding(5);
-            this.txtPath1.Name = "txtPath1";
-            this.txtPath1.Size = new System.Drawing.Size(283, 22);
-            this.txtPath1.TabIndex = 2;
-            this.txtPath1.WordWrap = false;
-            this.txtPath1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
-            // 
-            // txtPath3
-            // 
-            this.txtPath3.AcceptsReturn = true;
-            this.txtPath3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtPath3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtPath3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath3.Location = new System.Drawing.Point(95, 5);
-            this.txtPath3.Margin = new System.Windows.Forms.Padding(5);
-            this.txtPath3.Name = "txtPath3";
-            this.txtPath3.Size = new System.Drawing.Size(264, 22);
-            this.txtPath3.TabIndex = 2;
-            this.txtPath3.WordWrap = false;
-            this.txtPath3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
             // txtPath4
             // 
