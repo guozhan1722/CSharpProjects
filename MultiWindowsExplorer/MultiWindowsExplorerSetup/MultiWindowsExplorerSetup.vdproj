@@ -15,26 +15,20 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_3926F7BD9B4743F2BF166151C13A47F0"
+        "MsmKey" = "8:_D9B3B77251194449BA56A889CB6BBA19"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D61D7C032B1D41798B7663CBB472F95F"
+        "MsmKey" = "8:_EA46CDC1715D409BAAB7DA0987EED2B8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3926F7BD9B4743F2BF166151C13A47F0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D61D7C032B1D41798B7663CBB472F95F"
+        "OwnerKey" = "8:_D9B3B77251194449BA56A889CB6BBA19"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -55,6 +49,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -71,6 +73,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -100,6 +118,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EA46CDC1715D409BAAB7DA0987EED2B8"
+            {
+            "SourcePath" = "8:..\\MultiWindowsExplorer\\window-multi-size.ico"
+            "TargetName" = "8:window-multi-size.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_5AC03DADC29B44DD85FEFB75078D008D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -118,22 +156,22 @@
                 {
                 }
             }
-            "{1525181F-901A-416C-8A58-119130FE478E}:_B401CAF1308B457BB56AE01A9988EA44"
+            "{1525181F-901A-416C-8A58-119130FE478E}:_B27809B936AB44B3B224CF563D583C34"
             {
-            "Name" = "8:#1919"
+            "Name" = "8:#1921"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
-            "Property" = "8:ProgramMenuFolder"
+            "Property" = "8:StartMenuFolder"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_DD2E036CF6584FC39508FDCA488A01E8"
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_934963446CBF4AD6A7616EBA1517F0A7"
                     {
-                    "Name" = "8:MultiWindowsExplorer"
-                    "AlwaysCreate" = "11:TRUE"
+                    "Name" = "8:JUNE"
+                    "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
-                    "Property" = "8:_520F76DB2F4F49F1B9E963A65E1AE139"
+                    "Property" = "8:_7D33940661F648A6B9AA804CEE6AED3F"
                         "Folders"
                         {
                         }
@@ -168,7 +206,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MultiWindowsExplorer"
         "ProductCode" = "8:{7057D6C0-EBC6-4689-8C7D-FDC60D40E6C4}"
-        "PackageCode" = "8:{29526BBE-4CC6-4276-9FC3-10BAD7CF4F2C}"
+        "PackageCode" = "8:{E8CD2215-265C-4D7F-84BD-977933DE0FAC}"
         "UpgradeCode" = "8:{71A45B51-D636-483B-825B-8D3CE5930582}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -288,18 +326,32 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B718D1386D314007AB12DC92B75AA9C4"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_78537D59D46F406398E95566D2616D3B"
             {
-            "Name" = "8:MultiWindowsExplorer (Active)"
+            "Name" = "8:MultiWindowsExplorer"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_3926F7BD9B4743F2BF166151C13A47F0"
+            "Target" = "8:_D9B3B77251194449BA56A889CB6BBA19"
+            "Folder" = "8:_934963446CBF4AD6A7616EBA1517F0A7"
+            "WorkingFolder" = "8:_5AC03DADC29B44DD85FEFB75078D008D"
+            "Icon" = "8:_EA46CDC1715D409BAAB7DA0987EED2B8"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7A46288A0E8547FC86CAEAF2427ACDC7"
+            {
+            "Name" = "8:MultiWindowsExplorer"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_D9B3B77251194449BA56A889CB6BBA19"
             "Folder" = "8:_B9593E42A43A4BA28A549549ECF3EFF4"
             "WorkingFolder" = "8:_5AC03DADC29B44DD85FEFB75078D008D"
-            "Icon" = "8:"
+            "Icon" = "8:_EA46CDC1715D409BAAB7DA0987EED2B8"
             "Feature" = "8:"
             }
         }
@@ -701,40 +753,12 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3926F7BD9B4743F2BF166151C13A47F0"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D9B3B77251194449BA56A889CB6BBA19"
             {
             "SourcePath" = "8:..\\MultiWindowsExplorer\\obj\\Release\\MultiWindowsExplorer.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5AC03DADC29B44DD85FEFB75078D008D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{0C183AD3-12E0-4A34-87C3-F3B4C85C1C3A}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D61D7C032B1D41798B7663CBB472F95F"
-            {
-            "SourcePath" = "8:..\\MultiWindowsExplorer\\obj\\Release\\MultiWindowsExplorer.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_DD2E036CF6584FC39508FDCA488A01E8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

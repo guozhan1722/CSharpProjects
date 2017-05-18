@@ -130,7 +130,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(526, 34);
             this.tableLayoutPanel4.TabIndex = 6;
             // 
@@ -178,7 +178,7 @@
             this.txtPath2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPath2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPath2.Location = new System.Drawing.Point(109, 5);
-            this.txtPath2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtPath2.Margin = new System.Windows.Forms.Padding(5);
             this.txtPath2.Name = "txtPath2";
             this.txtPath2.Size = new System.Drawing.Size(305, 22);
             this.txtPath2.TabIndex = 2;
@@ -248,7 +248,7 @@
             this.txtPath3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPath3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPath3.Location = new System.Drawing.Point(111, 5);
-            this.txtPath3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtPath3.Margin = new System.Windows.Forms.Padding(5);
             this.txtPath3.Name = "txtPath3";
             this.txtPath3.Size = new System.Drawing.Size(309, 22);
             this.txtPath3.TabIndex = 2;
@@ -308,7 +308,7 @@
             this.txtPath1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtPath1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPath1.Location = new System.Drawing.Point(101, 5);
-            this.txtPath1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtPath1.Margin = new System.Windows.Forms.Padding(5);
             this.txtPath1.Name = "txtPath1";
             this.txtPath1.Size = new System.Drawing.Size(283, 22);
             this.txtPath1.TabIndex = 2;
@@ -502,7 +502,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(430, 34);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -526,7 +526,7 @@
             this.txtPath4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPath4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPath4.Location = new System.Drawing.Point(91, 5);
-            this.txtPath4.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtPath4.Margin = new System.Windows.Forms.Padding(5);
             this.txtPath4.Name = "txtPath4";
             this.txtPath4.Size = new System.Drawing.Size(248, 22);
             this.txtPath4.TabIndex = 2;
