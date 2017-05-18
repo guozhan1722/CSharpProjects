@@ -28,6 +28,17 @@ namespace MultiWindowsExplorer
 
             AddComponentToGroup();
             SetAllRootPath();
+            DisableBackBtnForwardBtn();
+            
+        }
+
+        private void DisableBackBtnForwardBtn()
+        {
+            for (int i = 0; i < explorerNum; i++)
+            {
+                backBtn[i].Enabled = false;
+                forwardBtn[i].Enabled = false;
+            }
             
         }
 
@@ -140,7 +151,15 @@ namespace MultiWindowsExplorer
         {
             int position = GetPositionBySender(sender);
             WebBrowser wBrowser = sender as WebBrowser;
-            
+
+            if (wBrowser.CanGoForward)
+            {
+                forwardBtn[position].Enabled = true;
+            }
+            if(wBrowser.CanGoBack)
+            {
+                backBtn[position].Enabled = true;
+            }
             try
             {
                 pathTxt[position].Text = wBrowser.Url.LocalPath;
