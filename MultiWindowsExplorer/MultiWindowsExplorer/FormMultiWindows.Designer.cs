@@ -52,8 +52,9 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnBack1 = new System.Windows.Forms.Button();
             this.btnForward1 = new System.Windows.Forms.Button();
-            this.txtPath1 = new System.Windows.Forms.TextBox();
             this.btnOpen1 = new System.Windows.Forms.Button();
+            this.txtPath1 = new System.Windows.Forms.TextBox();
+            this.btnUp1 = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.webBrowser2 = new System.Windows.Forms.WebBrowser();
             this.webBrowser3 = new System.Windows.Forms.WebBrowser();
@@ -93,10 +94,11 @@
             // btnBack4
             // 
             this.btnBack4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack4.Enabled = false;
             this.btnBack4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBack4.Location = new System.Drawing.Point(3, 3);
             this.btnBack4.Name = "btnBack4";
-            this.btnBack4.Size = new System.Drawing.Size(37, 28);
+            this.btnBack4.Size = new System.Drawing.Size(44, 28);
             this.btnBack4.TabIndex = 0;
             this.btnBack4.Text = "<--";
             this.btnBack4.UseVisualStyleBackColor = true;
@@ -106,9 +108,9 @@
             // 
             this.btnOpen4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnOpen4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpen4.Location = new System.Drawing.Point(347, 3);
+            this.btnOpen4.Location = new System.Drawing.Point(403, 3);
             this.btnOpen4.Name = "btnOpen4";
-            this.btnOpen4.Size = new System.Drawing.Size(80, 28);
+            this.btnOpen4.Size = new System.Drawing.Size(94, 28);
             this.btnOpen4.TabIndex = 3;
             this.btnOpen4.Text = "Open";
             this.btnOpen4.UseVisualStyleBackColor = true;
@@ -131,16 +133,17 @@
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(526, 34);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(610, 34);
             this.tableLayoutPanel4.TabIndex = 6;
             // 
             // btnBack2
             // 
             this.btnBack2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack2.Enabled = false;
             this.btnBack2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBack2.Location = new System.Drawing.Point(3, 3);
             this.btnBack2.Name = "btnBack2";
-            this.btnBack2.Size = new System.Drawing.Size(46, 28);
+            this.btnBack2.Size = new System.Drawing.Size(55, 28);
             this.btnBack2.TabIndex = 0;
             this.btnBack2.Text = "<--";
             this.btnBack2.UseVisualStyleBackColor = true;
@@ -149,10 +152,11 @@
             // btnForward2
             // 
             this.btnForward2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForward2.Enabled = false;
             this.btnForward2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnForward2.Location = new System.Drawing.Point(55, 3);
+            this.btnForward2.Location = new System.Drawing.Point(64, 3);
             this.btnForward2.Name = "btnForward2";
-            this.btnForward2.Size = new System.Drawing.Size(46, 28);
+            this.btnForward2.Size = new System.Drawing.Size(55, 28);
             this.btnForward2.TabIndex = 1;
             this.btnForward2.Text = "-->";
             this.btnForward2.UseVisualStyleBackColor = true;
@@ -162,9 +166,9 @@
             // 
             this.btnOpen2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnOpen2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpen2.Location = new System.Drawing.Point(422, 3);
+            this.btnOpen2.Location = new System.Drawing.Point(491, 3);
             this.btnOpen2.Name = "btnOpen2";
-            this.btnOpen2.Size = new System.Drawing.Size(101, 28);
+            this.btnOpen2.Size = new System.Drawing.Size(116, 28);
             this.btnOpen2.TabIndex = 3;
             this.btnOpen2.Text = "Open";
             this.btnOpen2.UseVisualStyleBackColor = true;
@@ -177,10 +181,10 @@
             this.txtPath2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtPath2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPath2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath2.Location = new System.Drawing.Point(109, 5);
+            this.txtPath2.Location = new System.Drawing.Point(127, 5);
             this.txtPath2.Margin = new System.Windows.Forms.Padding(5);
             this.txtPath2.Name = "txtPath2";
-            this.txtPath2.Size = new System.Drawing.Size(305, 22);
+            this.txtPath2.Size = new System.Drawing.Size(356, 22);
             this.txtPath2.TabIndex = 2;
             this.txtPath2.WordWrap = false;
             this.txtPath2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
@@ -207,6 +211,7 @@
             // btnBack3
             // 
             this.btnBack3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack3.Enabled = false;
             this.btnBack3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBack3.Location = new System.Drawing.Point(3, 3);
             this.btnBack3.Name = "btnBack3";
@@ -219,6 +224,7 @@
             // btnForward3
             // 
             this.btnForward3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForward3.Enabled = false;
             this.btnForward3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnForward3.Location = new System.Drawing.Point(56, 3);
             this.btnForward3.Name = "btnForward3";
@@ -257,31 +263,36 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnCount = 5;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel2.Controls.Add(this.btnBack1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnForward1, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.txtPath1, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnOpen1, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnOpen1, 4, 0);
+            this.tableLayoutPanel2.Controls.Add(this.txtPath1, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnUp1, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(489, 34);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(595, 34);
             this.tableLayoutPanel2.TabIndex = 0;
+            this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
             // 
             // btnBack1
             // 
             this.btnBack1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack1.Enabled = false;
+            this.btnBack1.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnBack1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBack1.Location = new System.Drawing.Point(3, 3);
             this.btnBack1.Name = "btnBack1";
-            this.btnBack1.Size = new System.Drawing.Size(42, 28);
-            this.btnBack1.TabIndex = 0;
+            this.btnBack1.Size = new System.Drawing.Size(53, 28);
+            this.btnBack1.TabIndex = 5;
             this.btnBack1.Text = "<--";
             this.btnBack1.UseVisualStyleBackColor = true;
             this.btnBack1.Click += new System.EventHandler(this.btnBack_Click);
@@ -289,14 +300,30 @@
             // btnForward1
             // 
             this.btnForward1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForward1.Enabled = false;
+            this.btnForward1.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnForward1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnForward1.Location = new System.Drawing.Point(51, 3);
+            this.btnForward1.Location = new System.Drawing.Point(62, 3);
             this.btnForward1.Name = "btnForward1";
-            this.btnForward1.Size = new System.Drawing.Size(42, 28);
+            this.btnForward1.Size = new System.Drawing.Size(53, 28);
             this.btnForward1.TabIndex = 1;
             this.btnForward1.Text = "-->";
             this.btnForward1.UseVisualStyleBackColor = true;
             this.btnForward1.Click += new System.EventHandler(this.btnForward_Click);
+            // 
+            // btnOpen1
+            // 
+            this.btnOpen1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpen1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpen1.Location = new System.Drawing.Point(507, 3);
+            this.btnOpen1.Name = "btnOpen1";
+            this.btnOpen1.Size = new System.Drawing.Size(85, 28);
+            this.btnOpen1.TabIndex = 3;
+            this.btnOpen1.Text = "Open";
+            this.btnOpen1.UseVisualStyleBackColor = true;
+            this.btnOpen1.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // txtPath1
             // 
@@ -307,27 +334,24 @@
             this.txtPath1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtPath1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtPath1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath1.Location = new System.Drawing.Point(101, 5);
+            this.txtPath1.Location = new System.Drawing.Point(182, 5);
             this.txtPath1.Margin = new System.Windows.Forms.Padding(5);
             this.txtPath1.Name = "txtPath1";
-            this.txtPath1.Size = new System.Drawing.Size(283, 22);
+            this.txtPath1.Size = new System.Drawing.Size(317, 22);
             this.txtPath1.TabIndex = 2;
             this.txtPath1.WordWrap = false;
             this.txtPath1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
-            // btnOpen1
+            // btnUp1
             // 
-            this.btnOpen1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpen1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpen1.Location = new System.Drawing.Point(392, 3);
-            this.btnOpen1.Name = "btnOpen1";
-            this.btnOpen1.Size = new System.Drawing.Size(94, 28);
-            this.btnOpen1.TabIndex = 3;
-            this.btnOpen1.Text = "Open";
-            this.btnOpen1.UseVisualStyleBackColor = true;
-            this.btnOpen1.Click += new System.EventHandler(this.btnOpen_Click);
+            this.btnUp1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnUp1.Location = new System.Drawing.Point(121, 3);
+            this.btnUp1.Name = "btnUp1";
+            this.btnUp1.Size = new System.Drawing.Size(53, 28);
+            this.btnUp1.TabIndex = 4;
+            this.btnUp1.Text = "UP";
+            this.btnUp1.UseVisualStyleBackColor = true;
+            this.btnUp1.Click += new System.EventHandler(this.btnUp_Click);
             // 
             // webBrowser1
             // 
@@ -335,9 +359,9 @@
             this.webBrowser1.Location = new System.Drawing.Point(3, 43);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(489, 259);
+            this.webBrowser1.Size = new System.Drawing.Size(595, 259);
             this.webBrowser1.TabIndex = 1;
-            this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPath);
+            this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPathText);
             // 
             // webBrowser2
             // 
@@ -345,9 +369,9 @@
             this.webBrowser2.Location = new System.Drawing.Point(3, 43);
             this.webBrowser2.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser2.Name = "webBrowser2";
-            this.webBrowser2.Size = new System.Drawing.Size(526, 220);
+            this.webBrowser2.Size = new System.Drawing.Size(610, 220);
             this.webBrowser2.TabIndex = 2;
-            this.webBrowser2.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPath);
+            this.webBrowser2.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPathText);
             // 
             // webBrowser3
             // 
@@ -357,7 +381,7 @@
             this.webBrowser3.Name = "webBrowser3";
             this.webBrowser3.Size = new System.Drawing.Size(532, 259);
             this.webBrowser3.TabIndex = 3;
-            this.webBrowser3.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPath);
+            this.webBrowser3.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPathText);
             // 
             // webBrowser4
             // 
@@ -365,9 +389,9 @@
             this.webBrowser4.Location = new System.Drawing.Point(3, 43);
             this.webBrowser4.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser4.Name = "webBrowser4";
-            this.webBrowser4.Size = new System.Drawing.Size(430, 220);
+            this.webBrowser4.Size = new System.Drawing.Size(500, 220);
             this.webBrowser4.TabIndex = 4;
-            this.webBrowser4.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPath);
+            this.webBrowser4.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPathText);
             // 
             // splitContainer1
             // 
@@ -384,7 +408,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(971, 582);
+            this.splitContainer1.Size = new System.Drawing.Size(1129, 582);
             this.splitContainer1.SplitterDistance = 308;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -402,8 +426,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.tableLayoutPanel6);
-            this.splitContainer3.Size = new System.Drawing.Size(971, 308);
-            this.splitContainer3.SplitterDistance = 426;
+            this.splitContainer3.Size = new System.Drawing.Size(1129, 308);
+            this.splitContainer3.SplitterDistance = 605;
             this.splitContainer3.TabIndex = 0;
             // 
             // tableLayoutPanel5
@@ -418,7 +442,7 @@
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(422, 304);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(601, 304);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // tableLayoutPanel6
@@ -433,7 +457,7 @@
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(537, 304);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(516, 304);
             this.tableLayoutPanel6.TabIndex = 6;
             // 
             // splitContainer2
@@ -450,8 +474,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel8);
-            this.splitContainer2.Size = new System.Drawing.Size(971, 270);
-            this.splitContainer2.SplitterDistance = 534;
+            this.splitContainer2.Size = new System.Drawing.Size(1129, 270);
+            this.splitContainer2.SplitterDistance = 620;
             this.splitContainer2.TabIndex = 0;
             // 
             // tableLayoutPanel7
@@ -466,7 +490,7 @@
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(530, 266);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(616, 266);
             this.tableLayoutPanel7.TabIndex = 7;
             // 
             // tableLayoutPanel8
@@ -481,7 +505,7 @@
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(429, 266);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(501, 266);
             this.tableLayoutPanel8.TabIndex = 7;
             // 
             // tableLayoutPanel1
@@ -503,16 +527,17 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(430, 34);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(500, 34);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnForward4
             // 
             this.btnForward4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForward4.Enabled = false;
             this.btnForward4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnForward4.Location = new System.Drawing.Point(46, 3);
+            this.btnForward4.Location = new System.Drawing.Point(53, 3);
             this.btnForward4.Name = "btnForward4";
-            this.btnForward4.Size = new System.Drawing.Size(37, 28);
+            this.btnForward4.Size = new System.Drawing.Size(44, 28);
             this.btnForward4.TabIndex = 1;
             this.btnForward4.Text = "-->";
             this.btnForward4.UseVisualStyleBackColor = true;
@@ -525,10 +550,10 @@
             this.txtPath4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtPath4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPath4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath4.Location = new System.Drawing.Point(91, 5);
+            this.txtPath4.Location = new System.Drawing.Point(105, 5);
             this.txtPath4.Margin = new System.Windows.Forms.Padding(5);
             this.txtPath4.Name = "txtPath4";
-            this.txtPath4.Size = new System.Drawing.Size(248, 22);
+            this.txtPath4.Size = new System.Drawing.Size(290, 22);
             this.txtPath4.TabIndex = 2;
             this.txtPath4.WordWrap = false;
             this.txtPath4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
@@ -539,7 +564,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(971, 582);
+            this.ClientSize = new System.Drawing.Size(1129, 582);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormExplorer";
@@ -577,7 +602,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button btnBack1;
         private System.Windows.Forms.Button btnForward1;
         private System.Windows.Forms.Button btnOpen1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
@@ -607,6 +631,8 @@
         private System.Windows.Forms.TextBox txtPath3;
         private System.Windows.Forms.TextBox txtPath1;
         private System.Windows.Forms.TextBox txtPath4;
+        private System.Windows.Forms.Button btnUp1;
+        private System.Windows.Forms.Button btnBack1;
 
 
 

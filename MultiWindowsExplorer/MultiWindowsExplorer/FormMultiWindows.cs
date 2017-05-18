@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using System.IO;
 
 namespace MultiWindowsExplorer
 {
@@ -20,6 +21,7 @@ namespace MultiWindowsExplorer
         TextBox[] pathTxt;
         Button[] backBtn;
         Button[] forwardBtn;
+        Button[] upBtn;
         String[] appSettingKeys;
 
         public FormExplorer()
@@ -27,19 +29,7 @@ namespace MultiWindowsExplorer
             InitializeComponent();
 
             AddComponentToGroup();
-            SetAllRootPath();
-            DisableBackBtnForwardBtn();
-            
-        }
-
-        private void DisableBackBtnForwardBtn()
-        {
-            for (int i = 0; i < explorerNum; i++)
-            {
-                backBtn[i].Enabled = false;
-                forwardBtn[i].Enabled = false;
-            }
-            
+            InitWebBrowsersTextBoxes();
         }
 
         private void AddComponentToGroup()
@@ -48,22 +38,19 @@ namespace MultiWindowsExplorer
             openBtn = new Button[explorerNum] { btnOpen1, btnOpen2, btnOpen3, btnOpen4 };
             backBtn = new Button[explorerNum] { btnBack1, btnBack2, btnBack3, btnBack4 };
             forwardBtn = new Button[explorerNum] { btnForward1, btnForward2, btnForward3, btnForward4 };
+            upBtn = new Button[explorerNum] { btnUp1, btnUp2, btnUp3, btnUp4 };
             pathTxt = new TextBox[explorerNum] { txtPath1, txtPath2, txtPath3, txtPath4 };
             appSettingKeys = new String[explorerNum]{"url1","url2","url3","url4"};
         }
 
-        private void SetRootPath(int position)
-        {
-            String rootPath = AppSettings.ReadSetting(appSettingKeys[position]);
-            pathTxt[position].Text = rootPath;
-            webBrowsers[position].Url = new Uri(rootPath);
-        }
 
-        private void SetAllRootPath()
+        private void InitWebBrowsersTextBoxes()
         {
             for (int i = 0; i < explorerNum;i++ )
             {
-                SetRootPath(i);
+                String rootPath = AppSettings.ReadSetting(appSettingKeys[i]);
+                pathTxt[i].Text = rootPath;
+                UpdateWebBrowser(i,rootPath);
             }
         }
 
@@ -73,7 +60,10 @@ namespace MultiWindowsExplorer
             {
                 var btn = sender as Button;
                 for (int i = 0; i < explorerNum; i++) { 
-                    if ((btn.Name == openBtn[i].Name) || (btn.Name == backBtn[i].Name) || (btn.Name == forwardBtn[i].Name))
+                    if ((btn.Name == openBtn[i].Name) 
+                        || (btn.Name == backBtn[i].Name) 
+                        || (btn.Name == forwardBtn[i].Name) 
+                        ||(btn.Name == upBtn[i].Name))
                     {
                         return i;
                     }
@@ -107,11 +97,11 @@ namespace MultiWindowsExplorer
             return 0;
         }
 
-        private void UpdateWebBrowser(int position)
+        private void UpdateWebBrowser(int position, String content)
         {
             try
             {
-                webBrowsers[position].Url = new Uri(pathTxt[position].Text);
+                webBrowsers[position].Url = new Uri(content);
             }
             catch (Exception ex)
             {
@@ -120,11 +110,10 @@ namespace MultiWindowsExplorer
 
         }
 
-
         private void btnOpen_Click(object sender, EventArgs e)
         {
             int position = GetPositionBySender(sender);
-            UpdateWebBrowser(position);
+            UpdateWebBrowser(position, pathTxt[position].Text);
         }
 
         private void btnForward_Click(object sender, EventArgs e)
@@ -147,19 +136,11 @@ namespace MultiWindowsExplorer
             }
         }
 
-        private void OnShowPath(object sender, WebBrowserNavigatedEventArgs e)
+        private void OnShowPathText(object sender, WebBrowserNavigatedEventArgs e)
         {
             int position = GetPositionBySender(sender);
             WebBrowser wBrowser = sender as WebBrowser;
 
-            if (wBrowser.CanGoForward)
-            {
-                forwardBtn[position].Enabled = true;
-            }
-            if(wBrowser.CanGoBack)
-            {
-                backBtn[position].Enabled = true;
-            }
             try
             {
                 pathTxt[position].Text = wBrowser.Url.LocalPath;
@@ -175,6 +156,20 @@ namespace MultiWindowsExplorer
                     pathTxt[position].SelectionLength = txtBoxCharNum;
                     pathTxt[position].ScrollToCaret();
                 }
+
+                var dir = new DirectoryInfo(pathTxt[position].Text);
+                if (dir.Parent == null)
+                {
+                    upBtn[position].Enabled = false;
+                }
+                else
+                {
+                    upBtn[position].Enabled = true;
+                }
+
+                forwardBtn[position].Enabled = wBrowser.CanGoForward;
+                backBtn[position].Enabled = wBrowser.CanGoBack;
+
             }
             catch (Exception ex)
             {
@@ -190,7 +185,26 @@ namespace MultiWindowsExplorer
                 return; 
             }
             int position = GetPositionBySender(sender);
-            UpdateWebBrowser(position);
+            UpdateWebBrowser(position, pathTxt[position].Text);
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnUp_Click(object sender, EventArgs e)
+        {
+            int position = GetPositionBySender(sender);
+
+            String currentPath = pathTxt[position].Text;
+            
+            var dir = new DirectoryInfo(currentPath);
+            if(dir.Parent != null)
+            {
+                pathTxt[position].Text = dir.Parent.FullName;
+                UpdateWebBrowser(position, pathTxt[position].Text);
+            }
         }
 
 
