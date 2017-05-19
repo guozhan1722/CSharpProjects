@@ -6,13 +6,21 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
+        
+        private void StoreUrlValue()
+        {
+            foreach (var cgroup in cGroup)
+            {
+                AppSettings.UpdateSettings(cgroup.AppSettingKeys, cgroup.PathTxt.Text);
+            }
+        }
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            StoreUrlValue();
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -192,6 +200,7 @@
             // 
             this.btnBack1.BackColor = System.Drawing.Color.Azure;
             this.btnBack1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack1.Enabled = false;
             this.btnBack1.ImageIndex = 4;
             this.btnBack1.ImageList = this.imageList1;
             this.btnBack1.Location = new System.Drawing.Point(3, 3);
@@ -220,6 +229,7 @@
             // 
             this.btnForward1.BackColor = System.Drawing.Color.Azure;
             this.btnForward1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForward1.Enabled = false;
             this.btnForward1.ImageIndex = 6;
             this.btnForward1.ImageList = this.imageList1;
             this.btnForward1.Location = new System.Drawing.Point(53, 3);
@@ -257,11 +267,14 @@
             // 
             // txtPath1
             // 
+            this.txtPath1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtPath1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtPath1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath1.Location = new System.Drawing.Point(153, 3);
+            this.txtPath1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPath1.Location = new System.Drawing.Point(157, 7);
+            this.txtPath1.Margin = new System.Windows.Forms.Padding(7);
             this.txtPath1.Name = "txtPath1";
-            this.txtPath1.Size = new System.Drawing.Size(156, 35);
+            this.txtPath1.Size = new System.Drawing.Size(148, 29);
             this.txtPath1.TabIndex = 1;
             this.txtPath1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
@@ -294,14 +307,16 @@
             this.btnSearch1.Size = new System.Drawing.Size(44, 38);
             this.btnSearch1.TabIndex = 0;
             this.btnSearch1.UseVisualStyleBackColor = false;
+            this.btnSearch1.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtSearch1
             // 
             this.txtSearch1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearch1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch1.Location = new System.Drawing.Point(3, 3);
+            this.txtSearch1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch1.Location = new System.Drawing.Point(7, 7);
+            this.txtSearch1.Margin = new System.Windows.Forms.Padding(7);
             this.txtSearch1.Name = "txtSearch1";
-            this.txtSearch1.Size = new System.Drawing.Size(120, 35);
+            this.txtSearch1.Size = new System.Drawing.Size(112, 29);
             this.txtSearch1.TabIndex = 1;
             // 
             // ckboxMatchCase1
@@ -369,6 +384,7 @@
             // 
             this.btnBack2.BackColor = System.Drawing.Color.Azure;
             this.btnBack2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack2.Enabled = false;
             this.btnBack2.ImageIndex = 4;
             this.btnBack2.ImageList = this.imageList1;
             this.btnBack2.Location = new System.Drawing.Point(3, 3);
@@ -382,6 +398,7 @@
             // 
             this.btnForward2.BackColor = System.Drawing.Color.Azure;
             this.btnForward2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForward2.Enabled = false;
             this.btnForward2.ImageIndex = 6;
             this.btnForward2.ImageList = this.imageList1;
             this.btnForward2.Location = new System.Drawing.Point(53, 3);
@@ -420,10 +437,11 @@
             // txtPath2
             // 
             this.txtPath2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath2.Location = new System.Drawing.Point(153, 3);
+            this.txtPath2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPath2.Location = new System.Drawing.Point(157, 7);
+            this.txtPath2.Margin = new System.Windows.Forms.Padding(7);
             this.txtPath2.Name = "txtPath2";
-            this.txtPath2.Size = new System.Drawing.Size(189, 35);
+            this.txtPath2.Size = new System.Drawing.Size(181, 29);
             this.txtPath2.TabIndex = 1;
             this.txtPath2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
@@ -456,14 +474,16 @@
             this.btnSearch2.Size = new System.Drawing.Size(44, 38);
             this.btnSearch2.TabIndex = 0;
             this.btnSearch2.UseVisualStyleBackColor = false;
+            this.btnSearch2.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtSearch2
             // 
             this.txtSearch2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearch2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch2.Location = new System.Drawing.Point(3, 3);
+            this.txtSearch2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch2.Location = new System.Drawing.Point(7, 7);
+            this.txtSearch2.Margin = new System.Windows.Forms.Padding(7);
             this.txtSearch2.Name = "txtSearch2";
-            this.txtSearch2.Size = new System.Drawing.Size(136, 35);
+            this.txtSearch2.Size = new System.Drawing.Size(128, 29);
             this.txtSearch2.TabIndex = 1;
             // 
             // ckboxMatchCase2
@@ -551,6 +571,7 @@
             // 
             this.btnBack3.BackColor = System.Drawing.Color.Azure;
             this.btnBack3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack3.Enabled = false;
             this.btnBack3.ImageIndex = 4;
             this.btnBack3.ImageList = this.imageList1;
             this.btnBack3.Location = new System.Drawing.Point(3, 3);
@@ -564,6 +585,7 @@
             // 
             this.btnForward3.BackColor = System.Drawing.Color.Azure;
             this.btnForward3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForward3.Enabled = false;
             this.btnForward3.ImageIndex = 6;
             this.btnForward3.ImageList = this.imageList1;
             this.btnForward3.Location = new System.Drawing.Point(53, 3);
@@ -576,10 +598,11 @@
             // txtPath3
             // 
             this.txtPath3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath3.Location = new System.Drawing.Point(153, 3);
+            this.txtPath3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPath3.Location = new System.Drawing.Point(157, 7);
+            this.txtPath3.Margin = new System.Windows.Forms.Padding(7);
             this.txtPath3.Name = "txtPath3";
-            this.txtPath3.Size = new System.Drawing.Size(155, 35);
+            this.txtPath3.Size = new System.Drawing.Size(147, 29);
             this.txtPath3.TabIndex = 1;
             this.txtPath3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
@@ -638,14 +661,16 @@
             this.btnSearch3.Size = new System.Drawing.Size(44, 38);
             this.btnSearch3.TabIndex = 0;
             this.btnSearch3.UseVisualStyleBackColor = false;
+            this.btnSearch3.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtSearch3
             // 
             this.txtSearch3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearch3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch3.Location = new System.Drawing.Point(3, 3);
+            this.txtSearch3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch3.Location = new System.Drawing.Point(7, 7);
+            this.txtSearch3.Margin = new System.Windows.Forms.Padding(7);
             this.txtSearch3.Name = "txtSearch3";
-            this.txtSearch3.Size = new System.Drawing.Size(119, 35);
+            this.txtSearch3.Size = new System.Drawing.Size(111, 29);
             this.txtSearch3.TabIndex = 1;
             // 
             // ckboxMatchCase3
@@ -713,6 +738,7 @@
             // 
             this.btnBack4.BackColor = System.Drawing.Color.Azure;
             this.btnBack4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack4.Enabled = false;
             this.btnBack4.ImageIndex = 4;
             this.btnBack4.ImageList = this.imageList1;
             this.btnBack4.Location = new System.Drawing.Point(3, 3);
@@ -752,6 +778,7 @@
             // 
             this.btnForward4.BackColor = System.Drawing.Color.Azure;
             this.btnForward4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForward4.Enabled = false;
             this.btnForward4.ImageIndex = 6;
             this.btnForward4.ImageList = this.imageList1;
             this.btnForward4.Location = new System.Drawing.Point(53, 3);
@@ -764,10 +791,11 @@
             // txtPath4
             // 
             this.txtPath4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath4.Location = new System.Drawing.Point(153, 3);
+            this.txtPath4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPath4.Location = new System.Drawing.Point(157, 7);
+            this.txtPath4.Margin = new System.Windows.Forms.Padding(7);
             this.txtPath4.Name = "txtPath4";
-            this.txtPath4.Size = new System.Drawing.Size(190, 35);
+            this.txtPath4.Size = new System.Drawing.Size(182, 29);
             this.txtPath4.TabIndex = 1;
             this.txtPath4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
@@ -800,14 +828,16 @@
             this.btnSearch4.Size = new System.Drawing.Size(44, 38);
             this.btnSearch4.TabIndex = 0;
             this.btnSearch4.UseVisualStyleBackColor = false;
+            this.btnSearch4.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtSearch4
             // 
             this.txtSearch4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearch4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch4.Location = new System.Drawing.Point(3, 3);
+            this.txtSearch4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch4.Location = new System.Drawing.Point(7, 7);
+            this.txtSearch4.Margin = new System.Windows.Forms.Padding(7);
             this.txtSearch4.Name = "txtSearch4";
-            this.txtSearch4.Size = new System.Drawing.Size(137, 35);
+            this.txtSearch4.Size = new System.Drawing.Size(129, 29);
             this.txtSearch4.TabIndex = 1;
             // 
             // ckboxMatchCase4
@@ -838,9 +868,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(780, 492);
             this.Controls.Add(this.splitContainerOut);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "M_Windows_Explorer";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.splitContainerOut.Panel1.ResumeLayout(false);
             this.splitContainerOut.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOut)).EndInit();

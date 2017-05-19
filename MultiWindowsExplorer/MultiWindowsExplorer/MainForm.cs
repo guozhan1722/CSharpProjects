@@ -74,6 +74,22 @@ namespace MultiWindowsExplorer
             return Convert.ToInt16(lastChar) -1;
         }
 
+        bool SearchfileinDir(String filename, String dirName, bool isMatchCase)
+        {
+            DirectoryInfo di = new DirectoryInfo(dirName);
+            FileInfo[] files = di.GetFiles();
+            
+            foreach (var fi in files)
+            {
+                if(fi.Name == filename)
+                {
+
+                }
+            }
+
+            return false;
+        }
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             int position = GetPositionBySender(sender) ;
@@ -128,7 +144,7 @@ namespace MultiWindowsExplorer
                 cGroup[position].UpBtn.Enabled = (dir.Parent != null);
 
                 cGroup[position].ForwardBtn.Enabled = wBrowser.CanGoForward;
-                cGroup[position].ForwardBtn.Enabled = wBrowser.CanGoBack;
+                cGroup[position].BackBtn.Enabled = wBrowser.CanGoBack;
 
             }
             catch (Exception ex)
@@ -147,5 +163,17 @@ namespace MultiWindowsExplorer
             var txt = sender as TextBox;
             UpdateWebBrowser(position, txt.Text);
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            int position = GetPositionBySender(sender);
+            String search = cGroup[position].SearchTxt.Text;
+
+            DirectoryInfo di = new DirectoryInfo(cGroup[position].PathTxt.Text);
+
+            FileInfo[] fi = di.GetFiles();
+
+        }
+
     }
 }

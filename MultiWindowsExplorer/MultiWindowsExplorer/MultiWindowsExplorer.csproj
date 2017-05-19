@@ -93,9 +93,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sync.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="window-multi-size.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
