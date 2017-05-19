@@ -16,7 +16,8 @@ namespace MultiWindowsExplorer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormExplorer());
+            //Application.Run(new FormExplorer());
+            Application.Run(new MainForm());
         }
     }
 }

@@ -38,7 +38,8 @@ namespace MultiWindowsExplorer
             openBtn = new Button[explorerNum] { btnOpen1, btnOpen2, btnOpen3, btnOpen4 };
             backBtn = new Button[explorerNum] { btnBack1, btnBack2, btnBack3, btnBack4 };
             forwardBtn = new Button[explorerNum] { btnForward1, btnForward2, btnForward3, btnForward4 };
-            upBtn = new Button[explorerNum] { btnUp1, btnUp2, btnUp3, btnUp4 };
+            //upBtn = new Button[explorerNum] { btnUp1, btnUp2, btnUp3, btnUp4 };
+            upBtn = new Button[explorerNum] { btnUp1, null, null, null };
             pathTxt = new TextBox[explorerNum] { txtPath1, txtPath2, txtPath3, txtPath4 };
             appSettingKeys = new String[explorerNum]{"url1","url2","url3","url4"};
         }
