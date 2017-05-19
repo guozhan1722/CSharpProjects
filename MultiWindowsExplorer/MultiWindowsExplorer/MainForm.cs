@@ -74,20 +74,31 @@ namespace MultiWindowsExplorer
             return Convert.ToInt16(lastChar) -1;
         }
 
-        bool SearchfileinDir(String filename, String dirName, bool isMatchCase)
+        private string SearchfileinDir(String fileName, String dirName, bool isMatchCase)
         {
             DirectoryInfo di = new DirectoryInfo(dirName);
             FileInfo[] files = di.GetFiles();
-            
+            String wantFile;
+            String havefile;
+
             foreach (var fi in files)
             {
-                if(fi.Name == filename)
-                {
+                wantFile = fileName;
+                havefile = fi.Name;
 
+                if (!isMatchCase)
+                {
+                    wantFile = fileName.ToUpper();
+                    havefile = fi.Name.ToUpper();
+                }
+                
+                if(wantFile == havefile)
+                {
+                    return dirName;
                 }
             }
 
-            return false;
+            throw new FileNotFoundException(@"Cannot Find file\n");
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -167,11 +178,31 @@ namespace MultiWindowsExplorer
         private void btnSearch_Click(object sender, EventArgs e)
         {
             int position = GetPositionBySender(sender);
-            String search = cGroup[position].SearchTxt.Text;
+            String fileName = cGroup[position].SearchTxt.Text;
+            String dir = cGroup[position].PathTxt.Text;
+            bool matchCase = cGroup[position].MatchCaseCkbox.Checked;
 
-            DirectoryInfo di = new DirectoryInfo(cGroup[position].PathTxt.Text);
+            if (String.IsNullOrEmpty(fileName))
+            {
+                MessageBox.Show("File name cannot be empty!");
+                return;
+            }
+            if (String.IsNullOrEmpty(dir))
+            {
+                MessageBox.Show("Directory name cannot be empty!");
+                return;
+            }
 
-            FileInfo[] fi = di.GetFiles();
+            try
+            {
+                String dirName = SearchfileinDir(fileName, dir, matchCase);
+            }
+            catch (FileNotFoundException fex)
+            {
+
+                MessageBox.Show(fex.Message.ToString());
+            }
+            
 
         }
 
