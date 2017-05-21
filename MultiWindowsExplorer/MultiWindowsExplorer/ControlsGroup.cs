@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,30 +20,20 @@ namespace MultiWindowsExplorer
         public TextBox SearchTxt { get; set; }
         public WebBrowser WBrowser { get; set; }
         public CheckBox MatchCaseCkbox { get; set; }
+        public ListView  SearchListView { get; set; }
         public String AppSettingKeys { get; set; }
 
-        public ControlsGroup(Button BackBtn,
-            Button ForwardBtn,
-            Button UpBtn,
-            Button OpenBtn,
-            Button SearchBtn,
-            TextBox PathTxt,
-            TextBox SearchTxt,
-            WebBrowser WBrowser,
-            CheckBox MatchCaseCkbox,
-            String AppSettingKeys)
-        {
-            this.BackBtn = BackBtn;
-            this.ForwardBtn =  ForwardBtn;
-            this.UpBtn=UpBtn;
-            this.OpenBtn=OpenBtn;
-            this.SearchBtn=SearchBtn;
-            this.PathTxt=PathTxt;
-            this.SearchTxt=SearchTxt;
-            this.WBrowser=WBrowser;
-            this.MatchCaseCkbox = MatchCaseCkbox;
-            this.AppSettingKeys = AppSettingKeys;
-        }
-
+        public ToolStripButton BackTsBtn { get; set; }
+        public ToolStripButton ForwardTsBtn { get; set; }
+        public ToolStripButton UpTsBtn { get; set; }
+        public ToolStripButton OpenTsBtn { get; set; }
+        public RichTextBox PathRTxt { get; set; }
+        public RichTextBox SearchRTxt { get; set; }
+        public ProgressBar SearchPoBar { get; set; }
+        public BackgroundWorker BkgroundWorker {get; set;}
+        public TabControl TControl { get; set; }
+        public TabPage SearchTab { get; set; }
+        public TabPage WBrowserTab { get; set; }
+        
     }
 }

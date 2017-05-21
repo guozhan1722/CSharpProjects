@@ -8,55 +8,99 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace MultiWindowsExplorer
 {
     public partial class MainForm : Form
     {
 
-        List<ControlsGroup> cGroup = new List<ControlsGroup>();
+        private List<ControlsGroup> cGroup = new List<ControlsGroup>();
+        public List<FileInfo> fileSearchResult;
+        public int currentPosition;
 
         public MainForm()
         {
             InitializeComponent();
             AddComponentToGroup();
             InitWebBrowsersTextBoxes();
-            
+
         }
 
         private void AddComponentToGroup()
         {
             cGroup.Clear();
-            cGroup.Add(new ControlsGroup(btnBack1,btnForward1,
-                btnUp1, btnOpen1, btnSearch1,txtPath1, txtSearch1,
-                webBrowser1, ckboxMatchCase1, "url1"));
-            cGroup.Add(new ControlsGroup(btnBack2, btnForward2,
-                btnUp2, btnOpen2, btnSearch2, txtPath2, txtSearch2,
-                webBrowser2, ckboxMatchCase2, "url2"));
-            cGroup.Add(new ControlsGroup(btnBack3, btnForward3,
-                btnUp3, btnOpen3, btnSearch3, txtPath3, txtSearch3,
-                webBrowser3, ckboxMatchCase3, "url3"));
-            cGroup.Add(new ControlsGroup(btnBack4, btnForward4,
-                btnUp4, btnOpen4, btnSearch4, txtPath4, txtSearch4,
-                webBrowser4, ckboxMatchCase4, "url4"));
+            cGroup.Add(new ControlsGroup {BackBtn=btnBack1, 
+                ForwardBtn = btnForward1,
+                UpBtn = btnUp1,
+                OpenBtn = btnOpen1, 
+                SearchBtn = btnSearch1, 
+                PathTxt = txtPath1, 
+                SearchTxt = txtSearch1,
+                WBrowser =webBrowser1,
+                MatchCaseCkbox = ckboxMatchCase1, 
+                AppSettingKeys = "url1"
+            });
+
+            cGroup.Add(new ControlsGroup
+            {
+                BackBtn = btnBack2,
+                ForwardBtn = btnForward2,
+                UpBtn = btnUp2,
+                OpenBtn = btnOpen2,
+                SearchBtn = btnSearch2,
+                PathTxt = txtPath2,
+                SearchTxt = txtSearch2,
+                WBrowser = webBrowser2,
+                MatchCaseCkbox = ckboxMatchCase2,
+                AppSettingKeys = "url2"
+            });
+            
+            cGroup.Add(new ControlsGroup
+            {
+                BackBtn = btnBack3,
+                ForwardBtn = btnForward3,
+                UpBtn = btnUp3,
+                OpenBtn = btnOpen3,
+                SearchBtn = btnSearch3,
+                PathTxt = txtPath3,
+                SearchTxt = txtSearch3,
+                WBrowser = webBrowser3,
+                MatchCaseCkbox = ckboxMatchCase3,
+                AppSettingKeys = "url3"
+            });
+
+            cGroup.Add(new ControlsGroup
+            {
+                BackBtn = btnBack4,
+                ForwardBtn = btnForward4,
+                UpBtn = btnUp4,
+                OpenBtn = btnOpen4,
+                SearchBtn = btnSearch4,
+                PathTxt = txtPath4,
+                SearchTxt = txtSearch4,
+                WBrowser = webBrowser4,
+                MatchCaseCkbox = ckboxMatchCase4,
+                AppSettingKeys = "url4"
+            });
         }
 
         private void InitWebBrowsersTextBoxes()
         {
-            int i=0;
-            foreach (ControlsGroup cgroup in cGroup)            
+            int i = 0;
+            foreach (ControlsGroup cgroup in cGroup)
             {
                 String rootPath = AppSettings.ReadSetting(cgroup.AppSettingKeys);
                 cgroup.PathTxt.Text = rootPath;
                 UpdateWebBrowser(i++, rootPath);
             }
         }
-        
+
         private void UpdateWebBrowser(int position, String content)
         {
             try
             {
-                cGroup[position].WBrowser.Url = new Uri(content);
+                cGroup[position].WBrowser.Navigate(content);
             }
             catch (Exception ex)
             {
@@ -71,39 +115,19 @@ namespace MultiWindowsExplorer
             String name = ctl.Name;
 
             String lastChar = name[name.Length - 1].ToString();
-            return Convert.ToInt16(lastChar) -1;
+            currentPosition = Convert.ToInt16(lastChar) - 1;
+            return currentPosition;
         }
 
-        private string SearchfileinDir(String fileName, String dirName, bool isMatchCase)
+        private void ShowSearchResult(List<FileInfo> searchResult)
         {
-            DirectoryInfo di = new DirectoryInfo(dirName);
-            FileInfo[] files = di.GetFiles();
-            String wantFile;
-            String havefile;
 
-            foreach (var fi in files)
-            {
-                wantFile = fileName;
-                havefile = fi.Name;
-
-                if (!isMatchCase)
-                {
-                    wantFile = fileName.ToUpper();
-                    havefile = fi.Name.ToUpper();
-                }
-                
-                if(wantFile == havefile)
-                {
-                    return dirName;
-                }
-            }
-
-            throw new FileNotFoundException(@"Cannot Find file\n");
         }
+
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            int position = GetPositionBySender(sender) ;
+            int position = GetPositionBySender(sender);
 
             if (cGroup[position].WBrowser.CanGoBack)
             {
@@ -119,9 +143,9 @@ namespace MultiWindowsExplorer
             {
                 cGroup[position].WBrowser.GoForward();
             }
-           
+
         }
-        
+
         private void btnUp_Click(object sender, EventArgs e)
         {
             int position = GetPositionBySender(sender);
@@ -179,32 +203,58 @@ namespace MultiWindowsExplorer
         {
             int position = GetPositionBySender(sender);
             String fileName = cGroup[position].SearchTxt.Text;
-            String dir = cGroup[position].PathTxt.Text;
-            bool matchCase = cGroup[position].MatchCaseCkbox.Checked;
+            String dirName = cGroup[position].PathTxt.Text;
 
             if (String.IsNullOrEmpty(fileName))
             {
                 MessageBox.Show("File name cannot be empty!");
                 return;
             }
-            if (String.IsNullOrEmpty(dir))
+            if (String.IsNullOrEmpty(dirName))
             {
                 MessageBox.Show("Directory name cannot be empty!");
                 return;
             }
 
+            fileSearchResult = new List<FileInfo>();
+
+            FileSearch fileSearch = new FileSearch
+            {
+                FireName = fileName,
+                DirName = dirName,
+                isMatchCase = cGroup[position].MatchCaseCkbox.Checked,
+                //SearchResult = fileSearchResult
+            };
+
+
             try
             {
-                String dirName = SearchfileinDir(fileName, dir, matchCase);
+                bkgWorkerSearch1.RunWorkerAsync(fileSearch);
             }
             catch (FileNotFoundException fex)
             {
-
                 MessageBox.Show(fex.Message.ToString());
             }
-            
 
         }
+
+        private void bkgWorkerSearch1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            FileSearch fSearch = (FileSearch)e.Argument;
+            fSearch.DoSearch();
+        }
+
+        private void bkgWorkerSearch1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ShowSearchResult(fileSearchResult);
+
+        }
+
+        private void bkgWorkerSearch1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
 
     }
 }
