@@ -12,6 +12,8 @@ using System.Windows.Forms;
 
 namespace MultiWindowsExplorer
 {
+    delegate Control FindControlByName(String name);
+
     public partial class MainMultiWindowsExplorer : Form
     {
         private List<ControlsGroup> cGroup = new List<ControlsGroup>();
@@ -21,7 +23,7 @@ namespace MultiWindowsExplorer
         {
             InitializeComponent();
             AddComponentToGroup();
-            InitWebBrowsersTextBoxes();
+            //InitWebBrowsersTextBoxes();
 
         }
 
@@ -49,25 +51,27 @@ namespace MultiWindowsExplorer
 
         private void AddComponentToGroup()
         {
-            cGroup.Add(new ControlsGroup { 
-                    BackTsBtn =btnBack1,
-                    ForwardTsBtn =btnForward1,
-                    UpTsBtn =btnUp1,
-                    OpenTsBtn =btnOpen1,
-                    SearchBtn =btnSearch1,
-                    PathRTxt =txtPath1,
-                    SearchRTxt =txtSearch1,
-                    WBrowser =webBrowser1,
-                    MatchCaseCkbox =ckboxMatchCase1,
-                    SearchListView =listViewSearch1,
-                    AppSettingKeys = "url1"  ,
-                    SearchPoBar = progressBar1,
-                    BkgroundWorker = bkgWorkerSearch1,
-                    TControl = tabControl1,
-                    SearchTab = tabSearch1,
-                    WBrowserTab = tabBrowser1,
+            //cGroup.Add(new ControlsGroup { 
+            //        BackTsBtn =btnBack0,
+            //        ForwardTsBtn =btnForward0,
+            //        UpTsBtn =btnUp0,
+            //        OpenTsBtn =btnOpen0,
+            //        SearchBtn =btnSearch0,
+            //        PathRTxt =txtPath0,
+            //        SearchRTxt =txtSearch0,
+            //        WBrowser =webBrowser0,
+            //        MatchCaseCkbox =ckboxMatchCase0,
+            //        SearchListView =listViewSearch1,
+            //        AppSettingKeys = "url1"  ,
+            //        SearchPoBar = progressBar0,
+            //        BkgroundWorker = bkgWorkerSearch1,
+            //        TControl = tabControl0,
+            //        SearchTab = tabSearch1,
+            //        WBrowserTab = tabBrowser1,
             
-            } );
+            //} );
+            ControlsGroup cg = new ControlsGroup();
+            cg.additems(this);
         }
 
         private ControlsGroup GetGroupBySender(object sender)
@@ -231,10 +235,14 @@ namespace MultiWindowsExplorer
     	    {
                 ListViewItem item = new ListViewItem(fileinfo.Name);
                 item.SubItems.Add(fileinfo.DirectoryName);
-                listViewSearch1.Items.Add(item); 
+                listView1.Items.Add(item); 
 	        }
         }
         
+        public Control FindControlByName(String name)
+        {
+            return Controls.Find(name, true).FirstOrDefault();
+        }
 
         private void bkgWorkerSearch1_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -260,7 +268,7 @@ namespace MultiWindowsExplorer
         {
             int step = (int)e.ProgressPercentage /100;
             cGroup[0].SearchPoBar.PerformStep();
-            label1.Text = step + " %";
+            labelProgress0.Text = step + " %";
         }
 
         private void bkgWorkerSearch1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

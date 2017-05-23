@@ -10,6 +10,12 @@ namespace MultiWindowsExplorer
 {
     class ControlsGroup
     {
+        public List<Control> controlSet = new List<Control>();
+
+        private String[] controlsName = new String[] {"btnBack","btnForward","btnUp","btnOpen","txtPath",
+                                        "txtSearch", "btnSearch", "ckboxMatchCase","progressBar", 
+                                        "labelProgress","tabControl", "tabBrowser", "tabListView",
+                                        "webBrowser","listView"};
 
         public Button BackBtn { get; set; }
         public Button ForwardBtn { get; set; }
@@ -34,6 +40,15 @@ namespace MultiWindowsExplorer
         public TabControl TControl { get; set; }
         public TabPage SearchTab { get; set; }
         public TabPage WBrowserTab { get; set; }
-        
+
+        public void additems(MainMultiWindowsExplorer mainForm, int section)
+        {
+            foreach (String item in controlsName)
+           {
+               Control control = mainForm.Controls.Find(item + section, true).FirstOrDefault();
+                controlSet.Add(control);
+            }
+        }
+
     }
 }
