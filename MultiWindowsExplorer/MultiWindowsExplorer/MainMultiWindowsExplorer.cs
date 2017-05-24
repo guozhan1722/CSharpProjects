@@ -12,36 +12,42 @@ using System.Windows.Forms;
 
 namespace MultiWindowsExplorer
 {
-    delegate Control FindControlByName(String name);
-
     public partial class MainMultiWindowsExplorer : Form
     {
-        private List<ControlsGroup> cGroup = new List<ControlsGroup>();
-        private int currentPosition;
-
+        private const int NumberSections = 4;
         public MainMultiWindowsExplorer()
         {
             InitializeComponent();
-            AddComponentToGroup();
-            //InitWebBrowsersTextBoxes();
+            InitWebBrowsersTextBoxes();
+        }
+        
+        private void StoreUrlValue()
+        {
+            for (int i = 0; i < NumberSections; i++)
+            {
+                String key = "url" + i;
+                String value =GetControlByName("txtPath" + i).Text;
 
+                AppSettings.UpdateSettings(key, value);
+            }
         }
 
         private void InitWebBrowsersTextBoxes()
         {
-            foreach (ControlsGroup cgroup in cGroup)
+            for (int i = 0; i < NumberSections; i++ )
             {
-                String rootPath = AppSettings.ReadSetting(cgroup.AppSettingKeys);
-                UpdateWebBrowser(cgroup, rootPath);
+                String rootPath = AppSettings.ReadSetting("url"+i);
+                Control browser = GetControlByName("webBrowser" + i) as WebBrowser;
+                UpdateWebBrowser(browser, rootPath);
             }
         }
 
-        private void UpdateWebBrowser(ControlsGroup p, string rootPath)
+        private void UpdateWebBrowser(Control browser, string rootPath)
         {
              try
             {
-                p.WBrowser.Navigate(rootPath);
-                p.TControl.SelectedTab = p.WBrowserTab;
+                WebBrowser wb = browser as WebBrowser;
+                wb.Navigate(rootPath);
             }
             catch (Exception ex)
             {
@@ -49,118 +55,93 @@ namespace MultiWindowsExplorer
             }
         }
 
-        private void AddComponentToGroup()
+        private Control GetControlByName(String name)
         {
-            //cGroup.Add(new ControlsGroup { 
-            //        BackTsBtn =btnBack0,
-            //        ForwardTsBtn =btnForward0,
-            //        UpTsBtn =btnUp0,
-            //        OpenTsBtn =btnOpen0,
-            //        SearchBtn =btnSearch0,
-            //        PathRTxt =txtPath0,
-            //        SearchRTxt =txtSearch0,
-            //        WBrowser =webBrowser0,
-            //        MatchCaseCkbox =ckboxMatchCase0,
-            //        SearchListView =listViewSearch1,
-            //        AppSettingKeys = "url1"  ,
-            //        SearchPoBar = progressBar0,
-            //        BkgroundWorker = bkgWorkerSearch1,
-            //        TControl = tabControl0,
-            //        SearchTab = tabSearch1,
-            //        WBrowserTab = tabBrowser1,
-            
-            //} );
-            ControlsGroup cg = new ControlsGroup();
-            cg.additems(this);
+            return Controls.Find(name, true).FirstOrDefault();
         }
 
-        private ControlsGroup GetGroupBySender(object sender)
+        private int GetSectionBySender(object sender)
         {
             String name;
 
-            if (sender is ToolStripButton)
-            {
-                var ctl = sender as ToolStripButton;
-                name = ctl.Name;
-            }
-            else if(sender is BackgroundWorker)
-            {
-                BackgroundWorker ctl = (BackgroundWorker)sender;
-                name = ctl.ToString();
-            }
-            else
-            {
-                var ctl = sender as Control;
-                name = ctl.Name;
-            }
+            var ctl = sender as Control;
+            name = ctl.Name;
 
             String lastChar = name[name.Length - 1].ToString();
-            currentPosition = Convert.ToInt16(lastChar) - 1;
-            return cGroup[currentPosition];
+
+            return Convert.ToInt16(lastChar);;
         }
 
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            ControlsGroup curGroup = GetGroupBySender(sender);
+            int section = GetSectionBySender(sender);
+            String controlName = "webBrowser" + section;
 
-            if (curGroup.WBrowser.CanGoBack)
+            WebBrowser browser = GetControlByName(controlName) as WebBrowser;
+
+            if (browser.CanGoBack)
             {
-                curGroup.WBrowser.GoBack();
+                browser.GoBack();
             }
         }
 
         private void btnForward_Click(object sender, EventArgs e)
         {
-            ControlsGroup curGroup = GetGroupBySender(sender);
+            int section = GetSectionBySender(sender);
+            String controlName = "webBrowser" + section;
 
-            if (curGroup.WBrowser.CanGoForward)
+            WebBrowser browser = GetControlByName(controlName) as WebBrowser;
+
+            if (browser.CanGoForward)
             {
-                curGroup.WBrowser.GoForward();
+                browser.GoForward();
             }
 
         }
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            ControlsGroup curGroup = GetGroupBySender(sender);
+            int section = GetSectionBySender(sender);
+            String controlName = "txtPath" + section;
 
-            String currentPath = curGroup.PathRTxt.Text;
+            RichTextBox tb = GetControlByName(controlName) as RichTextBox;
 
-            var dir = new DirectoryInfo(currentPath);
-            if (dir.Parent != null)
+            var dir = new DirectoryInfo(tb.Text);
+            if(dir.Parent != null)
             {
-                UpdateWebBrowser(curGroup, dir.Parent.FullName);
+                Control ctl  = GetControlByName("webBrowser" + section);
+                UpdateWebBrowser(ctl, dir.Parent.FullName);
             }
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            ControlsGroup curGroup = GetGroupBySender(sender);
-            UpdateWebBrowser(curGroup, curGroup.PathRTxt.Text);
+            int section = GetSectionBySender(sender);
+
+            RichTextBox tb = GetControlByName("txtPath" + section) as RichTextBox;
+            WebBrowser ctl = GetControlByName("webBrowser" + section) as WebBrowser;
+            UpdateWebBrowser(ctl, tb.Text);
+
         }
 
         private void OnShowPathText(object sender, WebBrowserNavigatedEventArgs e)
         {
-            ControlsGroup curGroup = GetGroupBySender(sender);
-            
-            try
-            {
-                String localPath = curGroup.WBrowser.Url.LocalPath;
-                curGroup.PathRTxt.Text = localPath;
-                
-                //refresh local button Enabled 
-                var dir = new DirectoryInfo(localPath);
-                curGroup.UpTsBtn.Enabled = (dir.Parent != null);
+            int section = GetSectionBySender(sender);
+            WebBrowser browser = GetControlByName("webBrowser" + section) as WebBrowser;
+            RichTextBox pathText = GetControlByName("txtPath"+section) as RichTextBox;
 
-                curGroup.ForwardTsBtn.Enabled = curGroup.WBrowser.CanGoForward;
-                curGroup.BackTsBtn.Enabled = curGroup.WBrowser.CanGoBack;
+            pathText.Text = browser.Url.LocalPath;
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
+            var dir = new DirectoryInfo(pathText.Text);
+            Button upBtn = GetControlByName("btnUp" + section) as Button;
+            upBtn.Enabled = (dir.Parent != null);
+
+            Button forwardBtn = GetControlByName("btnForward" + section) as Button;
+            forwardBtn.Enabled = browser.CanGoForward;
+
+            Button backBtn = GetControlByName("btnBack" + section) as Button;
+            backBtn.Enabled = browser.CanGoBack;
         }
 
         private void OntxtPathKeyDown(object sender, KeyEventArgs e)
@@ -169,16 +150,21 @@ namespace MultiWindowsExplorer
             {
                 return;
             }
-            ControlsGroup curGroup = GetGroupBySender(sender);
-            UpdateWebBrowser(curGroup, curGroup.PathRTxt.Text);
+            int section = GetSectionBySender(sender);
+
+            RichTextBox tb = GetControlByName("txtPath" + section) as RichTextBox;
+            WebBrowser ctl = GetControlByName("webBrowser" + section) as WebBrowser;
+            UpdateWebBrowser(ctl, tb.Text);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            ControlsGroup curGroup = GetGroupBySender(sender);
+            int section = GetSectionBySender(sender);
+            RichTextBox dirtb = GetControlByName("txtPath" + section) as RichTextBox;
+            RichTextBox filetb = GetControlByName("txtSearch" + section) as RichTextBox;
 
-            String fileName = curGroup.SearchRTxt.Text;
-            String dirName = curGroup.PathRTxt.Text;
+            String fileName = filetb.Text;
+            String dirName = dirtb.Text;
 
             if (String.IsNullOrEmpty(fileName))
             {
@@ -191,105 +177,102 @@ namespace MultiWindowsExplorer
                 return;
             }
 
-             FileSearch fileSearch = new FileSearch
-            {
-                FireName = fileName,
-                DirName = dirName,
-                isMatchCase = curGroup.MatchCaseCkbox.Checked,
-                SearchSection = currentPosition
-            };
+            // FileSearch fileSearch = new FileSearch
+            //{
+            //    FireName = fileName,
+            //    DirName = dirName,
+            //    isMatchCase = curGroup.MatchCaseCkbox.Checked,
+            //    SearchSection = currentPosition
+            //};
 
-            try
-            {
-                curGroup.SearchBtn.Enabled = false;
-                curGroup.MatchCaseCkbox.Enabled = false;
+            //try
+            //{
+            //    curGroup.SearchBtn.Enabled = false;
+            //    curGroup.MatchCaseCkbox.Enabled = false;
 
-                int totalFiles = fileSearch.GetTotalSearchFilesNumber();
-                InitProgressBar(curGroup,totalFiles);
+            //    int totalFiles = fileSearch.GetTotalSearchFilesNumber();
+            //    InitProgressBar(curGroup,totalFiles);
                 
-                curGroup.BkgroundWorker.RunWorkerAsync(fileSearch);
-            }
-            catch (Exception fex)
-            {
-                MessageBox.Show(fex.Message.ToString());
-            }
+            //    curGroup.BkgroundWorker.RunWorkerAsync(fileSearch);
+            //}
+            //catch (Exception fex)
+            //{
+            //    MessageBox.Show(fex.Message.ToString());
+            //}
 
         }
 
-        private void InitProgressBar(ControlsGroup curGroup, int totalFiles)
-        {
-            curGroup.SearchPoBar.Maximum = totalFiles;
-            curGroup.SearchPoBar.Value = 0;
+        //private void InitProgressBar(ControlsGroup curGroup, int totalFiles)
+        //{
+        //    curGroup.SearchPoBar.Maximum = totalFiles;
+        //    curGroup.SearchPoBar.Value = 0;
 
-            if (totalFiles > 100)
-            {
-                curGroup.SearchPoBar.Step = totalFiles / 100;
-            }
-        }
+        //    if (totalFiles > 100)
+        //    {
+        //        curGroup.SearchPoBar.Step = totalFiles / 100;
+        //    }
+        //}
 
-        private void ShowSearchResult(ControlsGroup curGroup,List<FileInfo> searchedFiles)
-        {
-            curGroup.TControl.SelectedTab = curGroup.SearchTab;
+        //private void ShowSearchResult(ControlsGroup curGroup,List<FileInfo> searchedFiles)
+        //{
+        //    curGroup.TControl.SelectedTab = curGroup.SearchTab;
             
-            foreach (var fileinfo in searchedFiles)
-    	    {
-                ListViewItem item = new ListViewItem(fileinfo.Name);
-                item.SubItems.Add(fileinfo.DirectoryName);
-                listView1.Items.Add(item); 
-	        }
-        }
+        //    foreach (var fileinfo in searchedFiles)
+        //    {
+        //        ListViewItem item = new ListViewItem(fileinfo.Name);
+        //        item.SubItems.Add(fileinfo.DirectoryName);
+        //        listView1.Items.Add(item); 
+        //    }
+        //}
         
-        public Control FindControlByName(String name)
-        {
-            return Controls.Find(name, true).FirstOrDefault();
-        }
 
-        private void bkgWorkerSearch1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker bkw = sender as BackgroundWorker;
+        //private void bkgWorkerSearch1_DoWork(object sender, DoWorkEventArgs e)
+        //{
+        //    BackgroundWorker bkw = sender as BackgroundWorker;
             
-            FileSearch fileSearch = (FileSearch)e.Argument;
-            e.Result = fileSearch;
-            fileSearch.bkw = bkw;
+        //    FileSearch fileSearch = (FileSearch)e.Argument;
+        //    e.Result = fileSearch;
+        //    fileSearch.bkw = bkw;
        
-            try
-            {
-                fileSearch.DoSearch();
-            }
-            catch (FileNotFoundException fex)
-            {
-                MessageBox.Show(fex.Message.ToString());
-            }
+        //    try
+        //    {
+        //        fileSearch.DoSearch();
+        //    }
+        //    catch (FileNotFoundException fex)
+        //    {
+        //        MessageBox.Show(fex.Message.ToString());
+        //    }
 
 
-        }
+        //}
 
-        private void bkgWorkerSearch1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            int step = (int)e.ProgressPercentage /100;
-            cGroup[0].SearchPoBar.PerformStep();
-            labelProgress0.Text = step + " %";
-        }
+        //private void bkgWorkerSearch1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        //{
+        //    int step = (int)e.ProgressPercentage /100;
+        //    cGroup[0].SearchPoBar.PerformStep();
+        //    labelProgress0.Text = step + " %";
+        //}
 
-        private void bkgWorkerSearch1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            FileSearch fileSearch = (FileSearch)e.Result;
-            ControlsGroup curGroup = cGroup[fileSearch.SearchSection];
+        //private void bkgWorkerSearch1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        //{
+        //    FileSearch fileSearch = (FileSearch)e.Result;
+        //    ControlsGroup curGroup = cGroup[fileSearch.SearchSection];
             
-            curGroup.SearchBtn.Enabled = true;
-            curGroup.MatchCaseCkbox.Enabled = true;
-            curGroup.SearchPoBar.Value = fileSearch.TotalFileNumber;
-            ShowSearchResult(curGroup,fileSearch.SearchedFiles);
-        }
+        //    curGroup.SearchBtn.Enabled = true;
+        //    curGroup.MatchCaseCkbox.Enabled = true;
+        //    curGroup.SearchPoBar.Value = fileSearch.TotalFileNumber;
+        //    ShowSearchResult(curGroup,fileSearch.SearchedFiles);
+        //}
 
 
         private void listViewSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ControlsGroup curGroup = GetGroupBySender(sender);
+            //ControlsGroup curGroup = GetGroupBySender(sender);
             
-            String DirName = curGroup.SearchListView.SelectedItems[0].SubItems[1].Text;
-            UpdateWebBrowser(curGroup, DirName);
+            //String DirName = curGroup.SearchListView.SelectedItems[0].SubItems[1].Text;
+            //UpdateWebBrowser(curGroup, DirName);
         }
+
 
     }
 }
