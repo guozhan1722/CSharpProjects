@@ -15,6 +15,7 @@ namespace MultiWindowsExplorer
     public partial class MainMultiWindowsExplorer : Form
     {
         private const int NumberSections = 4;
+        
         public MainMultiWindowsExplorer()
         {
             InitializeComponent();
@@ -55,12 +56,12 @@ namespace MultiWindowsExplorer
             }
         }
 
-        private Control GetControlByName(String name)
+        public Control GetControlByName(String name)
         {
             return Controls.Find(name, true).FirstOrDefault();
         }
 
-        private int GetSectionBySender(object sender)
+        public int GetSectionBySender(object sender)
         {
             String name;
 
@@ -72,13 +73,29 @@ namespace MultiWindowsExplorer
             return Convert.ToInt16(lastChar);;
         }
 
+        public Control GetControlBySenderAndName(object sender, String basename)
+        {
+            int section = GetSectionBySender(sender);
+            return Controls.Find(basename+section, true).FirstOrDefault();
+        }
+
+        private void SetButtonsEnabled(object sender, RichTextBox pathTxt, WebBrowser browser)
+        {
+            var dir = new DirectoryInfo(pathTxt.Text);
+            Button upBtn = GetControlBySenderAndName(sender, "btnUp") as Button;
+            upBtn.Enabled = (dir.Parent != null);
+
+            Button forwardBtn = GetControlBySenderAndName(sender, "btnForward") as Button;
+            forwardBtn.Enabled = browser.CanGoForward;
+
+            Button backBtn = GetControlBySenderAndName(sender, "btnBack") as Button;
+            backBtn.Enabled = browser.CanGoBack;
+        }
+
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            int section = GetSectionBySender(sender);
-            String controlName = "webBrowser" + section;
-
-            WebBrowser browser = GetControlByName(controlName) as WebBrowser;
+            WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
 
             if (browser.CanGoBack)
             {
@@ -88,10 +105,7 @@ namespace MultiWindowsExplorer
 
         private void btnForward_Click(object sender, EventArgs e)
         {
-            int section = GetSectionBySender(sender);
-            String controlName = "webBrowser" + section;
-
-            WebBrowser browser = GetControlByName(controlName) as WebBrowser;
+            WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
 
             if (browser.CanGoForward)
             {
@@ -102,46 +116,32 @@ namespace MultiWindowsExplorer
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            int section = GetSectionBySender(sender);
-            String controlName = "txtPath" + section;
+            RichTextBox pathTxt = GetControlBySenderAndName(sender,"txtPath") as RichTextBox;
 
-            RichTextBox tb = GetControlByName(controlName) as RichTextBox;
-
-            var dir = new DirectoryInfo(tb.Text);
+            var dir = new DirectoryInfo(pathTxt.Text);
             if(dir.Parent != null)
             {
-                Control ctl  = GetControlByName("webBrowser" + section);
-                UpdateWebBrowser(ctl, dir.Parent.FullName);
+                WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
+                UpdateWebBrowser(browser, dir.Parent.FullName);
             }
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            int section = GetSectionBySender(sender);
+            RichTextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
+            WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
 
-            RichTextBox tb = GetControlByName("txtPath" + section) as RichTextBox;
-            WebBrowser ctl = GetControlByName("webBrowser" + section) as WebBrowser;
-            UpdateWebBrowser(ctl, tb.Text);
-
+            UpdateWebBrowser(browser, pathTxt.Text);
         }
 
         private void OnShowPathText(object sender, WebBrowserNavigatedEventArgs e)
         {
-            int section = GetSectionBySender(sender);
-            WebBrowser browser = GetControlByName("webBrowser" + section) as WebBrowser;
-            RichTextBox pathText = GetControlByName("txtPath"+section) as RichTextBox;
+            RichTextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
+            WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
 
-            pathText.Text = browser.Url.LocalPath;
+            pathTxt.Text = browser.Url.LocalPath;
 
-            var dir = new DirectoryInfo(pathText.Text);
-            Button upBtn = GetControlByName("btnUp" + section) as Button;
-            upBtn.Enabled = (dir.Parent != null);
-
-            Button forwardBtn = GetControlByName("btnForward" + section) as Button;
-            forwardBtn.Enabled = browser.CanGoForward;
-
-            Button backBtn = GetControlByName("btnBack" + section) as Button;
-            backBtn.Enabled = browser.CanGoBack;
+            SetButtonsEnabled(sender, pathTxt, browser);
         }
 
         private void OntxtPathKeyDown(object sender, KeyEventArgs e)
@@ -152,48 +152,24 @@ namespace MultiWindowsExplorer
             }
             int section = GetSectionBySender(sender);
 
-            RichTextBox tb = GetControlByName("txtPath" + section) as RichTextBox;
-            WebBrowser ctl = GetControlByName("webBrowser" + section) as WebBrowser;
-            UpdateWebBrowser(ctl, tb.Text);
+            RichTextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
+            WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
+            UpdateWebBrowser(browser, pathTxt.Text);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            int section = GetSectionBySender(sender);
-            RichTextBox dirtb = GetControlByName("txtPath" + section) as RichTextBox;
-            RichTextBox filetb = GetControlByName("txtSearch" + section) as RichTextBox;
-
-            String fileName = filetb.Text;
-            String dirName = dirtb.Text;
-
-            if (String.IsNullOrEmpty(fileName))
+            FileSearchTest fst = new FileSearchTest(this,sender);
+            
+            if(fst.isFileNameDirEmpty())
             {
-                MessageBox.Show("File name cannot be empty!");
-                return;
-            }
-            if (String.IsNullOrEmpty(dirName))
-            {
-                MessageBox.Show("Directory name cannot be empty!");
+                MessageBox.Show("File name or Dir Name cannot be empty!");
                 return;
             }
 
-            // FileSearch fileSearch = new FileSearch
-            //{
-            //    FireName = fileName,
-            //    DirName = dirName,
-            //    isMatchCase = curGroup.MatchCaseCkbox.Checked,
-            //    SearchSection = currentPosition
-            //};
-
-            //try
-            //{
-            //    curGroup.SearchBtn.Enabled = false;
-            //    curGroup.MatchCaseCkbox.Enabled = false;
-
-            //    int totalFiles = fileSearch.GetTotalSearchFilesNumber();
-            //    InitProgressBar(curGroup,totalFiles);
+            fst.InitSearch();
                 
-            //    curGroup.BkgroundWorker.RunWorkerAsync(fileSearch);
+            bgSearcher0.RunWorkerAsync(fst);
             //}
             //catch (Exception fex)
             //{
@@ -271,6 +247,40 @@ namespace MultiWindowsExplorer
             
             //String DirName = curGroup.SearchListView.SelectedItems[0].SubItems[1].Text;
             //UpdateWebBrowser(curGroup, DirName);
+        }
+
+        private void bgSearcher0_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker bkw = sender as BackgroundWorker;
+
+            FileSearchTest fileSearch = (FileSearchTest)e.Argument;
+            e.Result = fileSearch;
+            fileSearch.bkw = bkw;
+
+            try
+            {
+                fileSearch.DoSearch();
+            }
+            catch (FileNotFoundException fex)
+            {
+                MessageBox.Show(fex.Message.ToString());
+            }
+        
+        }
+
+        private void bgSearcher0_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            int step = (int)e.ProgressPercentage;
+            progressBar0.Value = step;
+            labelProgress0.Text = step + " %";
+        }
+
+        private void bgSearcher0_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            FileSearchTest fileSearch = (FileSearchTest)e.Result;
+            fileSearch.EnableBtnAndCheckbox(true);
+
+
         }
 
 

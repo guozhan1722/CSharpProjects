@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
     <Compile Include="FileSearch.cs" />
+    <Compile Include="FileSearchTest.cs" />
     <Compile Include="FormMultiWindows.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,29 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Windows.Forms;
-using System.ComponentModel;
 
 namespace MultiWindowsExplorer
 {
-    class FileSearch
+    class FileSearchTest
     {
-        public String FireName { get; set; }
-        public String DirName { get; set; }
-        public bool isMatchCase { get; set; }
-        private bool isFileFound = false;
-        public int SearchSection { get; set; }
-        public int SearchedFileNumber { get; set; }
-        public List<FileInfo> SearchedFiles;
-        public int TotalFileNumber { get; set; }
-        public BackgroundWorker bkw { get; set; } 
-        
-        private const int MaxSearchFileNum = 10000;
-        
+        public object  Sender { get; set; }
+        private String FileName { get; set; }
+        private String DirName  { get; set; }
+        private MainMultiWindowsExplorer mainMultiWindowsExplorer { get; set; }
+        private bool isMatchCase { get; set; }
+        public int currentSection { get; set; }
+        private Button searchBtn { get; set; }
+        private CheckBox matchCkB { get; set; }
+        private ProgressBar progressBar { get; set; }
+        private int TotalFileNumber { get; set; }
+        public BackgroundWorker bkw;
+        private int SearchedFileNumber;
+        List<FileInfo> SearchedFiles;
+        public bool isFileFound { get; set; }
+
+        public FileSearchTest(object sender)
+        {
+            this.Sender = sender;
+
+        }
+
+        public FileSearchTest(MainMultiWindowsExplorer mainForm, object sender)
+        {
+            // TODO: Complete member initialization
+            this.mainMultiWindowsExplorer = mainForm;
+            this.Sender = sender;
+
+            var dirCtl = mainForm.GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
+            var fileCtl = mainForm.GetControlBySenderAndName(sender, "txtSearch") as RichTextBox;
+            matchCkB = mainForm.GetControlBySenderAndName(sender, "ckboxMatchCase") as CheckBox;
+            searchBtn = mainForm.GetControlBySenderAndName(sender, "btnSearch") as Button;
+            progressBar = mainForm.GetControlBySenderAndName(sender, "progressBar") as ProgressBar;
+
+            this.DirName = dirCtl.Text;
+            this.FileName = fileCtl.Text;
+            this.isMatchCase = matchCkB.Checked;
+            this.currentSection = mainForm.GetSectionBySender(sender);
+        }
+
+        internal bool isFileNameDirEmpty()
+        {
+            return (String.IsNullOrEmpty(FileName) || String.IsNullOrEmpty(DirName));
+        }
+
+        internal void InitSearch()
+        {
+            EnableBtnAndCheckbox(false);
+            GetTotalSearchFilesNumber();
+            InitProgressBar();
+
+        }
+
+        private void InitProgressBar()
+        {
+            progressBar.Maximum = TotalFileNumber;
+            progressBar.Value = 0;
+            progressBar.Step = TotalFileNumber / 100;
+        }
+
+
+        public void EnableBtnAndCheckbox(bool p)
+        {
+            matchCkB.Enabled = p;
+            searchBtn.Enabled = p;
+        }
+
         public int GetTotalSearchFilesNumber()
         {
             TotalFileNumber = 0;
@@ -35,8 +88,8 @@ namespace MultiWindowsExplorer
         private void GetNumberFileRecursive(DirectoryInfo directory)
         {
             DirectoryInfo[] dirDirs;
-            
-            if (TotalFileNumber > MaxSearchFileNum)
+
+            if (TotalFileNumber > 10000)
             {
                 return;
             }
@@ -71,14 +124,14 @@ namespace MultiWindowsExplorer
         }
 
 
-        public void DoSearch()
+         internal void DoSearch()
         {
             DirectoryInfo dir = new DirectoryInfo(DirName);
             SearchedFileNumber = 0;
             SearchedFiles = new List<FileInfo>();
 
             SearchFileRecursive(dir);
-            if(isFileFound == false)
+            if (isFileFound == false)
             {
                 throw new FileNotFoundException(@"Cannot Find file");
             }
@@ -106,9 +159,9 @@ namespace MultiWindowsExplorer
                 }
 
             }
-            catch(Exception)
+            catch (Exception)
             {
-            } 
+            }
 
         }
 
@@ -121,12 +174,12 @@ namespace MultiWindowsExplorer
 
             foreach (var fi in files)
             {
-                wantFile = FireName;
+                wantFile = FileName;
                 havefile = fi.Name;
 
                 if (!isMatchCase)
                 {
-                    wantFile = FireName.ToUpper();
+                    wantFile = FileName.ToUpper();
                     havefile = fi.Name.ToUpper();
                 }
 
@@ -142,19 +195,14 @@ namespace MultiWindowsExplorer
 
         private void ReportProgress()
         {
-            int step = TotalFileNumber/100;
-            if (SearchedFileNumber  % step == 0)
+            int step = TotalFileNumber / 100;
+            if (SearchedFileNumber % step == 0)
             {
                 bkw.ReportProgress(SearchedFileNumber);
             }
         }
-        
 
-        public void InitProgressBar(ProgressBar pb)
-        {
-            pb.Maximum = TotalFileNumber;
-            pb.Value = 0;
-            pb.Step = TotalFileNumber/100;
-        }
+
+        
     }
 }
