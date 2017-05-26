@@ -61,6 +61,8 @@ namespace MultiWindowsExplorer
             this.webBrowser0 = new System.Windows.Forms.WebBrowser();
             this.tabListView0 = new System.Windows.Forms.TabPage();
             this.listView0 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnOpen1 = new System.Windows.Forms.Button();
@@ -79,6 +81,8 @@ namespace MultiWindowsExplorer
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.tabListView1 = new System.Windows.Forms.TabPage();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainerDown = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
@@ -98,6 +102,8 @@ namespace MultiWindowsExplorer
             this.webBrowser2 = new System.Windows.Forms.WebBrowser();
             this.tabListView2 = new System.Windows.Forms.TabPage();
             this.listView2 = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.btnOpen3 = new System.Windows.Forms.Button();
@@ -116,7 +122,8 @@ namespace MultiWindowsExplorer
             this.webBrowser3 = new System.Windows.Forms.WebBrowser();
             this.tabListView3 = new System.Windows.Forms.TabPage();
             this.listView3 = new System.Windows.Forms.ListView();
-            this.bgSearcher0 = new System.ComponentModel.BackgroundWorker();
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOut)).BeginInit();
@@ -180,8 +187,9 @@ namespace MultiWindowsExplorer
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -194,8 +202,9 @@ namespace MultiWindowsExplorer
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStrip
             // 
@@ -216,7 +225,6 @@ namespace MultiWindowsExplorer
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButton1.Text = "toolStripButton1";
             // 
             // toolStripButton2
             // 
@@ -356,7 +364,7 @@ namespace MultiWindowsExplorer
             // btnBack0
             // 
             this.btnBack0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnBack0.ImageIndex = 10;
+            this.btnBack0.ImageIndex = 1;
             this.btnBack0.ImageList = this.imageList;
             this.btnBack0.Location = new System.Drawing.Point(3, 3);
             this.btnBack0.Name = "btnBack0";
@@ -368,6 +376,7 @@ namespace MultiWindowsExplorer
             // txtPath0
             // 
             this.txtPath0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPath0.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPath0.Location = new System.Drawing.Point(203, 3);
             this.txtPath0.Name = "txtPath0";
             this.txtPath0.Size = new System.Drawing.Size(136, 38);
@@ -411,6 +420,7 @@ namespace MultiWindowsExplorer
             // txtSearch0
             // 
             this.txtSearch0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSearch0.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch0.Location = new System.Drawing.Point(3, 3);
             this.txtSearch0.Name = "txtSearch0";
             this.txtSearch0.Size = new System.Drawing.Size(74, 38);
@@ -484,19 +494,36 @@ namespace MultiWindowsExplorer
             this.tabListView0.Location = new System.Drawing.Point(4, 22);
             this.tabListView0.Name = "tabListView0";
             this.tabListView0.Padding = new System.Windows.Forms.Padding(3);
-            this.tabListView0.Size = new System.Drawing.Size(334, 64);
+            this.tabListView0.Size = new System.Drawing.Size(334, 63);
             this.tabListView0.TabIndex = 1;
             this.tabListView0.Text = "Search Result";
             this.tabListView0.UseVisualStyleBackColor = true;
             // 
             // listView0
             // 
+            this.listView0.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
             this.listView0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView0.FullRowSelect = true;
+            this.listView0.GridLines = true;
             this.listView0.Location = new System.Drawing.Point(3, 3);
             this.listView0.Name = "listView0";
-            this.listView0.Size = new System.Drawing.Size(328, 58);
+            this.listView0.Size = new System.Drawing.Size(328, 57);
             this.listView0.TabIndex = 0;
             this.listView0.UseCompatibleStateImageBehavior = false;
+            this.listView0.View = System.Windows.Forms.View.Details;
+            this.listView0.DoubleClick += new System.EventHandler(this.listView_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Searched File(s)";
+            this.columnHeader1.Width = 200;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Directory(ies)";
+            this.columnHeader2.Width = 236;
             // 
             // tableLayoutPanel4
             // 
@@ -679,11 +706,27 @@ namespace MultiWindowsExplorer
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(6, 3);
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.Location = new System.Drawing.Point(-3, 3);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(309, 45);
+            this.listView1.Size = new System.Drawing.Size(328, 58);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Searched File(s)";
+            this.columnHeader3.Width = 88;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Directory(ies)";
+            this.columnHeader4.Width = 236;
             // 
             // splitContainerDown
             // 
@@ -864,7 +907,7 @@ namespace MultiWindowsExplorer
             // 
             // webBrowser2
             // 
-            this.webBrowser2.Location = new System.Drawing.Point(7, 7);
+            this.webBrowser2.Location = new System.Drawing.Point(7, 3);
             this.webBrowser2.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser2.Name = "webBrowser2";
             this.webBrowser2.Size = new System.Drawing.Size(308, 38);
@@ -883,11 +926,27 @@ namespace MultiWindowsExplorer
             // 
             // listView2
             // 
-            this.listView2.Location = new System.Drawing.Point(6, 3);
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6});
+            this.listView2.FullRowSelect = true;
+            this.listView2.GridLines = true;
+            this.listView2.Location = new System.Drawing.Point(-3, 0);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(309, 45);
+            this.listView2.Size = new System.Drawing.Size(328, 50);
             this.listView2.TabIndex = 0;
             this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Searched File(s)";
+            this.columnHeader5.Width = 88;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Directory(ies)";
+            this.columnHeader6.Width = 236;
             // 
             // tableLayoutPanel10
             // 
@@ -1051,7 +1110,7 @@ namespace MultiWindowsExplorer
             // 
             // webBrowser3
             // 
-            this.webBrowser3.Location = new System.Drawing.Point(7, 7);
+            this.webBrowser3.Location = new System.Drawing.Point(7, 6);
             this.webBrowser3.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser3.Name = "webBrowser3";
             this.webBrowser3.Size = new System.Drawing.Size(308, 38);
@@ -1070,17 +1129,27 @@ namespace MultiWindowsExplorer
             // 
             // listView3
             // 
-            this.listView3.Location = new System.Drawing.Point(6, 3);
+            this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader9,
+            this.columnHeader10});
+            this.listView3.FullRowSelect = true;
+            this.listView3.GridLines = true;
+            this.listView3.Location = new System.Drawing.Point(0, 3);
             this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(309, 45);
+            this.listView3.Size = new System.Drawing.Size(318, 50);
             this.listView3.TabIndex = 0;
             this.listView3.UseCompatibleStateImageBehavior = false;
+            this.listView3.View = System.Windows.Forms.View.Details;
             // 
-            // bgSearcher0
+            // columnHeader9
             // 
-            this.bgSearcher0.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgSearcher0_DoWork);
-            this.bgSearcher0.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgSearcher0_ProgressChanged);
-            this.bgSearcher0.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgSearcher0_RunWorkerCompleted);
+            this.columnHeader9.Text = "Searched File(s)";
+            this.columnHeader9.Width = 88;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Directory(ies)";
+            this.columnHeader10.Width = 236;
             // 
             // MainMultiWindowsExplorer
             // 
@@ -1090,6 +1159,7 @@ namespace MultiWindowsExplorer
             this.Controls.Add(this.splitContainerOut);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainMultiWindowsExplorer";
@@ -1193,7 +1263,6 @@ namespace MultiWindowsExplorer
         private System.Windows.Forms.TabPage tabBrowser1;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.TabPage tabListView1;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.Button btnOpen2;
@@ -1209,9 +1278,7 @@ namespace MultiWindowsExplorer
         private System.Windows.Forms.Label labelProgress2;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabBrowser2;
-        private System.Windows.Forms.WebBrowser webBrowser2;
         private System.Windows.Forms.TabPage tabListView2;
-        private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private System.Windows.Forms.Button btnOpen3;
@@ -1227,11 +1294,21 @@ namespace MultiWindowsExplorer
         private System.Windows.Forms.Label labelProgress3;
         private System.Windows.Forms.TabControl tabControl3;
         private System.Windows.Forms.TabPage tabBrowser3;
-        private System.Windows.Forms.WebBrowser webBrowser3;
         private System.Windows.Forms.TabPage tabListView3;
-        private System.Windows.Forms.ListView listView3;
-        private System.ComponentModel.BackgroundWorker bgSearcher0;
         private ImageList imageList;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ListView listView1;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private WebBrowser webBrowser2;
+        private ListView listView2;
+        private ColumnHeader columnHeader5;
+        private ColumnHeader columnHeader6;
+        private WebBrowser webBrowser3;
+        private ListView listView3;
+        private ColumnHeader columnHeader9;
+        private ColumnHeader columnHeader10;
 
     }
 }

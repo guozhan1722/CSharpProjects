@@ -12,9 +12,13 @@ using System.Windows.Forms;
 
 namespace MultiWindowsExplorer
 {
+    public delegate void UpdateProgressBar(int section,int max ,int cur);
+
     public partial class MainMultiWindowsExplorer : Form
     {
         private const int NumberSections = 4;
+        private SearchFileInDir[] searchFile = new SearchFileInDir[NumberSections];
+        private BackgroundSearch[] bgSearcher = new BackgroundSearch[NumberSections];
         
         public MainMultiWindowsExplorer()
         {
@@ -27,7 +31,8 @@ namespace MultiWindowsExplorer
             for (int i = 0; i < NumberSections; i++)
             {
                 String key = "url" + i;
-                String value =GetControlByName("txtPath" + i).Text;
+                RichTextBox pathTxt = GetControlByName("txtPath" + i) as RichTextBox;
+                String value = pathTxt.Text;
 
                 AppSettings.UpdateSettings(key, value);
             }
@@ -47,6 +52,9 @@ namespace MultiWindowsExplorer
         {
              try
             {
+                TabControl conTab = GetControlBySenderAndName((object)browser,"tabControl") as TabControl;
+                conTab.SelectedTab = conTab.TabPages[0];
+
                 WebBrowser wb = browser as WebBrowser;
                 wb.Navigate(rootPath);
             }
@@ -92,6 +100,64 @@ namespace MultiWindowsExplorer
             backBtn.Enabled = browser.CanGoBack;
         }
 
+        private void EnableSearchButton(int section, bool enabled)
+        {
+            Button searchBtn = GetControlByName("btnSearch" + section) as Button;
+            CheckBox matchCkb = GetControlByName("ckboxMatchCase" + section) as CheckBox;
+            searchBtn.Enabled = enabled;
+            matchCkb.Enabled = enabled;
+        }
+
+        private void RefreshProgressBar(int section, int max, int current)
+        {
+            ProgressBar poBar = GetControlByName("progressBar" + section) as ProgressBar;
+            Label lab = GetControlByName("labelProgress" + section) as Label;
+            
+            if(poBar.InvokeRequired)
+            {
+                UpdateProgressBar u = new UpdateProgressBar(RefreshProgressBar);
+                this.Invoke(u, new object[] { section, max, current });
+            }
+            else
+            {
+                poBar.Maximum = searchFile[section].TotalNumberFiles;
+                poBar.Value = current;
+                lab.Text = 100 * current / poBar.Maximum + " %";
+            }
+        }
+
+        private void InitSearchControls(int section)
+        {
+            EnableSearchButton(section, false);
+
+            bgSearcher[section] = new BackgroundSearch();
+            bgSearcher[section].WorkerReportsProgress = true;
+            bgSearcher[section].DoWork += bgSearch_DoWork;
+            bgSearcher[section].ProgressChanged += bgSearch_ProgressChanged;
+            bgSearcher[section].RunWorkerCompleted += bgSearch_RunWorkerCompeted;
+
+            TabControl conTab = GetControlByName("tabControl" + section) as TabControl;
+            conTab.SelectedTab = conTab.TabPages[1];
+        }
+
+        private void ShowSearchedResult(List<FileInfo> list, ListView listView)
+        {
+            ListView.ListViewItemCollection items = listView.Items;
+            items.Clear();
+
+            try
+            {
+                foreach (var file in list)
+                {
+                    ListViewItem item = new ListViewItem(file.Name);
+                    item.SubItems.Add(file.Directory.FullName);
+                    listView.Items.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
@@ -99,6 +165,9 @@ namespace MultiWindowsExplorer
 
             if (browser.CanGoBack)
             {
+                TabControl conTab = GetControlBySenderAndName((object)browser, "tabControl") as TabControl;
+                conTab.SelectedTab = conTab.TabPages[0];
+                
                 browser.GoBack();
             }
         }
@@ -109,6 +178,9 @@ namespace MultiWindowsExplorer
 
             if (browser.CanGoForward)
             {
+                TabControl conTab = GetControlBySenderAndName((object)browser, "tabControl") as TabControl;
+                conTab.SelectedTab = conTab.TabPages[0];
+
                 browser.GoForward();
             }
 
@@ -156,132 +228,94 @@ namespace MultiWindowsExplorer
             WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
             UpdateWebBrowser(browser, pathTxt.Text);
         }
-
+        
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            FileSearchTest fst = new FileSearchTest(this,sender);
+            int section = GetSectionBySender(sender);
+            searchFile[section] = new SearchFileInDir();
+
+            RichTextBox searchTxt = GetControlBySenderAndName(sender, "txtSearch") as RichTextBox;
+            RichTextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
+            CheckBox matchCkb = GetControlBySenderAndName(sender, "ckboxMatchCase") as CheckBox;
+
+            searchFile[section].DirName = pathTxt.Text;
+            searchFile[section].FileName = searchTxt.Text;
+            searchFile[section].isMatch = matchCkb.Checked;
+
+            InitSearchControls(section);
+
+            bgSearcher[section].RunWorkerAsync();
+        }
+
+        private void bgSearch_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundSearch worker = sender as BackgroundSearch;
+            int section = worker.Section;
+
+            String dirName = searchFile[section].DirName;
+            String fileName = searchFile[section].FileName;
+
+            int total = searchFile[section].getTotalFileNumber(dirName);
+            RefreshProgressBar(section, total, 0);
+
+            searchFile[section].bkSearch = worker;
+            searchFile[section].SearchFile(dirName, fileName);
+        }
+
+        private void bgSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            BackgroundSearch worker = sender as BackgroundSearch;
+            int section = worker.Section;
+            int progress = (int)e.ProgressPercentage;
+
+            RefreshProgressBar(section, searchFile[worker.Section].TotalNumberFiles, progress);
             
-            if(fst.isFileNameDirEmpty())
+            ListView listView = GetControlByName("listView" + worker.Section) as ListView;
+            ShowSearchedResult(searchFile[worker.Section].listSearchedFiles, listView);
+        }
+
+        private void bgSearch_RunWorkerCompeted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            BackgroundSearch worker = sender as BackgroundSearch;
+            EnableSearchButton(worker.Section, true);
+
+            int maxVal = searchFile[worker.Section].TotalNumberFiles;
+            RefreshProgressBar(worker.Section, maxVal, maxVal);
+            
+            ListView listView = GetControlByName("listView" + worker.Section) as ListView;
+            ShowSearchedResult(searchFile[worker.Section].listSearchedFiles, listView);
+        }
+
+        private void listView_DoubleClick(object sender, EventArgs e)
+        {
+            ListView view = sender as ListView;
+            
+            if(view.SelectedItems.Count == 0)
             {
-                MessageBox.Show("File name or Dir Name cannot be empty!");
                 return;
             }
 
-            fst.InitSearch();
-                
-            bgSearcher0.RunWorkerAsync(fst);
-            //}
-            //catch (Exception fex)
-            //{
-            //    MessageBox.Show(fex.Message.ToString());
-            //}
+            int section = GetSectionBySender(sender);
 
+            int idx = view.SelectedItems[0].Index;
+
+            String dirName = searchFile[section].listSearchedFiles[idx].Directory.FullName;
+            RichTextBox pathTxt = GetControlByName("txtPath" + section) as RichTextBox;
+            pathTxt.Text = dirName;
+            WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
+            UpdateWebBrowser(browser, pathTxt.Text);
         }
 
-        //private void InitProgressBar(ControlsGroup curGroup, int totalFiles)
-        //{
-        //    curGroup.SearchPoBar.Maximum = totalFiles;
-        //    curGroup.SearchPoBar.Value = 0;
-
-        //    if (totalFiles > 100)
-        //    {
-        //        curGroup.SearchPoBar.Step = totalFiles / 100;
-        //    }
-        //}
-
-        //private void ShowSearchResult(ControlsGroup curGroup,List<FileInfo> searchedFiles)
-        //{
-        //    curGroup.TControl.SelectedTab = curGroup.SearchTab;
-            
-        //    foreach (var fileinfo in searchedFiles)
-        //    {
-        //        ListViewItem item = new ListViewItem(fileinfo.Name);
-        //        item.SubItems.Add(fileinfo.DirectoryName);
-        //        listView1.Items.Add(item); 
-        //    }
-        //}
-        
-
-        //private void bkgWorkerSearch1_DoWork(object sender, DoWorkEventArgs e)
-        //{
-        //    BackgroundWorker bkw = sender as BackgroundWorker;
-            
-        //    FileSearch fileSearch = (FileSearch)e.Argument;
-        //    e.Result = fileSearch;
-        //    fileSearch.bkw = bkw;
-       
-        //    try
-        //    {
-        //        fileSearch.DoSearch();
-        //    }
-        //    catch (FileNotFoundException fex)
-        //    {
-        //        MessageBox.Show(fex.Message.ToString());
-        //    }
-
-
-        //}
-
-        //private void bkgWorkerSearch1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        //{
-        //    int step = (int)e.ProgressPercentage /100;
-        //    cGroup[0].SearchPoBar.PerformStep();
-        //    labelProgress0.Text = step + " %";
-        //}
-
-        //private void bkgWorkerSearch1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    FileSearch fileSearch = (FileSearch)e.Result;
-        //    ControlsGroup curGroup = cGroup[fileSearch.SearchSection];
-            
-        //    curGroup.SearchBtn.Enabled = true;
-        //    curGroup.MatchCaseCkbox.Enabled = true;
-        //    curGroup.SearchPoBar.Value = fileSearch.TotalFileNumber;
-        //    ShowSearchResult(curGroup,fileSearch.SearchedFiles);
-        //}
-
-
-        private void listViewSearch_SelectedIndexChanged(object sender, EventArgs e)
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //ControlsGroup curGroup = GetGroupBySender(sender);
             
-            //String DirName = curGroup.SearchListView.SelectedItems[0].SubItems[1].Text;
-            //UpdateWebBrowser(curGroup, DirName);
         }
 
-        private void bgSearcher0_DoWork(object sender, DoWorkEventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BackgroundWorker bkw = sender as BackgroundWorker;
-
-            FileSearchTest fileSearch = (FileSearchTest)e.Argument;
-            e.Result = fileSearch;
-            fileSearch.bkw = bkw;
-
-            try
-            {
-                fileSearch.DoSearch();
-            }
-            catch (FileNotFoundException fex)
-            {
-                MessageBox.Show(fex.Message.ToString());
-            }
-        
+            Dispose(true);
         }
 
-        private void bgSearcher0_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            int step = (int)e.ProgressPercentage;
-            progressBar0.Value = step;
-            labelProgress0.Text = step + " %";
-        }
-
-        private void bgSearcher0_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            FileSearchTest fileSearch = (FileSearchTest)e.Result;
-            fileSearch.EnableBtnAndCheckbox(true);
-
-
-        }
 
 
     }

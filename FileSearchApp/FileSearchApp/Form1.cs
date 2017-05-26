@@ -78,9 +78,19 @@ namespace FileSearchApp
             }
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listView1_DoubleClick(object sender, EventArgs e)
         {
+            ListView lv = sender as ListView;
+            if(lv.SelectedItems.Count == 0)
+            {
+                return;
+            }
+            int idx = lv.SelectedItems[0].Index;
+            //ListView.SelectedIndexCollection indexes = lv.SelectedIndices;
 
+            //int idx = indexes[0];
+
+            textBox1.Text = search.searchedFiles[idx].Directory.FullName;        
         }
     }
 }

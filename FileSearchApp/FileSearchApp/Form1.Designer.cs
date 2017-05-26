@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtPath0 = new System.Windows.Forms.TextBox();
             this.txtSearch0 = new System.Windows.Forms.TextBox();
             this.btnSearch0 = new System.Windows.Forms.Button();
@@ -38,8 +40,7 @@
             this.bkgSearch0 = new System.ComponentModel.BackgroundWorker();
             this.progressBar0 = new System.Windows.Forms.ProgressBar();
             this.lblprogress = new System.Windows.Forms.Label();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // listView1
@@ -47,34 +48,49 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
+            this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(53, 36);
+            this.listView1.Location = new System.Drawing.Point(40, 29);
+            this.listView1.Margin = new System.Windows.Forms.Padding(2);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(380, 197);
+            this.listView1.Size = new System.Drawing.Size(286, 161);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Searched File Name";
+            this.columnHeader1.Width = 136;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Directories";
+            this.columnHeader2.Width = 240;
             // 
             // txtPath0
             // 
-            this.txtPath0.Location = new System.Drawing.Point(184, 254);
+            this.txtPath0.Location = new System.Drawing.Point(138, 206);
+            this.txtPath0.Margin = new System.Windows.Forms.Padding(2);
             this.txtPath0.Name = "txtPath0";
-            this.txtPath0.Size = new System.Drawing.Size(249, 22);
+            this.txtPath0.Size = new System.Drawing.Size(188, 20);
             this.txtPath0.TabIndex = 1;
             // 
             // txtSearch0
             // 
-            this.txtSearch0.Location = new System.Drawing.Point(184, 291);
+            this.txtSearch0.Location = new System.Drawing.Point(138, 236);
+            this.txtSearch0.Margin = new System.Windows.Forms.Padding(2);
             this.txtSearch0.Name = "txtSearch0";
-            this.txtSearch0.Size = new System.Drawing.Size(249, 22);
+            this.txtSearch0.Size = new System.Drawing.Size(188, 20);
             this.txtSearch0.TabIndex = 1;
             // 
             // btnSearch0
             // 
-            this.btnSearch0.Location = new System.Drawing.Point(19, 341);
+            this.btnSearch0.Location = new System.Drawing.Point(14, 277);
+            this.btnSearch0.Margin = new System.Windows.Forms.Padding(2);
             this.btnSearch0.Name = "btnSearch0";
-            this.btnSearch0.Size = new System.Drawing.Size(108, 34);
+            this.btnSearch0.Size = new System.Drawing.Size(81, 28);
             this.btnSearch0.TabIndex = 2;
             this.btnSearch0.Text = "Search";
             this.btnSearch0.UseVisualStyleBackColor = true;
@@ -83,9 +99,10 @@
             // ckboxMatchCase0
             // 
             this.ckboxMatchCase0.AutoSize = true;
-            this.ckboxMatchCase0.Location = new System.Drawing.Point(143, 349);
+            this.ckboxMatchCase0.Location = new System.Drawing.Point(107, 284);
+            this.ckboxMatchCase0.Margin = new System.Windows.Forms.Padding(2);
             this.ckboxMatchCase0.Name = "ckboxMatchCase0";
-            this.ckboxMatchCase0.Size = new System.Drawing.Size(102, 21);
+            this.ckboxMatchCase0.Size = new System.Drawing.Size(82, 17);
             this.ckboxMatchCase0.TabIndex = 3;
             this.ckboxMatchCase0.Text = "Match case";
             this.ckboxMatchCase0.UseVisualStyleBackColor = true;
@@ -93,18 +110,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(97, 294);
+            this.label1.Location = new System.Drawing.Point(73, 239);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 17);
+            this.label1.Size = new System.Drawing.Size(23, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "File";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(97, 257);
+            this.label2.Location = new System.Drawing.Point(73, 209);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 17);
+            this.label2.Size = new System.Drawing.Size(20, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Dir";
             // 
@@ -118,35 +137,35 @@
             // 
             // progressBar0
             // 
-            this.progressBar0.Location = new System.Drawing.Point(251, 357);
+            this.progressBar0.Location = new System.Drawing.Point(188, 290);
+            this.progressBar0.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar0.Name = "progressBar0";
-            this.progressBar0.Size = new System.Drawing.Size(173, 23);
+            this.progressBar0.Size = new System.Drawing.Size(130, 19);
             this.progressBar0.TabIndex = 5;
             // 
             // lblprogress
             // 
             this.lblprogress.AutoSize = true;
-            this.lblprogress.Location = new System.Drawing.Point(441, 357);
+            this.lblprogress.Location = new System.Drawing.Point(331, 290);
+            this.lblprogress.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblprogress.Name = "lblprogress";
-            this.lblprogress.Size = new System.Drawing.Size(46, 17);
+            this.lblprogress.Size = new System.Drawing.Size(35, 13);
             this.lblprogress.TabIndex = 6;
             this.lblprogress.Text = "label3";
             // 
-            // columnHeader1
+            // textBox1
             // 
-            this.columnHeader1.Text = "Searched File Name";
-            this.columnHeader1.Width = 136;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Directories";
-            this.columnHeader2.Width = 240;
+            this.textBox1.Location = new System.Drawing.Point(334, 29);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(169, 20);
+            this.textBox1.TabIndex = 7;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 433);
+            this.ClientSize = new System.Drawing.Size(555, 352);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lblprogress);
             this.Controls.Add(this.progressBar0);
             this.Controls.Add(this.label2);
@@ -156,6 +175,7 @@
             this.Controls.Add(this.txtSearch0);
             this.Controls.Add(this.txtPath0);
             this.Controls.Add(this.listView1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -177,6 +197,7 @@
         private System.Windows.Forms.Label lblprogress;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
