@@ -38,13 +38,20 @@ namespace MultiWindowsExplorer
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonAbout = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonExit = new System.Windows.Forms.ToolStripButton();
             this.splitContainerOut = new System.Windows.Forms.SplitContainer();
             this.splitContainerUp = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnOpen0 = new System.Windows.Forms.Button();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.btnUp0 = new System.Windows.Forms.Button();
+            this.btnForward0 = new System.Windows.Forms.Button();
+            this.btnBack0 = new System.Windows.Forms.Button();
             this.txtPath0 = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSearch0 = new System.Windows.Forms.Button();
             this.txtSearch0 = new System.Windows.Forms.RichTextBox();
             this.ckboxMatchCase0 = new System.Windows.Forms.CheckBox();
             this.progressBar0 = new System.Windows.Forms.ProgressBar();
@@ -117,13 +124,6 @@ namespace MultiWindowsExplorer
             this.listView3 = new System.Windows.Forms.ListView();
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnOpen0 = new System.Windows.Forms.Button();
-            this.btnUp0 = new System.Windows.Forms.Button();
-            this.btnForward0 = new System.Windows.Forms.Button();
-            this.btnBack0 = new System.Windows.Forms.Button();
-            this.btnSearch0 = new System.Windows.Forms.Button();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonExit = new System.Windows.Forms.ToolStripButton();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOut)).BeginInit();
@@ -192,7 +192,7 @@ namespace MultiWindowsExplorer
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(121, 32);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonExit_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -207,20 +207,41 @@ namespace MultiWindowsExplorer
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(145, 32);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonAbout_Click);
             // 
             // toolStrip
             // 
             this.toolStrip.AutoSize = false;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(35, 35);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
+            this.toolStripButtonAbout,
             this.toolStripButtonExit});
             this.toolStrip.Location = new System.Drawing.Point(0, 40);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(956, 40);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
+            // 
+            // toolStripButtonAbout
+            // 
+            this.toolStripButtonAbout.AutoSize = false;
+            this.toolStripButtonAbout.AutoToolTip = false;
+            this.toolStripButtonAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonAbout.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAbout.Image")));
+            this.toolStripButtonAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAbout.Name = "toolStripButtonAbout";
+            this.toolStripButtonAbout.Size = new System.Drawing.Size(40, 37);
+            this.toolStripButtonAbout.Click += new System.EventHandler(this.toolStripButtonAbout_Click);
+            // 
+            // toolStripButtonExit
+            // 
+            this.toolStripButtonExit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonExit.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonExit.Image")));
+            this.toolStripButtonExit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonExit.Name = "toolStripButtonExit";
+            this.toolStripButtonExit.Size = new System.Drawing.Size(39, 37);
+            this.toolStripButtonExit.Text = "toolStripButton2";
+            this.toolStripButtonExit.Click += new System.EventHandler(this.toolStripButtonExit_Click);
             // 
             // splitContainerOut
             // 
@@ -304,6 +325,19 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel2.Size = new System.Drawing.Size(452, 54);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
+            // btnOpen0
+            // 
+            this.btnOpen0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOpen0.ImageIndex = 4;
+            this.btnOpen0.ImageList = this.imageList;
+            this.btnOpen0.Location = new System.Drawing.Point(205, 4);
+            this.btnOpen0.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOpen0.Name = "btnOpen0";
+            this.btnOpen0.Size = new System.Drawing.Size(59, 46);
+            this.btnOpen0.TabIndex = 0;
+            this.btnOpen0.UseVisualStyleBackColor = true;
+            this.btnOpen0.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
             // imageList
             // 
             this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
@@ -319,6 +353,45 @@ namespace MultiWindowsExplorer
             this.imageList.Images.SetKeyName(8, "Up.ico");
             this.imageList.Images.SetKeyName(9, "up.png");
             this.imageList.Images.SetKeyName(10, "Right_arrow_next_play_forward.png");
+            // 
+            // btnUp0
+            // 
+            this.btnUp0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnUp0.ImageIndex = 9;
+            this.btnUp0.ImageList = this.imageList;
+            this.btnUp0.Location = new System.Drawing.Point(138, 4);
+            this.btnUp0.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUp0.Name = "btnUp0";
+            this.btnUp0.Size = new System.Drawing.Size(59, 46);
+            this.btnUp0.TabIndex = 0;
+            this.btnUp0.UseVisualStyleBackColor = true;
+            this.btnUp0.Click += new System.EventHandler(this.btnUp_Click);
+            // 
+            // btnForward0
+            // 
+            this.btnForward0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForward0.ImageIndex = 5;
+            this.btnForward0.ImageList = this.imageList;
+            this.btnForward0.Location = new System.Drawing.Point(71, 4);
+            this.btnForward0.Margin = new System.Windows.Forms.Padding(4);
+            this.btnForward0.Name = "btnForward0";
+            this.btnForward0.Size = new System.Drawing.Size(59, 46);
+            this.btnForward0.TabIndex = 0;
+            this.btnForward0.UseVisualStyleBackColor = true;
+            this.btnForward0.Click += new System.EventHandler(this.btnForward_Click);
+            // 
+            // btnBack0
+            // 
+            this.btnBack0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack0.ImageIndex = 1;
+            this.btnBack0.ImageList = this.imageList;
+            this.btnBack0.Location = new System.Drawing.Point(4, 4);
+            this.btnBack0.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBack0.Name = "btnBack0";
+            this.btnBack0.Size = new System.Drawing.Size(59, 46);
+            this.btnBack0.TabIndex = 0;
+            this.btnBack0.UseVisualStyleBackColor = true;
+            this.btnBack0.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // txtPath0
             // 
@@ -353,6 +426,19 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(452, 54);
             this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // btnSearch0
+            // 
+            this.btnSearch0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSearch0.ImageIndex = 0;
+            this.btnSearch0.ImageList = this.imageList;
+            this.btnSearch0.Location = new System.Drawing.Point(108, 4);
+            this.btnSearch0.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSearch0.Name = "btnSearch0";
+            this.btnSearch0.Size = new System.Drawing.Size(59, 46);
+            this.btnSearch0.TabIndex = 0;
+            this.btnSearch0.UseVisualStyleBackColor = true;
+            this.btnSearch0.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtSearch0
             // 
@@ -442,7 +528,7 @@ namespace MultiWindowsExplorer
             this.tabListView0.Margin = new System.Windows.Forms.Padding(4);
             this.tabListView0.Name = "tabListView0";
             this.tabListView0.Padding = new System.Windows.Forms.Padding(4);
-            this.tabListView0.Size = new System.Drawing.Size(444, 57);
+            this.tabListView0.Size = new System.Drawing.Size(442, 53);
             this.tabListView0.TabIndex = 1;
             this.tabListView0.Text = "Search Result";
             this.tabListView0.UseVisualStyleBackColor = true;
@@ -458,7 +544,7 @@ namespace MultiWindowsExplorer
             this.listView0.Location = new System.Drawing.Point(4, 4);
             this.listView0.Margin = new System.Windows.Forms.Padding(4);
             this.listView0.Name = "listView0";
-            this.listView0.Size = new System.Drawing.Size(436, 49);
+            this.listView0.Size = new System.Drawing.Size(434, 45);
             this.listView0.TabIndex = 0;
             this.listView0.UseCompatibleStateImageBehavior = false;
             this.listView0.View = System.Windows.Forms.View.Details;
@@ -702,7 +788,7 @@ namespace MultiWindowsExplorer
             this.tabListView1.Margin = new System.Windows.Forms.Padding(4);
             this.tabListView1.Name = "tabListView1";
             this.tabListView1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabListView1.Size = new System.Drawing.Size(467, 57);
+            this.tabListView1.Size = new System.Drawing.Size(465, 53);
             this.tabListView1.TabIndex = 1;
             this.tabListView1.Text = "Search Result";
             this.tabListView1.UseVisualStyleBackColor = true;
@@ -718,7 +804,7 @@ namespace MultiWindowsExplorer
             this.listView1.Location = new System.Drawing.Point(4, 4);
             this.listView1.Margin = new System.Windows.Forms.Padding(4);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(459, 49);
+            this.listView1.Size = new System.Drawing.Size(457, 45);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -866,7 +952,7 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 107F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.tableLayoutPanel9.Controls.Add(this.btnSearch2, 1, 0);
             this.tableLayoutPanel9.Controls.Add(this.txtSearch2, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.ckboxMatchCase2, 2, 0);
@@ -982,7 +1068,7 @@ namespace MultiWindowsExplorer
             this.tabListView2.Margin = new System.Windows.Forms.Padding(4);
             this.tabListView2.Name = "tabListView2";
             this.tabListView2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabListView2.Size = new System.Drawing.Size(444, 66);
+            this.tabListView2.Size = new System.Drawing.Size(442, 62);
             this.tabListView2.TabIndex = 1;
             this.tabListView2.Text = "Search Result";
             this.tabListView2.UseVisualStyleBackColor = true;
@@ -998,7 +1084,7 @@ namespace MultiWindowsExplorer
             this.listView2.Location = new System.Drawing.Point(4, 4);
             this.listView2.Margin = new System.Windows.Forms.Padding(4);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(436, 58);
+            this.listView2.Size = new System.Drawing.Size(434, 54);
             this.listView2.TabIndex = 0;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -1242,7 +1328,7 @@ namespace MultiWindowsExplorer
             this.tabListView3.Margin = new System.Windows.Forms.Padding(4);
             this.tabListView3.Name = "tabListView3";
             this.tabListView3.Padding = new System.Windows.Forms.Padding(4);
-            this.tabListView3.Size = new System.Drawing.Size(467, 66);
+            this.tabListView3.Size = new System.Drawing.Size(465, 62);
             this.tabListView3.TabIndex = 1;
             this.tabListView3.Text = "Search Result";
             this.tabListView3.UseVisualStyleBackColor = true;
@@ -1258,7 +1344,7 @@ namespace MultiWindowsExplorer
             this.listView3.Location = new System.Drawing.Point(4, 4);
             this.listView3.Margin = new System.Windows.Forms.Padding(4);
             this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(459, 58);
+            this.listView3.Size = new System.Drawing.Size(457, 54);
             this.listView3.TabIndex = 0;
             this.listView3.UseCompatibleStateImageBehavior = false;
             this.listView3.View = System.Windows.Forms.View.Details;
@@ -1273,92 +1359,6 @@ namespace MultiWindowsExplorer
             // 
             this.columnHeader10.Text = "Directory(ies)";
             this.columnHeader10.Width = 400;
-            // 
-            // btnOpen0
-            // 
-            this.btnOpen0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOpen0.ImageIndex = 4;
-            this.btnOpen0.ImageList = this.imageList;
-            this.btnOpen0.Location = new System.Drawing.Point(205, 4);
-            this.btnOpen0.Margin = new System.Windows.Forms.Padding(4);
-            this.btnOpen0.Name = "btnOpen0";
-            this.btnOpen0.Size = new System.Drawing.Size(59, 46);
-            this.btnOpen0.TabIndex = 0;
-            this.btnOpen0.UseVisualStyleBackColor = true;
-            this.btnOpen0.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
-            // btnUp0
-            // 
-            this.btnUp0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUp0.ImageIndex = 9;
-            this.btnUp0.ImageList = this.imageList;
-            this.btnUp0.Location = new System.Drawing.Point(138, 4);
-            this.btnUp0.Margin = new System.Windows.Forms.Padding(4);
-            this.btnUp0.Name = "btnUp0";
-            this.btnUp0.Size = new System.Drawing.Size(59, 46);
-            this.btnUp0.TabIndex = 0;
-            this.btnUp0.UseVisualStyleBackColor = true;
-            this.btnUp0.Click += new System.EventHandler(this.btnUp_Click);
-            // 
-            // btnForward0
-            // 
-            this.btnForward0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnForward0.ImageIndex = 5;
-            this.btnForward0.ImageList = this.imageList;
-            this.btnForward0.Location = new System.Drawing.Point(71, 4);
-            this.btnForward0.Margin = new System.Windows.Forms.Padding(4);
-            this.btnForward0.Name = "btnForward0";
-            this.btnForward0.Size = new System.Drawing.Size(59, 46);
-            this.btnForward0.TabIndex = 0;
-            this.btnForward0.UseVisualStyleBackColor = true;
-            this.btnForward0.Click += new System.EventHandler(this.btnForward_Click);
-            // 
-            // btnBack0
-            // 
-            this.btnBack0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnBack0.ImageIndex = 1;
-            this.btnBack0.ImageList = this.imageList;
-            this.btnBack0.Location = new System.Drawing.Point(4, 4);
-            this.btnBack0.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBack0.Name = "btnBack0";
-            this.btnBack0.Size = new System.Drawing.Size(59, 46);
-            this.btnBack0.TabIndex = 0;
-            this.btnBack0.UseVisualStyleBackColor = true;
-            this.btnBack0.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // btnSearch0
-            // 
-            this.btnSearch0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSearch0.ImageIndex = 0;
-            this.btnSearch0.ImageList = this.imageList;
-            this.btnSearch0.Location = new System.Drawing.Point(108, 4);
-            this.btnSearch0.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSearch0.Name = "btnSearch0";
-            this.btnSearch0.Size = new System.Drawing.Size(59, 46);
-            this.btnSearch0.TabIndex = 0;
-            this.btnSearch0.UseVisualStyleBackColor = true;
-            this.btnSearch0.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.AutoSize = false;
-            this.toolStripButton1.AutoToolTip = false;
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(40, 37);
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // toolStripButtonExit
-            // 
-            this.toolStripButtonExit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonExit.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonExit.Image")));
-            this.toolStripButtonExit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonExit.Name = "toolStripButtonExit";
-            this.toolStripButtonExit.Size = new System.Drawing.Size(39, 37);
-            this.toolStripButtonExit.Text = "toolStripButton2";
-            this.toolStripButtonExit.Click += new System.EventHandler(this.toolStripButtonExit_Click);
             // 
             // MainMultiWindowsExplorer
             // 
@@ -1431,7 +1431,7 @@ namespace MultiWindowsExplorer
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAbout;
         private System.Windows.Forms.ToolStripButton toolStripButtonExit;
         private System.Windows.Forms.SplitContainer splitContainerOut;
         private System.Windows.Forms.SplitContainer splitContainerUp;

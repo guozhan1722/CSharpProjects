@@ -47,7 +47,6 @@ namespace MultiWindowsExplorer
                 UpdateWebBrowser(browser, rootPath);
             }
         }
-
         private void UpdateWebBrowser(Control browser, string rootPath)
         {
              try
@@ -63,6 +62,7 @@ namespace MultiWindowsExplorer
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
 
         public Control GetControlByName(String name)
         {
@@ -132,13 +132,8 @@ namespace MultiWindowsExplorer
 
             RefreshProgressBar(section, 100, 0);
 
-            bgSearcher[section] = new BackgroundSearch();
-            bgSearcher[section].Section = section;
-            bgSearcher[section].WorkerReportsProgress = true;
-            bgSearcher[section].DoWork += bgSearch_DoWork;
-            bgSearcher[section].ProgressChanged += bgSearch_ProgressChanged;
-            bgSearcher[section].RunWorkerCompleted += bgSearch_RunWorkerCompeted;
-
+            bgSearcher[section] = new BackgroundSearch(this,section);
+      
             TabControl conTab = GetControlByName("tabControl" + section) as TabControl;
             conTab.SelectedTab = conTab.TabPages[1];
 
@@ -270,45 +265,6 @@ namespace MultiWindowsExplorer
             bgSearcher[section].RunWorkerAsync();
         }
 
-        private void bgSearch_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundSearch worker = sender as BackgroundSearch;
-            int section = worker.Section;
-
-            String dirName = searchFile[section].DirName;
-            String fileName = searchFile[section].FileName;
-
-            int total = searchFile[section].getTotalFileNumber(dirName);
-            RefreshProgressBar(section, total, 0);
-
-            searchFile[section].bkSearch = worker;
-            searchFile[section].SearchFile(dirName, fileName);
-        }
-
-        private void bgSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            BackgroundSearch worker = sender as BackgroundSearch;
-            int section = worker.Section;
-            int progress = (int)e.ProgressPercentage;
-
-            RefreshProgressBar(section, searchFile[worker.Section].TotalNumberFiles, progress);
-            
-            ListView listView = GetControlByName("listView" + worker.Section) as ListView;
-            ShowSearchedResult(searchFile[worker.Section].listSearchedFiles, listView);
-        }
-
-        private void bgSearch_RunWorkerCompeted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            BackgroundSearch worker = sender as BackgroundSearch;
-            EnableSearchButton(worker.Section, true);
-
-            int maxVal = searchFile[worker.Section].TotalNumberFiles;
-            RefreshProgressBar(worker.Section, maxVal, maxVal);
-            
-            ListView listView = GetControlByName("listView" + worker.Section) as ListView;
-            ShowSearchedResult(searchFile[worker.Section].listSearchedFiles, listView);
-        }
-
         private void listView_DoubleClick(object sender, EventArgs e)
         {
             ListView view = sender as ListView;
@@ -329,28 +285,54 @@ namespace MultiWindowsExplorer
             UpdateWebBrowser(browser, pathTxt.Text);
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        public void bgSearch_DoWork(object sender, DoWorkEventArgs e)
         {
-            AboutDialog about = new AboutDialog();
-            about.Show();
+            BackgroundSearch worker = sender as BackgroundSearch;
+            int section = worker.Section;
+
+            String dirName = searchFile[section].DirName;
+            String fileName = searchFile[section].FileName;
+
+            int total = searchFile[section].getTotalFileNumber(dirName);
+            RefreshProgressBar(section, total, 0);
+
+            searchFile[section].bkSearch = worker;
+            searchFile[section].SearchFile(dirName, fileName);
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        public void bgSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Dispose(true);
+            BackgroundSearch worker = sender as BackgroundSearch;
+            int section = worker.Section;
+            int progress = (int)e.ProgressPercentage;
+
+            RefreshProgressBar(section, searchFile[worker.Section].TotalNumberFiles, progress);
+
+            ListView listView = GetControlByName("listView" + worker.Section) as ListView;
+            ShowSearchedResult(searchFile[worker.Section].listSearchedFiles, listView);
+        }
+
+        public void bgSearch_RunWorkerCompeted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            BackgroundSearch worker = sender as BackgroundSearch;
+            EnableSearchButton(worker.Section, true);
+
+            int maxVal = searchFile[worker.Section].TotalNumberFiles;
+            RefreshProgressBar(worker.Section, maxVal, maxVal);
+
+            ListView listView = GetControlByName("listView" + worker.Section) as ListView;
+            ShowSearchedResult(searchFile[worker.Section].listSearchedFiles, listView);
         }
 
         private void toolStripButtonExit_Click(object sender, EventArgs e)
         {
-            exitToolStripMenuItem_Click(sender, e);
+            Dispose(true);
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void toolStripButtonAbout_Click(object sender, EventArgs e)
         {
-            aboutToolStripMenuItem_Click(sender,e);
+            AboutDialog about = new AboutDialog();
+            about.Show();
         }
-
-
-
     }
 }
