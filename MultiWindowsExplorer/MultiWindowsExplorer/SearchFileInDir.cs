@@ -86,7 +86,7 @@ namespace MultiWindowsExplorer
                     SearchRecursive(di, fileName);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //MessageBox.Show(e.Message);
             }

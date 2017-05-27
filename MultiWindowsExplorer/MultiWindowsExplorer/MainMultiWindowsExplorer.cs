@@ -120,7 +120,7 @@ namespace MultiWindowsExplorer
             }
             else
             {
-                poBar.Maximum = searchFile[section].TotalNumberFiles;
+                poBar.Maximum = max;
                 poBar.Value = current;
                 lab.Text = 100 * current / poBar.Maximum + " %";
             }
@@ -130,7 +130,10 @@ namespace MultiWindowsExplorer
         {
             EnableSearchButton(section, false);
 
+            RefreshProgressBar(section, 100, 0);
+
             bgSearcher[section] = new BackgroundSearch();
+            bgSearcher[section].Section = section;
             bgSearcher[section].WorkerReportsProgress = true;
             bgSearcher[section].DoWork += bgSearch_DoWork;
             bgSearcher[section].ProgressChanged += bgSearch_ProgressChanged;
@@ -138,6 +141,12 @@ namespace MultiWindowsExplorer
 
             TabControl conTab = GetControlByName("tabControl" + section) as TabControl;
             conTab.SelectedTab = conTab.TabPages[1];
+
+            ListView view = GetControlByName("listView" + section) as ListView;
+            ListView.ListViewItemCollection items = view.Items;
+            items.Clear();
+            ListViewItem item = new ListViewItem("Searching ...");
+            view.Items.Add(item);
         }
 
         private void ShowSearchedResult(List<FileInfo> list, ListView listView)
@@ -147,11 +156,20 @@ namespace MultiWindowsExplorer
 
             try
             {
-                foreach (var file in list)
+                if (list.Count == 0)
                 {
-                    ListViewItem item = new ListViewItem(file.Name);
-                    item.SubItems.Add(file.Directory.FullName);
+                    ListViewItem item = new ListViewItem("");
+                    item.SubItems.Add("Could not Find This File");
                     listView.Items.Add(item);
+                }
+                else
+                {
+                    foreach (var file in list)
+                    {
+                        ListViewItem item = new ListViewItem(file.Name);
+                        item.SubItems.Add(file.Directory.FullName);
+                        listView.Items.Add(item);
+                    }
                 }
             }
             catch (Exception)
@@ -235,6 +253,11 @@ namespace MultiWindowsExplorer
             searchFile[section] = new SearchFileInDir();
 
             RichTextBox searchTxt = GetControlBySenderAndName(sender, "txtSearch") as RichTextBox;
+            if(String.IsNullOrEmpty(searchTxt.Text))
+            {
+                MessageBox.Show("Search file can not be empty!");
+                return;
+            }
             RichTextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
             CheckBox matchCkb = GetControlBySenderAndName(sender, "ckboxMatchCase") as CheckBox;
 
@@ -308,12 +331,23 @@ namespace MultiWindowsExplorer
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            AboutDialog about = new AboutDialog();
+            about.Show();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Dispose(true);
+        }
+
+        private void toolStripButtonExit_Click(object sender, EventArgs e)
+        {
+            exitToolStripMenuItem_Click(sender, e);
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            aboutToolStripMenuItem_Click(sender,e);
         }
 
 
