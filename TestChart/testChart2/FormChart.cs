@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace testChart2
+namespace TestChart
 {
     public partial class FormChart : Form
     {
@@ -101,6 +101,7 @@ namespace testChart2
             {
                 pausePlot = false;
                 button1.Text = "Pause";
+                RxDataBackground dataAcqBackground = new RxDataBackground(this, bufferSize);
                 backgroundWorkerPlotData.RunWorkerAsync();
                 backgroundWorkerRxData.RunWorkerAsync();
             }
@@ -113,7 +114,7 @@ namespace testChart2
         }
 
         
-        private void FillRxData()
+        public void FillRxData()
         {
             rxData = new double[bufferSize];
             for (int i = 0; i < bufferSize; i++)

@@ -1,4 +1,4 @@
-﻿namespace testChart2
+﻿namespace TestChart
 {
     partial class FormChart
     {

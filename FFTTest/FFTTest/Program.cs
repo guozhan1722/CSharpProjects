@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TestChart
+namespace FFTTest
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace TestChart
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormChart());
+            Application.Run(new Form1());
         }
     }
 }
