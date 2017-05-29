@@ -43,7 +43,7 @@ namespace FFTTest
             chart1.Series["Second Harmonic"].Points.Clear();
             chart1.Series["Third Harmonic"].Points.Clear();
 
-            double[] fundamental = Generate.Sinusoidal(numSamples, sampleRate, 60, 10, 0);
+            double[] fundamental =Sinusoidal(numSamples, sampleRate, 60, 10, 0);
             double[] second = Generate.Sinusoidal(numSamples, sampleRate, 120, secondHarm, 0.0, secondPH);
             double[] third = Generate.Sinusoidal(numSamples, sampleRate, 180, thirdHarm, 0.0, thirdPH);
 
@@ -52,12 +52,14 @@ namespace FFTTest
                 samples[i] = new Complex(fundamental[i] + second[i] + third[i], 0);
             }
 
-            for (int i = 0; i < samples.Length / 5; i++)
+            for (int i = 0; i < samples.Length ; i++)
             {
-                double time = ((i + 1.0) / numSamples) / 2;
-                chart1.Series["Waveform"].LegendText = "Waveform";
+                double time =  i / sampleRate;
+                
                 chart1.Series["Waveform"].ChartType = SeriesChartType.Line;
                 chart1.ChartAreas["ChartArea1"].AxisX.Title = "Seconds";
+
+                chart1.Series["Waveform"].Points.AddXY(time, samples[i].Real);
 
                 if (checkBox1.Checked)
                 {
@@ -68,8 +70,28 @@ namespace FFTTest
                     chart1.Series["Third Harmonic"].Points.AddXY(time, third[i]);
                 }
 
-                chart1.Series["Waveform"].Points.AddXY(time, samples[i].Real);
+                
             }
+        }
+
+        private double[] Sinusoidal(int numSamples, double sampleRate, int freq, int amplitude, int phase)
+        {
+            double[] result = new double[numSamples];
+            
+            int samplePerCycle = (int)sampleRate / freq;
+            int freqNum = numSamples / samplePerCycle;
+            int count = 0;
+
+            for (int i = 0; i < freqNum; i++)
+            {
+                //generate one cycle of sinwave
+                for(int j=0; j<samplePerCycle;j++)
+                {
+                    double degree = 2 * Math.PI * j / samplePerCycle +phase;
+                    result[count++] = amplitude * Math.Sin(degree);
+                }
+            }
+            return result;
         }
 
         private void btnFFT_Click(object sender, EventArgs e)
@@ -95,7 +117,6 @@ namespace FFTTest
                 double hzPerSample = sampleRate / numSamples;
 
                 chart2.Series["Frequency"].Points.AddXY(hzPerSample*i,mag);
-
 
             }
         }

@@ -31,7 +31,7 @@ namespace MultiWindowsExplorer
             for (int i = 0; i < NumberSections; i++)
             {
                 String key = "url" + i;
-                RichTextBox pathTxt = GetControlByName("txtPath" + i) as RichTextBox;
+                TextBox pathTxt = GetControlByName("txtPath" + i) as TextBox;
                 String value = pathTxt.Text;
 
                 AppSettings.UpdateSettings(key, value);
@@ -87,7 +87,7 @@ namespace MultiWindowsExplorer
             return Controls.Find(basename+section, true).FirstOrDefault();
         }
 
-        private void SetButtonsEnabled(object sender, RichTextBox pathTxt, WebBrowser browser)
+        private void SetButtonsEnabled(object sender, TextBox pathTxt, WebBrowser browser)
         {
             var dir = new DirectoryInfo(pathTxt.Text);
             Button upBtn = GetControlBySenderAndName(sender, "btnUp") as Button;
@@ -98,6 +98,9 @@ namespace MultiWindowsExplorer
 
             Button backBtn = GetControlBySenderAndName(sender, "btnBack") as Button;
             backBtn.Enabled = browser.CanGoBack;
+
+            pathTxt.SelectionStart = pathTxt.Text.Length;
+            pathTxt.ScrollToCaret();
         }
 
         private void EnableSearchButton(int section, bool enabled)
@@ -201,7 +204,7 @@ namespace MultiWindowsExplorer
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            RichTextBox pathTxt = GetControlBySenderAndName(sender,"txtPath") as RichTextBox;
+            TextBox pathTxt = GetControlBySenderAndName(sender,"txtPath") as TextBox;
 
             var dir = new DirectoryInfo(pathTxt.Text);
             if(dir.Parent != null)
@@ -213,7 +216,7 @@ namespace MultiWindowsExplorer
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            RichTextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
+            TextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as TextBox;
             WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
 
             UpdateWebBrowser(browser, pathTxt.Text);
@@ -221,7 +224,7 @@ namespace MultiWindowsExplorer
 
         private void OnShowPathText(object sender, WebBrowserNavigatedEventArgs e)
         {
-            RichTextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
+            TextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as TextBox;
             WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
 
             pathTxt.Text = browser.Url.LocalPath;
@@ -237,7 +240,7 @@ namespace MultiWindowsExplorer
             }
             int section = GetSectionBySender(sender);
 
-            RichTextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
+            TextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as TextBox;
             WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
             UpdateWebBrowser(browser, pathTxt.Text);
         }
@@ -253,7 +256,7 @@ namespace MultiWindowsExplorer
                 MessageBox.Show("Search file can not be empty!");
                 return;
             }
-            RichTextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as RichTextBox;
+            TextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as TextBox;
             CheckBox matchCkb = GetControlBySenderAndName(sender, "ckboxMatchCase") as CheckBox;
 
             searchFile[section].DirName = pathTxt.Text;
@@ -279,7 +282,7 @@ namespace MultiWindowsExplorer
             int idx = view.SelectedItems[0].Index;
 
             String dirName = searchFile[section].listSearchedFiles[idx].Directory.FullName;
-            RichTextBox pathTxt = GetControlByName("txtPath" + section) as RichTextBox;
+            TextBox pathTxt = GetControlByName("txtPath" + section) as TextBox;
             pathTxt.Text = dirName;
             WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
             UpdateWebBrowser(browser, pathTxt.Text);

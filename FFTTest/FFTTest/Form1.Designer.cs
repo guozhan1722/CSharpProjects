@@ -58,9 +58,11 @@
             // 
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(32, 26);
+            this.chart1.Location = new System.Drawing.Point(24, 21);
+            this.chart1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
@@ -77,7 +79,7 @@
             this.chart1.Series.Add(series1);
             this.chart1.Series.Add(series2);
             this.chart1.Series.Add(series3);
-            this.chart1.Size = new System.Drawing.Size(780, 161);
+            this.chart1.Size = new System.Drawing.Size(607, 152);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -85,24 +87,26 @@
             // 
             chartArea2.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Enabled = false;
             legend2.Name = "Legend1";
             this.chart2.Legends.Add(legend2);
-            this.chart2.Location = new System.Drawing.Point(32, 230);
+            this.chart2.Location = new System.Drawing.Point(24, 191);
+            this.chart2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chart2.Name = "chart2";
             series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
             series4.Legend = "Legend1";
             series4.Name = "Frequency";
             this.chart2.Series.Add(series4);
-            this.chart2.Size = new System.Drawing.Size(780, 161);
+            this.chart2.Size = new System.Drawing.Size(607, 183);
             this.chart2.TabIndex = 0;
             this.chart2.Text = "chart1";
             // 
             // btnFFT
             // 
-            this.btnFFT.Location = new System.Drawing.Point(231, 404);
+            this.btnFFT.Location = new System.Drawing.Point(117, 397);
+            this.btnFFT.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnFFT.Name = "btnFFT";
-            this.btnFFT.Size = new System.Drawing.Size(75, 28);
+            this.btnFFT.Size = new System.Drawing.Size(56, 23);
             this.btnFFT.TabIndex = 1;
             this.btnFFT.Text = "FFT";
             this.btnFFT.UseVisualStyleBackColor = true;
@@ -110,9 +114,10 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(886, 26);
+            this.btnLoad.Location = new System.Drawing.Point(664, 21);
+            this.btnLoad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(75, 28);
+            this.btnLoad.Size = new System.Drawing.Size(56, 23);
             this.btnLoad.TabIndex = 1;
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
@@ -121,58 +126,64 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(877, 83);
+            this.checkBox1.Location = new System.Drawing.Point(658, 67);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(18, 17);
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 2;
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(943, 83);
+            this.checkBox2.Location = new System.Drawing.Point(707, 67);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(18, 17);
+            this.checkBox2.Size = new System.Drawing.Size(15, 14);
             this.checkBox2.TabIndex = 2;
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // trkSecond
             // 
-            this.trkSecond.Location = new System.Drawing.Point(877, 130);
+            this.trkSecond.Location = new System.Drawing.Point(658, 106);
+            this.trkSecond.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trkSecond.Name = "trkSecond";
             this.trkSecond.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkSecond.Size = new System.Drawing.Size(56, 104);
+            this.trkSecond.Size = new System.Drawing.Size(45, 84);
             this.trkSecond.TabIndex = 3;
             // 
             // trkThird
             // 
-            this.trkThird.Location = new System.Drawing.Point(943, 130);
+            this.trkThird.Location = new System.Drawing.Point(707, 106);
+            this.trkThird.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trkThird.Name = "trkThird";
             this.trkThird.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkThird.Size = new System.Drawing.Size(56, 104);
+            this.trkThird.Size = new System.Drawing.Size(45, 84);
             this.trkThird.TabIndex = 3;
             // 
             // trkPHSecond
             // 
-            this.trkPHSecond.Location = new System.Drawing.Point(877, 287);
+            this.trkPHSecond.Location = new System.Drawing.Point(658, 233);
+            this.trkPHSecond.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trkPHSecond.Name = "trkPHSecond";
             this.trkPHSecond.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkPHSecond.Size = new System.Drawing.Size(56, 104);
+            this.trkPHSecond.Size = new System.Drawing.Size(45, 84);
             this.trkPHSecond.TabIndex = 3;
             // 
             // trkPHThird
             // 
-            this.trkPHThird.Location = new System.Drawing.Point(939, 287);
+            this.trkPHThird.Location = new System.Drawing.Point(704, 233);
+            this.trkPHThird.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trkPHThird.Name = "trkPHThird";
             this.trkPHThird.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkPHThird.Size = new System.Drawing.Size(56, 104);
+            this.trkPHThird.Size = new System.Drawing.Size(45, 84);
             this.trkPHThird.TabIndex = 3;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 444);
+            this.ClientSize = new System.Drawing.Size(766, 460);
             this.Controls.Add(this.trkPHThird);
             this.Controls.Add(this.trkThird);
             this.Controls.Add(this.trkPHSecond);
@@ -183,6 +194,7 @@
             this.Controls.Add(this.btnFFT);
             this.Controls.Add(this.chart2);
             this.Controls.Add(this.chart1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
