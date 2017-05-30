@@ -317,9 +317,7 @@
     <Content Include="Cartesian\FunnelChart\Resources\view.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Maps\World.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Maps\World.xml" />
     <EmbeddedResource Include="Cartesian\Basic Stacked Bar\BasicsStackedRowExample.resx">
       <DependentUpon>BasicsStackedRowExample.cs</DependentUpon>
     </EmbeddedResource>

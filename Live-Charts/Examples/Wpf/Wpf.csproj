@@ -624,9 +624,7 @@
     <Resource Include="CartesianChart\Funnel Chart\resources\view.png" />
     <Resource Include="CartesianChart\Funnel Chart\resources\user.png" />
     <Resource Include="CartesianChart\Funnel Chart\resources\fingerprint.png" />
-    <Content Include="Maps\World.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Maps\World.xml" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
