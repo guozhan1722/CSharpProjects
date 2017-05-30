@@ -31,178 +31,257 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this.chartFFT = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.btnFFT = new System.Windows.Forms.Button();
-            this.btnLoad = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.trkSecond = new System.Windows.Forms.TrackBar();
-            this.trkThird = new System.Windows.Forms.TrackBar();
-            this.trkPHSecond = new System.Windows.Forms.TrackBar();
-            this.trkPHThird = new System.Windows.Forms.TrackBar();
+            this.trkFreq1 = new System.Windows.Forms.TrackBar();
+            this.trkAmp1 = new System.Windows.Forms.TrackBar();
+            this.trkPha1 = new System.Windows.Forms.TrackBar();
+            this.labelFreq1 = new System.Windows.Forms.Label();
+            this.labelAmp1 = new System.Windows.Forms.Label();
+            this.labelPha1 = new System.Windows.Forms.Label();
+            this.labelPha2 = new System.Windows.Forms.Label();
+            this.labelAmp2 = new System.Windows.Forms.Label();
+            this.labelFreq2 = new System.Windows.Forms.Label();
+            this.trkPha2 = new System.Windows.Forms.TrackBar();
+            this.trkAmp2 = new System.Windows.Forms.TrackBar();
+            this.trkFreq2 = new System.Windows.Forms.TrackBar();
+            this.checkBoxShowFreq2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowFreq1 = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFFT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkSecond)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkThird)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkPHSecond)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkPHThird)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkFreq1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkAmp1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkPha1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkPha2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkAmp2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkFreq2)).BeginInit();
             this.SuspendLayout();
+            // 
+            // chartFFT
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartFFT.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.chartFFT.Legends.Add(legend1);
+            this.chartFFT.Location = new System.Drawing.Point(25, 331);
+            this.chartFFT.Margin = new System.Windows.Forms.Padding(2);
+            this.chartFFT.Name = "chartFFT";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Frequency";
+            this.chartFFT.Series.Add(series1);
+            this.chartFFT.Size = new System.Drawing.Size(1029, 148);
+            this.chartFFT.TabIndex = 0;
+            this.chartFFT.Text = "chart1";
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Enabled = false;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(24, 21);
-            this.chart1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            chartArea2.AxisX.ScaleBreakStyle.Enabled = true;
+            chartArea2.CursorX.AutoScroll = false;
+            chartArea2.CursorX.Interval = 0.001D;
+            chartArea2.CursorX.IsUserEnabled = true;
+            chartArea2.CursorX.IsUserSelectionEnabled = true;
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Enabled = false;
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(11, 24);
+            this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series1.Legend = "Legend1";
-            series1.Name = "Waveform";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
             series2.Legend = "Legend1";
-            series2.Name = "Second Harmonic";
+            series2.Name = "Waveform";
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
             series3.Legend = "Legend1";
-            series3.Name = "Third Harmonic";
-            this.chart1.Series.Add(series1);
+            series3.Name = "Second";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series4.Legend = "Legend1";
+            series4.Name = "Fundamental";
             this.chart1.Series.Add(series2);
             this.chart1.Series.Add(series3);
-            this.chart1.Size = new System.Drawing.Size(607, 152);
+            this.chart1.Series.Add(series4);
+            this.chart1.Size = new System.Drawing.Size(1208, 148);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
-            // chart2
+            // trkFreq1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
-            legend2.Enabled = false;
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
-            this.chart2.Location = new System.Drawing.Point(24, 191);
-            this.chart2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.chart2.Name = "chart2";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Frequency";
-            this.chart2.Series.Add(series4);
-            this.chart2.Size = new System.Drawing.Size(607, 183);
-            this.chart2.TabIndex = 0;
-            this.chart2.Text = "chart1";
+            this.trkFreq1.Location = new System.Drawing.Point(139, 206);
+            this.trkFreq1.Margin = new System.Windows.Forms.Padding(2);
+            this.trkFreq1.Maximum = 1000;
+            this.trkFreq1.Name = "trkFreq1";
+            this.trkFreq1.Size = new System.Drawing.Size(392, 45);
+            this.trkFreq1.TabIndex = 3;
+            this.trkFreq1.Value = 600;
+            this.trkFreq1.Scroll += new System.EventHandler(this.trkFreq_Scroll);
             // 
-            // btnFFT
+            // trkAmp1
             // 
-            this.btnFFT.Location = new System.Drawing.Point(117, 397);
-            this.btnFFT.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnFFT.Name = "btnFFT";
-            this.btnFFT.Size = new System.Drawing.Size(56, 23);
-            this.btnFFT.TabIndex = 1;
-            this.btnFFT.Text = "FFT";
-            this.btnFFT.UseVisualStyleBackColor = true;
-            this.btnFFT.Click += new System.EventHandler(this.btnFFT_Click);
+            this.trkAmp1.Location = new System.Drawing.Point(570, 206);
+            this.trkAmp1.Margin = new System.Windows.Forms.Padding(2);
+            this.trkAmp1.Maximum = 100;
+            this.trkAmp1.Name = "trkAmp1";
+            this.trkAmp1.Size = new System.Drawing.Size(179, 45);
+            this.trkAmp1.TabIndex = 3;
+            this.trkAmp1.Value = 50;
+            this.trkAmp1.Scroll += new System.EventHandler(this.trkFreq_Scroll);
             // 
-            // btnLoad
+            // trkPha1
             // 
-            this.btnLoad.Location = new System.Drawing.Point(664, 21);
-            this.btnLoad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(56, 23);
-            this.btnLoad.TabIndex = 1;
-            this.btnLoad.Text = "Load";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            this.trkPha1.Location = new System.Drawing.Point(811, 207);
+            this.trkPha1.Maximum = 7;
+            this.trkPha1.Name = "trkPha1";
+            this.trkPha1.Size = new System.Drawing.Size(127, 45);
+            this.trkPha1.TabIndex = 4;
+            this.trkPha1.Scroll += new System.EventHandler(this.trkFreq_Scroll);
             // 
-            // checkBox1
+            // labelFreq1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(658, 67);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.labelFreq1.AutoSize = true;
+            this.labelFreq1.Location = new System.Drawing.Point(284, 191);
+            this.labelFreq1.Name = "labelFreq1";
+            this.labelFreq1.Size = new System.Drawing.Size(35, 13);
+            this.labelFreq1.TabIndex = 5;
+            this.labelFreq1.Text = "label1";
             // 
-            // checkBox2
+            // labelAmp1
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(707, 67);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox2.TabIndex = 2;
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.labelAmp1.AutoSize = true;
+            this.labelAmp1.Location = new System.Drawing.Point(639, 191);
+            this.labelAmp1.Name = "labelAmp1";
+            this.labelAmp1.Size = new System.Drawing.Size(35, 13);
+            this.labelAmp1.TabIndex = 6;
+            this.labelAmp1.Text = "label2";
             // 
-            // trkSecond
+            // labelPha1
             // 
-            this.trkSecond.Location = new System.Drawing.Point(658, 106);
-            this.trkSecond.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.trkSecond.Name = "trkSecond";
-            this.trkSecond.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkSecond.Size = new System.Drawing.Size(45, 84);
-            this.trkSecond.TabIndex = 3;
+            this.labelPha1.AutoSize = true;
+            this.labelPha1.Location = new System.Drawing.Point(835, 191);
+            this.labelPha1.Name = "labelPha1";
+            this.labelPha1.Size = new System.Drawing.Size(35, 13);
+            this.labelPha1.TabIndex = 7;
+            this.labelPha1.Text = "label3";
             // 
-            // trkThird
+            // labelPha2
             // 
-            this.trkThird.Location = new System.Drawing.Point(707, 106);
-            this.trkThird.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.trkThird.Name = "trkThird";
-            this.trkThird.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkThird.Size = new System.Drawing.Size(45, 84);
-            this.trkThird.TabIndex = 3;
+            this.labelPha2.AutoSize = true;
+            this.labelPha2.Location = new System.Drawing.Point(835, 253);
+            this.labelPha2.Name = "labelPha2";
+            this.labelPha2.Size = new System.Drawing.Size(35, 13);
+            this.labelPha2.TabIndex = 14;
+            this.labelPha2.Text = "label3";
             // 
-            // trkPHSecond
+            // labelAmp2
             // 
-            this.trkPHSecond.Location = new System.Drawing.Point(658, 233);
-            this.trkPHSecond.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.trkPHSecond.Name = "trkPHSecond";
-            this.trkPHSecond.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkPHSecond.Size = new System.Drawing.Size(45, 84);
-            this.trkPHSecond.TabIndex = 3;
+            this.labelAmp2.AutoSize = true;
+            this.labelAmp2.Location = new System.Drawing.Point(639, 253);
+            this.labelAmp2.Name = "labelAmp2";
+            this.labelAmp2.Size = new System.Drawing.Size(35, 13);
+            this.labelAmp2.TabIndex = 13;
+            this.labelAmp2.Text = "label2";
             // 
-            // trkPHThird
+            // labelFreq2
             // 
-            this.trkPHThird.Location = new System.Drawing.Point(704, 233);
-            this.trkPHThird.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.trkPHThird.Name = "trkPHThird";
-            this.trkPHThird.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkPHThird.Size = new System.Drawing.Size(45, 84);
-            this.trkPHThird.TabIndex = 3;
+            this.labelFreq2.AutoSize = true;
+            this.labelFreq2.Location = new System.Drawing.Point(284, 253);
+            this.labelFreq2.Name = "labelFreq2";
+            this.labelFreq2.Size = new System.Drawing.Size(35, 13);
+            this.labelFreq2.TabIndex = 12;
+            this.labelFreq2.Text = "label1";
+            // 
+            // trkPha2
+            // 
+            this.trkPha2.Location = new System.Drawing.Point(811, 269);
+            this.trkPha2.Maximum = 7;
+            this.trkPha2.Name = "trkPha2";
+            this.trkPha2.Size = new System.Drawing.Size(127, 45);
+            this.trkPha2.TabIndex = 11;
+            this.trkPha2.Scroll += new System.EventHandler(this.trkFreq_Scroll);
+            // 
+            // trkAmp2
+            // 
+            this.trkAmp2.Location = new System.Drawing.Point(570, 269);
+            this.trkAmp2.Margin = new System.Windows.Forms.Padding(2);
+            this.trkAmp2.Maximum = 100;
+            this.trkAmp2.Name = "trkAmp2";
+            this.trkAmp2.Size = new System.Drawing.Size(179, 45);
+            this.trkAmp2.TabIndex = 9;
+            this.trkAmp2.Scroll += new System.EventHandler(this.trkFreq_Scroll);
+            // 
+            // trkFreq2
+            // 
+            this.trkFreq2.Location = new System.Drawing.Point(139, 269);
+            this.trkFreq2.Margin = new System.Windows.Forms.Padding(2);
+            this.trkFreq2.Maximum = 1000;
+            this.trkFreq2.Name = "trkFreq2";
+            this.trkFreq2.Size = new System.Drawing.Size(392, 45);
+            this.trkFreq2.TabIndex = 10;
+            this.trkFreq2.Scroll += new System.EventHandler(this.trkFreq_Scroll);
+            // 
+            // checkBoxShowFreq2
+            // 
+            this.checkBoxShowFreq2.AutoSize = true;
+            this.checkBoxShowFreq2.Location = new System.Drawing.Point(45, 269);
+            this.checkBoxShowFreq2.Name = "checkBoxShowFreq2";
+            this.checkBoxShowFreq2.Size = new System.Drawing.Size(80, 17);
+            this.checkBoxShowFreq2.TabIndex = 15;
+            this.checkBoxShowFreq2.Text = "ShowFreq2";
+            this.checkBoxShowFreq2.UseVisualStyleBackColor = true;
+            this.checkBoxShowFreq2.CheckedChanged += new System.EventHandler(this.trkFreq_Scroll);
+            // 
+            // checkBoxShowFreq1
+            // 
+            this.checkBoxShowFreq1.AutoSize = true;
+            this.checkBoxShowFreq1.Location = new System.Drawing.Point(45, 216);
+            this.checkBoxShowFreq1.Name = "checkBoxShowFreq1";
+            this.checkBoxShowFreq1.Size = new System.Drawing.Size(83, 17);
+            this.checkBoxShowFreq1.TabIndex = 16;
+            this.checkBoxShowFreq1.Text = "Show Freq1";
+            this.checkBoxShowFreq1.UseVisualStyleBackColor = true;
+            this.checkBoxShowFreq1.CheckedChanged += new System.EventHandler(this.trkFreq_Scroll);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 460);
-            this.Controls.Add(this.trkPHThird);
-            this.Controls.Add(this.trkThird);
-            this.Controls.Add(this.trkPHSecond);
-            this.Controls.Add(this.trkSecond);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.btnLoad);
-            this.Controls.Add(this.btnFFT);
-            this.Controls.Add(this.chart2);
+            this.ClientSize = new System.Drawing.Size(1230, 547);
+            this.Controls.Add(this.checkBoxShowFreq1);
+            this.Controls.Add(this.checkBoxShowFreq2);
+            this.Controls.Add(this.labelPha2);
+            this.Controls.Add(this.labelAmp2);
+            this.Controls.Add(this.labelFreq2);
+            this.Controls.Add(this.trkPha2);
+            this.Controls.Add(this.trkAmp2);
+            this.Controls.Add(this.trkFreq2);
+            this.Controls.Add(this.labelPha1);
+            this.Controls.Add(this.labelAmp1);
+            this.Controls.Add(this.labelFreq1);
+            this.Controls.Add(this.trkPha1);
+            this.Controls.Add(this.trkAmp1);
+            this.Controls.Add(this.trkFreq1);
+            this.Controls.Add(this.chartFFT);
             this.Controls.Add(this.chart1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.chartFFT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkSecond)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkThird)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkPHSecond)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkPHThird)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkFreq1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkAmp1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkPha1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkPha2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkAmp2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkFreq2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,16 +289,22 @@
 
         #endregion
 
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartFFT;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
-        private System.Windows.Forms.Button btnFFT;
-        private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.TrackBar trkSecond;
-        private System.Windows.Forms.TrackBar trkThird;
-        private System.Windows.Forms.TrackBar trkPHSecond;
-        private System.Windows.Forms.TrackBar trkPHThird;
+        private System.Windows.Forms.TrackBar trkFreq1;
+        private System.Windows.Forms.TrackBar trkAmp1;
+        private System.Windows.Forms.TrackBar trkPha1;
+        private System.Windows.Forms.Label labelFreq1;
+        private System.Windows.Forms.Label labelAmp1;
+        private System.Windows.Forms.Label labelPha1;
+        private System.Windows.Forms.Label labelPha2;
+        private System.Windows.Forms.Label labelAmp2;
+        private System.Windows.Forms.Label labelFreq2;
+        private System.Windows.Forms.TrackBar trkPha2;
+        private System.Windows.Forms.TrackBar trkAmp2;
+        private System.Windows.Forms.TrackBar trkFreq2;
+        private System.Windows.Forms.CheckBox checkBoxShowFreq2;
+        private System.Windows.Forms.CheckBox checkBoxShowFreq1;
     }
 }
 
