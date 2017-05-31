@@ -14,8 +14,7 @@ namespace RealtimeChartDemo
     public partial class FormRealtimeChart : Form
     {
         private List<InnerReceiverContainer> rxData;
-        private List<InnerReceiverContainer> rxDataBackup;
-        WaveformReq waveReq;
+        WaveformReq waveReq = new WaveformReq();
 
         public static int SampleRate { get; set; }
         public static int SampleNum { get; set; }
@@ -23,6 +22,7 @@ namespace RealtimeChartDemo
         public Complex[] sample;
 
         BkgDataGenerate bkgGetData;
+        //waveReq = new WaveformReq();
 
         public bool StopChart { get; set; }
 
@@ -30,15 +30,22 @@ namespace RealtimeChartDemo
         {
             InitializeComponent();
             GetSettings();
+            ChartInit(chartWaveform);
+
+            rxData = new List<InnerReceiverContainer>();
+
+            bkgGetData = new BkgDataGenerate(SampleNum, SampleRate);
+
         }
 
         private void GetSettings()
         {
             SampleRate = Convert.ToInt16(AppSettings.ReadSetting("sampleRate"));
-            SampleNum = Convert.ToInt16(AppSettings.ReadSetting("sampleNum"));
+            int PlotLength = Convert.ToInt16(AppSettings.ReadSetting("plotLengthSecond"));
 
             SampleRate = (SampleRate == 0) ? 2000 : SampleRate;
-            SampleNum = (SampleNum == 0) ? 4000 : SampleNum;
+            PlotLength = (PlotLength == 0) ? 30 : PlotLength;
+            SampleNum = SampleRate * PlotLength;
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -48,13 +55,11 @@ namespace RealtimeChartDemo
             
             if (startBtn.Text == "Start")
             {
-                rxData = new List<InnerReceiverContainer>();
-                rxDataBackup = new List<InnerReceiverContainer>();
-                waveReq = new WaveformReq();
-                
-                bkgGetData= new BkgDataGenerate(SampleNum, SampleRate);
                 startBtn.Text = "Stop";
                 StopChart = false;
+                rxData.Clear();
+                
+
                 UpdateWaveformReq();
                 bkgGetData.waveReq = waveReq;
 
@@ -65,6 +70,7 @@ namespace RealtimeChartDemo
                     bkgGetData.RunWorkerAsync();
                 }
 
+                chartUpdateTimer.Interval = 1000;
                 chartUpdateTimer.Start();
             }
             else
@@ -76,9 +82,29 @@ namespace RealtimeChartDemo
             bkgGetData.Stopwork = StopChart;
         }
 
+        private void ChartInit(System.Windows.Forms.DataVisualization.Charting.Chart chart)
+        {
+            chart.ChartAreas["ChartArea1"].AxisX.MajorGrid.Interval = SampleNum / 6;
+            chart.ChartAreas["ChartArea1"].AxisX.Interval = SampleNum / 6;
+            DateTime timeStamp = DateTime.Now.AddMilliseconds(1000 * (-1));
+            double timeSplite = 1000 / SampleRate;
+
+            for (int i = 0; i < SampleNum; i++)
+            {
+                DateTime t = timeStamp.AddMilliseconds(timeSplite);
+
+                chartWaveform.Series["Waveform"].Points.AddXY(t.ToString("HH:mm:ss"), 0);
+                chartWaveform.Series["Series1"].Points.AddXY(t.ToString("HH:mm:ss"), 0);
+                //chartWaveform.Series["Series2"].Points.AddXY(t.ToString("HH:mm:ss"), 0);
+                //chartWaveform.Series["Series3"].Points.AddXY(t.ToString("HH:mm:ss"), 0);
+            }
+
+        }
+
+
         private void UpdateWaveformReq()
         {
-            waveReq.FreqSeriel1 = trackBarFreq1.Value;
+            waveReq.FreqSeriel1 = this.trackBarFreq1.Value;
             waveReq.FreqSeriel2 = trackBarFreq2.Value;
             waveReq.FreqSeriel3 = trackBarFreq3.Value;
             labelFreq1.Text = trackBarFreq1.Value.ToString();
@@ -99,7 +125,6 @@ namespace RealtimeChartDemo
             labelPha2.Text = trackBarPha2.Value.ToString();
             labelPha3.Text = trackBarPha3.Value.ToString();
 
-            chartUpdateTimer.Interval = (int)trackBarRefresh.Value;
         }
 
         private void trackBarAmp1_Scroll(object sender, EventArgs e)
@@ -114,46 +139,132 @@ namespace RealtimeChartDemo
 
         private void DrawChart(System.Windows.Forms.DataVisualization.Charting.Chart chartWaveform)
         {
-            lock (rxData)
-            {
-                rxDataBackup.Clear();
-                rxDataBackup.AddRange(rxData);
-                rxData.Clear();
-            }
-            chartWaveform.ChartAreas["ChartArea1"].AxisX.MajorGrid.Interval = SampleNum / 10;
-            chartWaveform.ChartAreas["ChartArea1"].AxisX.Interval = SampleNum / 10;
+            //PlotWaveform plot = new PlotWaveform(chartWaveform,"Waveform",rxData);
+            //plot.SampleNum = SampleNum;
+            //plot.SampleRate = SampleRate;
+            //plot.ckboxWave = checkBoxWaveform;
+            //plot.ckboxFreq1 = checkBoxFreq1;
+            //plot.ckboxFreq2 = checkBoxFreq2;
+            //plot.ckboxFreq3 = checkBoxFreq3;
+            //plot.plot();
             
-            chartWaveform.ChartAreas["ChartArea1"].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
-            chartWaveform.ChartAreas["ChartArea1"].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
-            foreach(var rx in rxDataBackup)
-            {
-                DateTime timeStamp = rx.dateEnd.AddMilliseconds(1000 * (-1));
-                double timeSplite = 1000 / SampleRate;
+            //PlotWaveform plot1 = new PlotWaveform(chartWaveform, "Series1", rxData);
+            //plot1.SampleNum = SampleNum;
+            //plot1.SampleRate = SampleRate;
+            //plot1.ckboxWave = checkBoxWaveform;
+            //plot1.ckboxFreq1 = checkBoxFreq1;
+            //plot1.ckboxFreq2 = checkBoxFreq2;
+            //plot1.ckboxFreq3 = checkBoxFreq3;
+            //plot1.plot();
 
-                sample = new Complex[SampleNum];
-                for (int i = 0; i < SampleRate; i++)
-                {
-                    DateTime t = timeStamp.AddMilliseconds(timeSplite);
-                    sample[i] = new Complex(rx.value1[i] + rx.value2[i] + rx.value3[i], 0);
+            //PlotWaveform plot2 = new PlotWaveform(chartWaveform, "Series2", rxData);
+            //plot2.SampleNum = SampleNum;
+            //plot2.SampleRate = SampleRate;
+            //plot2.ckboxWave = checkBoxWaveform;
+            //plot2.ckboxFreq1 = checkBoxFreq1;
+            //plot2.ckboxFreq2 = checkBoxFreq2;
+            //plot2.ckboxFreq3 = checkBoxFreq3;
+            //plot2.plot();
 
-                    chartWaveform.Series["Waveform"].Points.AddXY(t.ToString("HH:mm:ss"), sample[i].Real);
-
-                }
-
-            }
-
-            if (chartWaveform.Series["Waveform"].Points.Count > SampleNum)
-            {
-                int rmSize = chartWaveform.Series["Waveform"].Points.Count - SampleNum;
-                for (int i = 0; i < rmSize; i++)
-                {
-                    chartWaveform.Series["Waveform"].Points.RemoveAt(0);
-                }
-            }
-
-            chartWaveform.ChartAreas["ChartArea1"].RecalculateAxesScale();
+            PlotWaveform plot3 = new PlotWaveform(chartWaveform, "Series3", rxData);
+            plot3.SampleNum = SampleNum;
+            plot3.SampleRate = SampleRate;
+            plot3.ckboxWave = checkBoxWaveform;
+            plot3.ckboxFreq1 = checkBoxFreq1;
+            plot3.ckboxFreq2 = checkBoxFreq2;
+            plot3.ckboxFreq3 = checkBoxFreq3;
+            plot3.plot();
 
         }
+        //private void DrawChart(System.Windows.Forms.DataVisualization.Charting.Chart chartWaveform)
+        //{
+        //    lock (rxData)
+        //    {
+        //        rxDataBackup.Clear();
+        //        rxDataBackup.AddRange(rxData);
+        //        rxData.Clear();
+        //    }
+        //    //chartWaveform.ChartAreas["ChartArea1"].AxisX.MajorGrid.Interval = SampleNum / 4;
+        //    //chartWaveform.ChartAreas["ChartArea1"].AxisX.Interval = SampleNum / 4;
+            
+        //    chartWaveform.ChartAreas["ChartArea1"].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
+        //    chartWaveform.ChartAreas["ChartArea1"].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
+
+        //    sample = new Complex[SampleRate];
+            
+        //    foreach(var rx in rxDataBackup)
+        //    {
+        //        DateTime timeStamp = rx.dateEnd.AddMilliseconds(1000 * (-1));
+        //        double timeSplite = 1000 / SampleRate;
+
+        //        for (int i = 0; i < SampleRate; i++)
+        //        {
+        //            DateTime t = timeStamp.AddMilliseconds(timeSplite);
+        //            sample[i] = new Complex(rx.value1[i] + rx.value2[i] + rx.value3[i], 0);
+        //            double var = sample[i].Real ;
+
+        //            if (!this.checkBoxWaveform.Checked)
+        //            {
+        //                var = 0;
+        //            }
+        //            chartWaveform.Series["Waveform"].Points.AddXY(t.ToString("HH:mm:ss"), var);
+        //            double var1 = rx.value1[i];
+        //            if(!this.checkBoxFreq1.Checked)
+        //            {
+        //                var1 = 0;
+        //            }
+        //            chartWaveform.Series["Series1"].Points.AddXY(t.ToString("HH:mm:ss"), var1);
+                    
+        //            //if (this.checkBoxFreq2.Checked)
+        //            //{
+        //            //    chartWaveform.Series["Series2"].Points.AddXY(t.ToString("HH:mm:ss"), rx.value2[i]);
+        //            //}
+        //            //if (this.checkBoxFreq3.Checked)
+        //            //{
+        //            //    chartWaveform.Series["Series3"].Points.AddXY(t.ToString("HH:mm:ss"), rx.value3[i]);
+        //            //}
+
+        //        }
+
+        //    }
+
+        //    if (chartWaveform.Series["Waveform"].Points.Count > SampleNum)
+        //    {
+        //        int rmSize = chartWaveform.Series["Waveform"].Points.Count - SampleNum;
+        //        for (int i = 0; i < rmSize; i++)
+        //        {
+        //            chartWaveform.Series["Waveform"].Points.RemoveAt(0);
+        //        }
+        //    }
+
+        //    if (chartWaveform.Series["Series1"].Points.Count > SampleNum)
+        //    {
+        //        int rmSize = chartWaveform.Series["Series1"].Points.Count - SampleNum;
+        //        for (int i = 0; i < rmSize; i++)
+        //        {
+        //            chartWaveform.Series["Series1"].Points.RemoveAt(0);
+        //        }
+        //    }
+        //    //if (chartWaveform.Series["Series2"].Points.Count > SampleNum)
+        //    //{
+        //    //    int rmSize = chartWaveform.Series["Series2"].Points.Count - SampleNum;
+        //    //    for (int i = 0; i < rmSize; i++)
+        //    //    {
+        //    //        chartWaveform.Series["Series2"].Points.RemoveAt(0);
+        //    //    }
+        //    //}
+        //    //if (chartWaveform.Series["Series3"].Points.Count > SampleNum)
+        //    //{
+        //    //    int rmSize = chartWaveform.Series["Series3"].Points.Count - SampleNum;
+        //    //    for (int i = 0; i < rmSize; i++)
+        //    //    {
+        //    //        chartWaveform.Series["Series3"].Points.RemoveAt(0);
+        //    //    }
+        //    //}
+
+        //    chartWaveform.ChartAreas["ChartArea1"].RecalculateAxesScale();
+
+        //}
 
     }
 }

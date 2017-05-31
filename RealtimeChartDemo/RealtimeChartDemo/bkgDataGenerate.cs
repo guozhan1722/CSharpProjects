@@ -59,7 +59,7 @@ namespace RealtimeChartDemo
             double[] ser1Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, waveReq.FreqSeriel1, waveReq.AmpSeriel1, waveReq.PhaSeriel1);
             double[] ser2Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, waveReq.FreqSeriel2, waveReq.AmpSeriel2, waveReq.PhaSeriel2);
             double[] ser3Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, waveReq.FreqSeriel3, waveReq.AmpSeriel3, waveReq.PhaSeriel3);
-
+            
             rxDataList.Add(new InnerReceiverContainer(ser1Part, ser2Part, ser3Part));
         }
         
