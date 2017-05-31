@@ -13,13 +13,13 @@ namespace RealtimeChartDemo
 {
     public partial class FormRealtimeChart : Form
     {
+        private List<InnerReceiverContainer> rxData;
+        private List<InnerReceiverContainer> rxDataBackup;
+        WaveformReq waveReq;
+
         public static int SampleRate { get; set; }
         public static int SampleNum { get; set; }
 
-        public double[] serie1;
-        public double[] serie2;
-        public double[] serie3; 
-        public DateTime[] timeStamps;
         public Complex[] sample;
 
         BkgDataGenerate bkgGetData;
@@ -39,58 +39,65 @@ namespace RealtimeChartDemo
 
             SampleRate = (SampleRate == 0) ? 2000 : SampleRate;
             SampleNum = (SampleNum == 0) ? 4000 : SampleNum;
-
-            
-
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
-            if(this.button1.Text == "Start")
+            
+            Button startBtn = sender as Button;
+            
+            if (startBtn.Text == "Start")
             {
-                this.button1.Text = "Stop";
+                rxData = new List<InnerReceiverContainer>();
+                rxDataBackup = new List<InnerReceiverContainer>();
+                waveReq = new WaveformReq();
+                
+                bkgGetData= new BkgDataGenerate(SampleNum, SampleRate);
+                startBtn.Text = "Stop";
                 StopChart = false;
                 UpdateWaveformReq();
-                bkgGetData = new BkgDataGenerate(SampleNum,SampleRate);
-                serie1 = new double[SampleNum];
-                serie2 = new double[SampleNum];
-                serie3 = new double[SampleNum];
-                timeStamps = new DateTime[SampleNum];
-                bkgGetData.ser1 = serie1;
-                bkgGetData.ser2 = serie2;
-                bkgGetData.ser3 = serie3;
-                bkgGetData.time1 = timeStamps;
+                bkgGetData.waveReq = waveReq;
 
-                bkgGetData.Stopwork = StopChart;
+                bkgGetData.rxDataList = rxData;
+
                 if (!bkgGetData.IsBusy)
                 {
                     bkgGetData.RunWorkerAsync();
                 }
-                UpdateWaveformReq();
+
                 chartUpdateTimer.Start();
             }
             else
             {
                 StopChart = true;
-                bkgGetData.Stopwork = StopChart;
-                this.button1.Text = "Start";
+                startBtn.Text = "Start";
             }
-           
+
+            bkgGetData.Stopwork = StopChart;
         }
 
         private void UpdateWaveformReq()
         {
-            WaveformReq.FreqSeriel1 = trackBarFreq1.Value;
-            WaveformReq.FreqSeriel2 = trackBarFreq2.Value;
-            WaveformReq.FreqSeriel3 = trackBarFreq3.Value;
+            waveReq.FreqSeriel1 = trackBarFreq1.Value;
+            waveReq.FreqSeriel2 = trackBarFreq2.Value;
+            waveReq.FreqSeriel3 = trackBarFreq3.Value;
+            labelFreq1.Text = trackBarFreq1.Value.ToString();
+            labelFreq2.Text = trackBarFreq2.Value.ToString();
+            labelFreq3.Text = trackBarFreq3.Value.ToString();
 
-            WaveformReq.AmpSeriel1 = trackBarAmp1.Value;
-            WaveformReq.AmpSeriel2 = trackBarAmp2.Value;
-            WaveformReq.AmpSeriel3 = trackBarAmp3.Value;
+            waveReq.AmpSeriel1 = trackBarAmp1.Value;
+            waveReq.AmpSeriel2 = trackBarAmp2.Value;
+            waveReq.AmpSeriel3 = trackBarAmp3.Value;
+            labelAmp1.Text = trackBarAmp1.Value.ToString();
+            labelAmp2.Text = trackBarAmp2.Value.ToString();
+            labelAmp3.Text = trackBarAmp3.Value.ToString();
 
-            WaveformReq.PhaSeriel1 = trackBarPha1.Value;
-            WaveformReq.PhaSeriel2 = trackBarPha2.Value;
-            WaveformReq.PhaSeriel3 = trackBarPha3.Value;
+            waveReq.PhaSeriel1 = trackBarPha1.Value;
+            waveReq.PhaSeriel2 = trackBarPha2.Value;
+            waveReq.PhaSeriel3 = trackBarPha3.Value;
+            labelPha1.Text = trackBarPha1.Value.ToString();
+            labelPha2.Text = trackBarPha2.Value.ToString();
+            labelPha3.Text = trackBarPha3.Value.ToString();
 
             chartUpdateTimer.Interval = (int)trackBarRefresh.Value;
         }
@@ -107,17 +114,45 @@ namespace RealtimeChartDemo
 
         private void DrawChart(System.Windows.Forms.DataVisualization.Charting.Chart chartWaveform)
         {
-            //chartWaveform.Series["Waveform"].Points.Clear();
-            //chartWaveform.Series["Series1"].Points.Clear();
-            //chartWaveform.Series["Series2"].Points.Clear();
-            //chartWaveform.Series["Series3"].Points.Clear();
-            //sample = new Complex[SampleNum];
-            for(int i=0;i<SampleNum;i++)
+            lock (rxData)
             {
-                sample[i] = new Complex(serie1[i] + serie2[i] + serie3[i], 0);
-
-                chartWaveform.Series["Waveform"].Points.AddXY(timeStamps[i].ToString("ss:ff"), sample[i].Real);
+                rxDataBackup.Clear();
+                rxDataBackup.AddRange(rxData);
+                rxData.Clear();
             }
+            chartWaveform.ChartAreas["ChartArea1"].AxisX.MajorGrid.Interval = SampleNum / 10;
+            chartWaveform.ChartAreas["ChartArea1"].AxisX.Interval = SampleNum / 10;
+            
+            chartWaveform.ChartAreas["ChartArea1"].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
+            chartWaveform.ChartAreas["ChartArea1"].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
+            foreach(var rx in rxDataBackup)
+            {
+                DateTime timeStamp = rx.dateEnd.AddMilliseconds(1000 * (-1));
+                double timeSplite = 1000 / SampleRate;
+
+                sample = new Complex[SampleNum];
+                for (int i = 0; i < SampleRate; i++)
+                {
+                    DateTime t = timeStamp.AddMilliseconds(timeSplite);
+                    sample[i] = new Complex(rx.value1[i] + rx.value2[i] + rx.value3[i], 0);
+
+                    chartWaveform.Series["Waveform"].Points.AddXY(t.ToString("HH:mm:ss"), sample[i].Real);
+
+                }
+
+            }
+
+            if (chartWaveform.Series["Waveform"].Points.Count > SampleNum)
+            {
+                int rmSize = chartWaveform.Series["Waveform"].Points.Count - SampleNum;
+                for (int i = 0; i < rmSize; i++)
+                {
+                    chartWaveform.Series["Waveform"].Points.RemoveAt(0);
+                }
+            }
+
+            chartWaveform.ChartAreas["ChartArea1"].RecalculateAxesScale();
+
         }
 
     }

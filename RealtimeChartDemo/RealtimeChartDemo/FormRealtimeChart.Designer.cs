@@ -78,15 +78,17 @@
             // 
             // chartWaveform
             // 
-            chartArea1.CursorX.Interval = 0.01D;
-            chartArea1.CursorX.IsUserEnabled = true;
+            chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.AxisY.ScaleBreakStyle.Enabled = true;
+            chartArea1.AxisY.ScaleView.SizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
             chartArea1.CursorX.IsUserSelectionEnabled = true;
             chartArea1.Name = "ChartArea1";
             this.chartWaveform.ChartAreas.Add(chartArea1);
             legend1.Enabled = false;
             legend1.Name = "Legend1";
             this.chartWaveform.Legends.Add(legend1);
-            this.chartWaveform.Location = new System.Drawing.Point(202, 23);
+            this.chartWaveform.Location = new System.Drawing.Point(269, 28);
+            this.chartWaveform.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chartWaveform.Name = "chartWaveform";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
@@ -108,15 +110,16 @@
             this.chartWaveform.Series.Add(series2);
             this.chartWaveform.Series.Add(series3);
             this.chartWaveform.Series.Add(series4);
-            this.chartWaveform.Size = new System.Drawing.Size(827, 167);
+            this.chartWaveform.Size = new System.Drawing.Size(1103, 206);
             this.chartWaveform.TabIndex = 0;
             this.chartWaveform.Text = "chart1";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(32, 12);
+            this.button1.Location = new System.Drawing.Point(43, 15);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 34);
+            this.button1.Size = new System.Drawing.Size(195, 42);
             this.button1.TabIndex = 1;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
@@ -124,20 +127,22 @@
             // 
             // trackBarFreq1
             // 
-            this.trackBarFreq1.Location = new System.Drawing.Point(23, 111);
+            this.trackBarFreq1.Location = new System.Drawing.Point(31, 137);
+            this.trackBarFreq1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarFreq1.Maximum = 200;
             this.trackBarFreq1.Name = "trackBarFreq1";
-            this.trackBarFreq1.Size = new System.Drawing.Size(104, 45);
+            this.trackBarFreq1.Size = new System.Drawing.Size(139, 56);
             this.trackBarFreq1.TabIndex = 2;
             this.trackBarFreq1.Value = 60;
             this.trackBarFreq1.Scroll += new System.EventHandler(this.trackBarAmp1_Scroll);
             // 
             // trackBarAmp1
             // 
-            this.trackBarAmp1.Location = new System.Drawing.Point(23, 143);
+            this.trackBarAmp1.Location = new System.Drawing.Point(31, 176);
+            this.trackBarAmp1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarAmp1.Maximum = 100;
             this.trackBarAmp1.Name = "trackBarAmp1";
-            this.trackBarAmp1.Size = new System.Drawing.Size(104, 45);
+            this.trackBarAmp1.Size = new System.Drawing.Size(139, 56);
             this.trackBarAmp1.TabIndex = 2;
             this.trackBarAmp1.Value = 50;
             this.trackBarAmp1.Scroll += new System.EventHandler(this.trackBarAmp1_Scroll);
@@ -149,88 +154,98 @@
             legend2.Enabled = false;
             legend2.Name = "Legend1";
             this.chartFFT.Legends.Add(legend2);
-            this.chartFFT.Location = new System.Drawing.Point(202, 232);
+            this.chartFFT.Location = new System.Drawing.Point(269, 286);
+            this.chartFFT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chartFFT.Name = "chartFFT";
             series5.ChartArea = "ChartArea1";
             series5.Legend = "Legend1";
             series5.Name = "FFT";
             this.chartFFT.Series.Add(series5);
-            this.chartFFT.Size = new System.Drawing.Size(827, 167);
+            this.chartFFT.Size = new System.Drawing.Size(1103, 206);
             this.chartFFT.TabIndex = 0;
             this.chartFFT.Text = "chart1";
             // 
             // trackBarPha1
             // 
-            this.trackBarPha1.Location = new System.Drawing.Point(23, 178);
+            this.trackBarPha1.Location = new System.Drawing.Point(31, 219);
+            this.trackBarPha1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarPha1.Minimum = 7;
             this.trackBarPha1.Name = "trackBarPha1";
-            this.trackBarPha1.Size = new System.Drawing.Size(104, 45);
+            this.trackBarPha1.Size = new System.Drawing.Size(139, 56);
             this.trackBarPha1.TabIndex = 2;
             this.trackBarPha1.Value = 7;
             this.trackBarPha1.Scroll += new System.EventHandler(this.trackBarAmp1_Scroll);
             // 
             // trackBarFreq2
             // 
-            this.trackBarFreq2.Location = new System.Drawing.Point(23, 222);
+            this.trackBarFreq2.Location = new System.Drawing.Point(31, 273);
+            this.trackBarFreq2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarFreq2.Maximum = 200;
             this.trackBarFreq2.Name = "trackBarFreq2";
-            this.trackBarFreq2.Size = new System.Drawing.Size(104, 45);
+            this.trackBarFreq2.Size = new System.Drawing.Size(139, 56);
             this.trackBarFreq2.TabIndex = 2;
             this.trackBarFreq2.Scroll += new System.EventHandler(this.trackBarAmp1_Scroll);
             // 
             // trackBarAmp2
             // 
-            this.trackBarAmp2.Location = new System.Drawing.Point(23, 253);
+            this.trackBarAmp2.Location = new System.Drawing.Point(31, 311);
+            this.trackBarAmp2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarAmp2.Maximum = 100;
             this.trackBarAmp2.Name = "trackBarAmp2";
-            this.trackBarAmp2.Size = new System.Drawing.Size(104, 45);
+            this.trackBarAmp2.Size = new System.Drawing.Size(139, 56);
             this.trackBarAmp2.TabIndex = 2;
             this.trackBarAmp2.Scroll += new System.EventHandler(this.trackBarAmp1_Scroll);
             // 
             // trackBarPha2
             // 
-            this.trackBarPha2.Location = new System.Drawing.Point(23, 289);
+            this.trackBarPha2.Location = new System.Drawing.Point(31, 356);
+            this.trackBarPha2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarPha2.Minimum = 7;
             this.trackBarPha2.Name = "trackBarPha2";
-            this.trackBarPha2.Size = new System.Drawing.Size(104, 45);
+            this.trackBarPha2.Size = new System.Drawing.Size(139, 56);
             this.trackBarPha2.TabIndex = 2;
             this.trackBarPha2.Value = 7;
             this.trackBarPha2.Scroll += new System.EventHandler(this.trackBarAmp1_Scroll);
             // 
             // trackBarFreq3
             // 
-            this.trackBarFreq3.Location = new System.Drawing.Point(23, 340);
+            this.trackBarFreq3.Location = new System.Drawing.Point(31, 418);
+            this.trackBarFreq3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarFreq3.Maximum = 200;
             this.trackBarFreq3.Name = "trackBarFreq3";
-            this.trackBarFreq3.Size = new System.Drawing.Size(104, 45);
+            this.trackBarFreq3.Size = new System.Drawing.Size(139, 56);
             this.trackBarFreq3.TabIndex = 2;
             this.trackBarFreq3.Scroll += new System.EventHandler(this.trackBarAmp1_Scroll);
             // 
             // trackBarAmp3
             // 
-            this.trackBarAmp3.Location = new System.Drawing.Point(23, 371);
+            this.trackBarAmp3.Location = new System.Drawing.Point(31, 457);
+            this.trackBarAmp3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarAmp3.Maximum = 100;
             this.trackBarAmp3.Name = "trackBarAmp3";
-            this.trackBarAmp3.Size = new System.Drawing.Size(104, 45);
+            this.trackBarAmp3.Size = new System.Drawing.Size(139, 56);
             this.trackBarAmp3.TabIndex = 2;
             this.trackBarAmp3.Scroll += new System.EventHandler(this.trackBarAmp1_Scroll);
             // 
             // trackBarPha3
             // 
-            this.trackBarPha3.Location = new System.Drawing.Point(23, 407);
+            this.trackBarPha3.Location = new System.Drawing.Point(31, 501);
+            this.trackBarPha3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarPha3.Minimum = 7;
             this.trackBarPha3.Name = "trackBarPha3";
-            this.trackBarPha3.Size = new System.Drawing.Size(104, 45);
+            this.trackBarPha3.Size = new System.Drawing.Size(139, 56);
             this.trackBarPha3.TabIndex = 2;
             this.trackBarPha3.Value = 7;
             this.trackBarPha3.SizeChanged += new System.EventHandler(this.trackBarAmp1_Scroll);
             // 
             // trackBarRefresh
             // 
-            this.trackBarRefresh.Location = new System.Drawing.Point(23, 64);
+            this.trackBarRefresh.Location = new System.Drawing.Point(31, 79);
+            this.trackBarRefresh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarRefresh.Maximum = 1000;
+            this.trackBarRefresh.Minimum = 100;
             this.trackBarRefresh.Name = "trackBarRefresh";
-            this.trackBarRefresh.Size = new System.Drawing.Size(104, 45);
+            this.trackBarRefresh.Size = new System.Drawing.Size(139, 56);
             this.trackBarRefresh.TabIndex = 3;
             this.trackBarRefresh.Value = 500;
             this.trackBarRefresh.Scroll += new System.EventHandler(this.trackBarAmp1_Scroll);
@@ -238,90 +253,100 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(144, 64);
+            this.label1.Location = new System.Drawing.Point(192, 79);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(46, 17);
             this.label1.TabIndex = 4;
             this.label1.Text = "label1";
             // 
             // labelFreq1
             // 
             this.labelFreq1.AutoSize = true;
-            this.labelFreq1.Location = new System.Drawing.Point(144, 111);
+            this.labelFreq1.Location = new System.Drawing.Point(192, 137);
+            this.labelFreq1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFreq1.Name = "labelFreq1";
-            this.labelFreq1.Size = new System.Drawing.Size(35, 13);
+            this.labelFreq1.Size = new System.Drawing.Size(46, 17);
             this.labelFreq1.TabIndex = 4;
             this.labelFreq1.Text = "label1";
             // 
             // labelAmp1
             // 
             this.labelAmp1.AutoSize = true;
-            this.labelAmp1.Location = new System.Drawing.Point(144, 143);
+            this.labelAmp1.Location = new System.Drawing.Point(192, 176);
+            this.labelAmp1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAmp1.Name = "labelAmp1";
-            this.labelAmp1.Size = new System.Drawing.Size(35, 13);
+            this.labelAmp1.Size = new System.Drawing.Size(46, 17);
             this.labelAmp1.TabIndex = 4;
             this.labelAmp1.Text = "label1";
             // 
             // labelPha1
             // 
             this.labelPha1.AutoSize = true;
-            this.labelPha1.Location = new System.Drawing.Point(144, 178);
+            this.labelPha1.Location = new System.Drawing.Point(192, 219);
+            this.labelPha1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPha1.Name = "labelPha1";
-            this.labelPha1.Size = new System.Drawing.Size(35, 13);
+            this.labelPha1.Size = new System.Drawing.Size(46, 17);
             this.labelPha1.TabIndex = 4;
             this.labelPha1.Text = "label1";
             // 
             // labelFreq2
             // 
             this.labelFreq2.AutoSize = true;
-            this.labelFreq2.Location = new System.Drawing.Point(144, 222);
+            this.labelFreq2.Location = new System.Drawing.Point(192, 273);
+            this.labelFreq2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFreq2.Name = "labelFreq2";
-            this.labelFreq2.Size = new System.Drawing.Size(35, 13);
+            this.labelFreq2.Size = new System.Drawing.Size(46, 17);
             this.labelFreq2.TabIndex = 4;
             this.labelFreq2.Text = "label1";
             // 
             // labelAmp2
             // 
             this.labelAmp2.AutoSize = true;
-            this.labelAmp2.Location = new System.Drawing.Point(144, 254);
+            this.labelAmp2.Location = new System.Drawing.Point(192, 313);
+            this.labelAmp2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAmp2.Name = "labelAmp2";
-            this.labelAmp2.Size = new System.Drawing.Size(35, 13);
+            this.labelAmp2.Size = new System.Drawing.Size(46, 17);
             this.labelAmp2.TabIndex = 4;
             this.labelAmp2.Text = "label1";
             // 
             // labelPha2
             // 
             this.labelPha2.AutoSize = true;
-            this.labelPha2.Location = new System.Drawing.Point(144, 289);
+            this.labelPha2.Location = new System.Drawing.Point(192, 356);
+            this.labelPha2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPha2.Name = "labelPha2";
-            this.labelPha2.Size = new System.Drawing.Size(35, 13);
+            this.labelPha2.Size = new System.Drawing.Size(46, 17);
             this.labelPha2.TabIndex = 4;
             this.labelPha2.Text = "label1";
             // 
             // labelFreq3
             // 
             this.labelFreq3.AutoSize = true;
-            this.labelFreq3.Location = new System.Drawing.Point(144, 340);
+            this.labelFreq3.Location = new System.Drawing.Point(192, 418);
+            this.labelFreq3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFreq3.Name = "labelFreq3";
-            this.labelFreq3.Size = new System.Drawing.Size(35, 13);
+            this.labelFreq3.Size = new System.Drawing.Size(46, 17);
             this.labelFreq3.TabIndex = 4;
             this.labelFreq3.Text = "label1";
             // 
             // labelAmp3
             // 
             this.labelAmp3.AutoSize = true;
-            this.labelAmp3.Location = new System.Drawing.Point(144, 372);
+            this.labelAmp3.Location = new System.Drawing.Point(192, 458);
+            this.labelAmp3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAmp3.Name = "labelAmp3";
-            this.labelAmp3.Size = new System.Drawing.Size(35, 13);
+            this.labelAmp3.Size = new System.Drawing.Size(46, 17);
             this.labelAmp3.TabIndex = 4;
             this.labelAmp3.Text = "label1";
             // 
             // labelPha3
             // 
             this.labelPha3.AutoSize = true;
-            this.labelPha3.Location = new System.Drawing.Point(144, 407);
+            this.labelPha3.Location = new System.Drawing.Point(192, 501);
+            this.labelPha3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPha3.Name = "labelPha3";
-            this.labelPha3.Size = new System.Drawing.Size(35, 13);
+            this.labelPha3.Size = new System.Drawing.Size(46, 17);
             this.labelPha3.TabIndex = 4;
             this.labelPha3.Text = "label1";
             // 
@@ -331,9 +356,9 @@
             // 
             // FormRealtimeChart
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 444);
+            this.ClientSize = new System.Drawing.Size(1419, 546);
             this.Controls.Add(this.labelPha3);
             this.Controls.Add(this.labelAmp3);
             this.Controls.Add(this.labelPha2);
@@ -357,6 +382,7 @@
             this.Controls.Add(this.chartFFT);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chartWaveform);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormRealtimeChart";
             this.Text = "Realtime Chart";
             ((System.ComponentModel.ISupportInitialize)(this.chartWaveform)).EndInit();
