@@ -15,7 +15,7 @@ namespace RealtimeChartDemo
     {
         private List<InnerReceiverContainer> rxData;
         WaveformReq waveReq = new WaveformReq();
-
+        private List<InnerReceiverContainer> rxDataBackup = new List<InnerReceiverContainer>();
         public static int SampleRate { get; set; }
         public static int SampleNum { get; set; }
 
@@ -69,7 +69,7 @@ namespace RealtimeChartDemo
                 {
                     bkgGetData.RunWorkerAsync();
                 }
-
+                
                 chartUpdateTimer.Interval = 1000;
                 chartUpdateTimer.Start();
             }
@@ -94,7 +94,7 @@ namespace RealtimeChartDemo
                 DateTime t = timeStamp.AddMilliseconds(timeSplite);
 
                 chartWaveform.Series["Waveform"].Points.AddXY(t.ToString("HH:mm:ss"), 0);
-                chartWaveform.Series["Series1"].Points.AddXY(t.ToString("HH:mm:ss"), 0);
+                //chartWaveform.Series["Series1"].Points.AddXY(t.ToString("HH:mm:ss"), 0);
                 //chartWaveform.Series["Series2"].Points.AddXY(t.ToString("HH:mm:ss"), 0);
                 //chartWaveform.Series["Series3"].Points.AddXY(t.ToString("HH:mm:ss"), 0);
             }
@@ -139,132 +139,51 @@ namespace RealtimeChartDemo
 
         private void DrawChart(System.Windows.Forms.DataVisualization.Charting.Chart chartWaveform)
         {
-            //PlotWaveform plot = new PlotWaveform(chartWaveform,"Waveform",rxData);
-            //plot.SampleNum = SampleNum;
-            //plot.SampleRate = SampleRate;
-            //plot.ckboxWave = checkBoxWaveform;
-            //plot.ckboxFreq1 = checkBoxFreq1;
-            //plot.ckboxFreq2 = checkBoxFreq2;
-            //plot.ckboxFreq3 = checkBoxFreq3;
-            //plot.plot();
-            
-            //PlotWaveform plot1 = new PlotWaveform(chartWaveform, "Series1", rxData);
-            //plot1.SampleNum = SampleNum;
-            //plot1.SampleRate = SampleRate;
-            //plot1.ckboxWave = checkBoxWaveform;
-            //plot1.ckboxFreq1 = checkBoxFreq1;
-            //plot1.ckboxFreq2 = checkBoxFreq2;
-            //plot1.ckboxFreq3 = checkBoxFreq3;
-            //plot1.plot();
+            lock (rxData)
+            {
+                rxDataBackup.Clear();
+                rxDataBackup.AddRange(rxData);
+                rxData.Clear();
+            }
 
-            //PlotWaveform plot2 = new PlotWaveform(chartWaveform, "Series2", rxData);
-            //plot2.SampleNum = SampleNum;
-            //plot2.SampleRate = SampleRate;
-            //plot2.ckboxWave = checkBoxWaveform;
-            //plot2.ckboxFreq1 = checkBoxFreq1;
-            //plot2.ckboxFreq2 = checkBoxFreq2;
-            //plot2.ckboxFreq3 = checkBoxFreq3;
-            //plot2.plot();
+            chartWaveform.ChartAreas["ChartArea1"].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
+            chartWaveform.ChartAreas["ChartArea1"].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
 
-            PlotWaveform plot3 = new PlotWaveform(chartWaveform, "Series3", rxData);
-            plot3.SampleNum = SampleNum;
-            plot3.SampleRate = SampleRate;
-            plot3.ckboxWave = checkBoxWaveform;
-            plot3.ckboxFreq1 = checkBoxFreq1;
-            plot3.ckboxFreq2 = checkBoxFreq2;
-            plot3.ckboxFreq3 = checkBoxFreq3;
-            plot3.plot();
+            sample = new Complex[SampleRate];
+
+            foreach (var rx in rxDataBackup)
+            {
+                DateTime timeStamp = rx.dateEnd.AddMilliseconds(1000 * (-1));
+                double timeSplite = 1000 / SampleRate;
+
+                for (int i = 0; i < SampleRate; i++)
+                {
+                    DateTime t = timeStamp.AddMilliseconds(timeSplite);
+                    sample[i] = new Complex(rx.value1[i] + rx.value2[i] + rx.value3[i], 0);
+                    double var = sample[i].Real;
+
+                    if (!this.checkBoxWaveform.Checked)
+                    {
+                        var = 0;
+                    }
+                    chartWaveform.Series["Waveform"].Points.AddXY(t.ToString("HH:mm:ss"), var);
+                }
+
+            }
+
+            if (chartWaveform.Series["Waveform"].Points.Count > SampleNum)
+            {
+                int rmSize = chartWaveform.Series["Waveform"].Points.Count - SampleNum;
+                for (int i = 0; i < rmSize; i++)
+                {
+                    chartWaveform.Series["Waveform"].Points.RemoveAt(0);
+                }
+            }
+
+
+            chartWaveform.ChartAreas["ChartArea1"].RecalculateAxesScale();
 
         }
-        //private void DrawChart(System.Windows.Forms.DataVisualization.Charting.Chart chartWaveform)
-        //{
-        //    lock (rxData)
-        //    {
-        //        rxDataBackup.Clear();
-        //        rxDataBackup.AddRange(rxData);
-        //        rxData.Clear();
-        //    }
-        //    //chartWaveform.ChartAreas["ChartArea1"].AxisX.MajorGrid.Interval = SampleNum / 4;
-        //    //chartWaveform.ChartAreas["ChartArea1"].AxisX.Interval = SampleNum / 4;
-            
-        //    chartWaveform.ChartAreas["ChartArea1"].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
-        //    chartWaveform.ChartAreas["ChartArea1"].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
-
-        //    sample = new Complex[SampleRate];
-            
-        //    foreach(var rx in rxDataBackup)
-        //    {
-        //        DateTime timeStamp = rx.dateEnd.AddMilliseconds(1000 * (-1));
-        //        double timeSplite = 1000 / SampleRate;
-
-        //        for (int i = 0; i < SampleRate; i++)
-        //        {
-        //            DateTime t = timeStamp.AddMilliseconds(timeSplite);
-        //            sample[i] = new Complex(rx.value1[i] + rx.value2[i] + rx.value3[i], 0);
-        //            double var = sample[i].Real ;
-
-        //            if (!this.checkBoxWaveform.Checked)
-        //            {
-        //                var = 0;
-        //            }
-        //            chartWaveform.Series["Waveform"].Points.AddXY(t.ToString("HH:mm:ss"), var);
-        //            double var1 = rx.value1[i];
-        //            if(!this.checkBoxFreq1.Checked)
-        //            {
-        //                var1 = 0;
-        //            }
-        //            chartWaveform.Series["Series1"].Points.AddXY(t.ToString("HH:mm:ss"), var1);
-                    
-        //            //if (this.checkBoxFreq2.Checked)
-        //            //{
-        //            //    chartWaveform.Series["Series2"].Points.AddXY(t.ToString("HH:mm:ss"), rx.value2[i]);
-        //            //}
-        //            //if (this.checkBoxFreq3.Checked)
-        //            //{
-        //            //    chartWaveform.Series["Series3"].Points.AddXY(t.ToString("HH:mm:ss"), rx.value3[i]);
-        //            //}
-
-        //        }
-
-        //    }
-
-        //    if (chartWaveform.Series["Waveform"].Points.Count > SampleNum)
-        //    {
-        //        int rmSize = chartWaveform.Series["Waveform"].Points.Count - SampleNum;
-        //        for (int i = 0; i < rmSize; i++)
-        //        {
-        //            chartWaveform.Series["Waveform"].Points.RemoveAt(0);
-        //        }
-        //    }
-
-        //    if (chartWaveform.Series["Series1"].Points.Count > SampleNum)
-        //    {
-        //        int rmSize = chartWaveform.Series["Series1"].Points.Count - SampleNum;
-        //        for (int i = 0; i < rmSize; i++)
-        //        {
-        //            chartWaveform.Series["Series1"].Points.RemoveAt(0);
-        //        }
-        //    }
-        //    //if (chartWaveform.Series["Series2"].Points.Count > SampleNum)
-        //    //{
-        //    //    int rmSize = chartWaveform.Series["Series2"].Points.Count - SampleNum;
-        //    //    for (int i = 0; i < rmSize; i++)
-        //    //    {
-        //    //        chartWaveform.Series["Series2"].Points.RemoveAt(0);
-        //    //    }
-        //    //}
-        //    //if (chartWaveform.Series["Series3"].Points.Count > SampleNum)
-        //    //{
-        //    //    int rmSize = chartWaveform.Series["Series3"].Points.Count - SampleNum;
-        //    //    for (int i = 0; i < rmSize; i++)
-        //    //    {
-        //    //        chartWaveform.Series["Series3"].Points.RemoveAt(0);
-        //    //    }
-        //    //}
-
-        //    chartWaveform.ChartAreas["ChartArea1"].RecalculateAxesScale();
-
-        //}
 
     }
 }
