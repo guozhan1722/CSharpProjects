@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RealtimeChartDemo
 {
-    public class InnerReceiverContainer
+    public class RxDataContainer
     {
-        public InnerReceiverContainer(double[] data1,double[] data2, double[] data3)
+        public RxDataContainer(double[] data1,double[] data2, double[] data3)
         {
             this.dateEnd = DateTime.Now;
             this.value1 = data1;

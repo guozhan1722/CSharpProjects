@@ -10,15 +10,16 @@ namespace RealtimeChartDemo
     class BkgDataGenerate : BackgroundWorker
     {
         private int SampleRate;
+
+        private int Count;
+        private List<RxDataContainer> rxData;
         public bool Stopwork { get; set; }
 
-        public List<InnerReceiverContainer> rxDataList { get; set; }
-        
-        private int Count;
-
-        public BkgDataGenerate(int SampleNum, int SampleRate)
+        public BkgDataGenerate(int SampleRate, List<RxDataContainer> rxData)
         {
+
             this.SampleRate = SampleRate;
+            this.rxData = rxData;
 
             this.WorkerReportsProgress = true;
             this.WorkerSupportsCancellation = true;
@@ -28,21 +29,27 @@ namespace RealtimeChartDemo
             this.RunWorkerCompleted += BkgDataGenerate_RunWorkerCompleted;
         }
 
+
         void BkgDataGenerate_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker bkw = sender as BackgroundWorker;
             try
             {
-                DateTime oldtime = DateTime.Now;
                 while (true)
                 {
-                    if (Stopwork)
+                    if (this.Stopwork)
                     {
                         e.Result = "User stopped !";
                         break;
                     }
                     Thread.Sleep(1000);
-                    bkw.ReportProgress(Count++);
+
+                    double[] ser1Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, WaveformReq.FreqSeriel1, WaveformReq.AmpSeriel1, WaveformReq.PhaSeriel1);
+                    double[] ser2Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, WaveformReq.FreqSeriel2, WaveformReq.AmpSeriel2, WaveformReq.PhaSeriel2);
+                    double[] ser3Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, WaveformReq.FreqSeriel3, WaveformReq.AmpSeriel3, WaveformReq.PhaSeriel3);
+
+                    rxData.Add(new RxDataContainer(ser1Part, ser2Part, ser3Part));
+
+                    this.ReportProgress(Count++);
                 }
 
             }
@@ -55,12 +62,7 @@ namespace RealtimeChartDemo
         void BkgDataGenerate_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int count = (int)e.ProgressPercentage;
-            Debug.WriteLine(count + "");
-            double[] ser1Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, waveReq.FreqSeriel1, waveReq.AmpSeriel1, waveReq.PhaSeriel1);
-            double[] ser2Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, waveReq.FreqSeriel2, waveReq.AmpSeriel2, waveReq.PhaSeriel2);
-            double[] ser3Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, waveReq.FreqSeriel3, waveReq.AmpSeriel3, waveReq.PhaSeriel3);
-            
-            rxDataList.Add(new InnerReceiverContainer(ser1Part, ser2Part, ser3Part));
+            Debug.WriteLine(count + " " + this.Stopwork);
         }
         
         void BkgDataGenerate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -69,8 +71,6 @@ namespace RealtimeChartDemo
         }
 
 
-
-
-        public WaveformReq waveReq { get; set; }
+        
     }
 }

@@ -8,19 +8,22 @@ namespace RealtimeChartDemo
 {
     public class WaveformReq
     {
-        public int FreqSeriel1;
-        public int FreqSeriel2;
-        public int FreqSeriel3;
+        public static int FreqSeriel1;
+        public static int FreqSeriel2;
+        public static int FreqSeriel3;
 
-        public int AmpSeriel1;
-        public int AmpSeriel2;
-        public int AmpSeriel3;
+        public static int AmpSeriel1;
+        public static int AmpSeriel2;
+        public static int AmpSeriel3;
 
-        public int PhaSeriel1;
-        public int PhaSeriel2;
-        public int PhaSeriel3;
+        public static int PhaSeriel1;
+        public static int PhaSeriel2;
+        public static int PhaSeriel3;
 
         public static int Interval;
+        public static int SampleNum;
+        public static int SampleRate;
 
+        public static int PlotLength { get; set; }
     }
 }
