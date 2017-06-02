@@ -14,7 +14,7 @@ namespace RealtimeChartDemo
     class BkgDataPlot : BackgroundWorker
     {
         private List<RxDataContainer> rxData;
-        private Chart chartWaveform;
+        private Chart chart1;
         private String serieName;
         private CheckBox checkBoxShow;
         public bool Stopwork { get; set; }
@@ -25,26 +25,29 @@ namespace RealtimeChartDemo
         private double[] data;
         public int count { get; set; }
         private List<Complex> sample = new List<Complex>();
+        public Mutex mut { get; set; }
 
-        public BkgDataPlot(List<RxDataContainer> rxData, Chart chartWaveform, CheckBox checkBoxShow, String serieName)
+        public BkgDataPlot(List<RxDataContainer> rxData, Chart chart1, CheckBox checkBoxShow, String serieName)
         {
             // TODO: Complete member initialization
             this.rxData = rxData;
-            this.chartWaveform = chartWaveform;
+            this.chart1 = chart1;
             this.checkBoxShow = checkBoxShow;
             this.serieName = serieName;
 
-            chartWaveform.ChartAreas[0].AxisX.MajorGrid.Interval = WaveformReq.SampleNum / 6;
-            chartWaveform.ChartAreas[0].AxisX.Interval = WaveformReq.SampleNum / 6;
-            
+            mut = new Mutex();
+            chart1.ChartAreas[0].AxisX.MajorGrid.Interval = WaveformReq.SampleNum / 6;
+            chart1.ChartAreas[0].AxisX.Interval = WaveformReq.SampleNum / 6;
+
             DateTime timeStamp = DateTime.Now.AddMilliseconds(1000 * (-1));
             double timeSplite = 1000 / WaveformReq.SampleRate;
             for (int i = 0; i < WaveformReq.SampleNum; i++)
             {
                 DateTime t = timeStamp.AddMilliseconds(timeSplite);
-                plotBuffer.Add(0);
-                plotTimeStamp.Add(t);
-                sample.Add(new Complex());
+                //plotBuffer.Add(0);
+                //plotTimeStamp.Add(t);
+                //sample.Add(new Complex());
+                chart1.Series[serieName].Points.AddXY(t.ToString("HH:mm:ss"), 0);
             }
 
             this.WorkerReportsProgress = true;
@@ -64,26 +67,22 @@ namespace RealtimeChartDemo
         {
             while (true)
             {
-                if (this.Stopwork)
+                if (WaveformReq.StopGenerate)
                 {
                     break;
                 }
 
-                if(rxData.Count <= 0)
+                if (rxData.Count <= 0)
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(10);
                     continue;
                 }
-
                 MakePlotBuffer(serieName);
-
                 DoPlot();
-
                 //this.ReportProgress(1);
             }
         }
 
-        
         private void MakePlotBuffer(string serieName)
         {
             lock (rxData)
@@ -93,10 +92,10 @@ namespace RealtimeChartDemo
                 rxData.Clear();
             }
 
-            
+
             foreach (var rx in rxDataBackup)
             {
-                double[] waveformdata = CombineWave(rx.value1, rx.value2, rx.value3) ;
+                double[] waveformdata = CombineWave(rx.value1, rx.value2, rx.value3);
                 switch (serieName)
                 {
                     case "Waveform":
@@ -126,27 +125,6 @@ namespace RealtimeChartDemo
                 }
             }
 
-            int diff = this.plotBuffer.Count - WaveformReq.SampleNum;
-            if (diff >= 0)
-            {
-                for (int i = 0; i < diff; i++)
-                {
-                    this.plotBuffer.RemoveAt(0);
-                    this.plotTimeStamp.RemoveAt(0);
-                    this.sample.RemoveAt(0);
-                }
-            }
-            else
-            {
-                int count = diff * (-1);
-                for (int i = 0; i < count; i++)
-                {
-                    this.plotBuffer.Insert(0, 0);
-                    this.plotTimeStamp.Insert(0, DateTime.Now);
-                    this.sample.Insert(0, new Complex());
-                }
-            }
-
         }
 
         private double[] CombineWave(double[] p1, double[] p2, double[] p3)
@@ -154,35 +132,27 @@ namespace RealtimeChartDemo
             double[] combinedata = new double[p1.Length];
 
             for (int i = 0; i < p1.Length; i++)
-			{
+            {
                 Complex var = new Complex(p1[i] + p1[i] + p3[i], 0);
                 combinedata[i] = var.Real;
                 sample.Add(var);
-			}
+            }
             return combinedata;
         }
 
         private void DoPlot()
         {
-            if (chartWaveform.InvokeRequired)
+            if (chart1.InvokeRequired)
             {
-                chartWaveform.Invoke(new Action(DoPlot));
+                chart1.Invoke(new Action(DoPlot));
                 return;
             }
-            
-            chartWaveform.Series[serieName].Points.Clear();
 
-            if (checkBoxShow.Checked)
-            {
-                chartWaveform.ChartAreas[0].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
-                chartWaveform.ChartAreas[0].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
-                chartWaveform.ChartAreas[0].RecalculateAxesScale();
-            }
-            else
-            {
-                chartWaveform.ChartAreas[0].AxisY.Maximum = 0.5; // sets the Maximum to NaN
-                chartWaveform.ChartAreas[0].AxisY.Minimum = -0.5; // sets the Minimum to NaN
-            }
+            //chart1.Series[serieName].Points.Clear();
+
+            chart1.ChartAreas[0].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
+            chart1.ChartAreas[0].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
+            chart1.ChartAreas[0].RecalculateAxesScale();
             //DateTime timeStamp = plotTimeEnd.AddMilliseconds(1000 * (-1));
             //double timeSplite = 1000 / WaveformReq.SampleRate;
 
@@ -191,14 +161,32 @@ namespace RealtimeChartDemo
                 //DateTime t = timeStamp.AddMilliseconds(timeSplite);
                 //sample[i] = new Complex(rx.value1[i] + rx.value2[i] + rx.value3[i], 0);
                 //double var = sample[i].Real;
-                double var= plotBuffer[i];
+                double var = plotBuffer[i];
                 DateTime t = plotTimeStamp[i];
                 if (!checkBoxShow.Checked)
                 {
                     var = 0;
                 }
-                chartWaveform.Series[serieName].Points.AddXY(t.ToString("HH:mm:ss"), var);
+                chart1.Series[serieName].Points.AddXY(t.ToString("HH:mm:ss"), var);
+                //chart1.Series["Series2"].Points.AddY(rxDataBackup[0].value2[i]);
+                plotBuffer.RemoveAt(0);
+                plotTimeStamp.RemoveAt(0);
+                sample.RemoveAt(0);
+           
             }
+            int diff = chart1.Series[serieName].Points.Count - WaveformReq.SampleNum;
+
+            if (diff > 0)
+            {
+                for (int j = 0; j < diff; j++)
+                {
+                    chart1.Series[serieName].Points.RemoveAt(0);
+
+                }
+            }
+            Process proc = Process.GetCurrentProcess();
+
+            Debug.WriteLine("Plot: " + count++ + "--- " + plotBuffer.Count+"=="+ proc.PrivateMemorySize64);
 
         }
 
@@ -246,8 +234,5 @@ namespace RealtimeChartDemo
 
         //    //this.ReportProgress(count);
         //}
-
-
-
     }
 }

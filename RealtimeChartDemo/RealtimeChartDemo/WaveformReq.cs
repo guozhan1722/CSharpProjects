@@ -23,7 +23,7 @@ namespace RealtimeChartDemo
         public static int Interval;
         public static int SampleNum;
         public static int SampleRate;
-
+        public static bool StopGenerate;
         public static int PlotLength { get; set; }
     }
 }

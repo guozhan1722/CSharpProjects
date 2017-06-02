@@ -44,33 +44,16 @@ namespace RealtimeChartDemo
             rxData = new List<RxDataContainer>();
         
             //BkgDataPlot bkgPlot = new BkgDataPlot(rxData, chartWaveform, checkBoxWaveform,"Waveform");
-            BkgDataGenerate bkgGetData = new BkgDataGenerate(WaveformReq.SampleRate, rxData);
-            BkgDataPlot bkgPlot1 = new BkgDataPlot(rxData, chartWaveform, checkBoxFreq1, "Series1");
+            
+            //BkgDataPlot bkgPlot1 = new BkgDataPlot(rxData, chartWaveform, checkBoxFreq1, "Series1");
 
             if (startBtn.Text == "Start")
             {
                 startBtn.Text = "Stop";
                 StopChart = false;
-                bkgGetData.Stopwork = false;
                 rxData.Clear();
-                
-
                 UpdateWaveformReq();
 
-                if (!bkgGetData.IsBusy)
-                {
-                    bkgGetData.RunWorkerAsync();
-                }
-                
-                //if( !bkgPlot.IsBusy )
-                {
-                  //  bkgPlot.RunWorkerAsync();
-                }
-
-                if (!bkgPlot1.IsBusy)
-                {
-                    bkgPlot1.RunWorkerAsync();
-                }
 
                 //chartUpdateTimer.Interval = 1000;
                 //chartUpdateTimer.Start();
@@ -80,11 +63,33 @@ namespace RealtimeChartDemo
             {
                 StopChart = true;
                 startBtn.Text = "Start";
-                bkgGetData.Stopwork = true;
             }
 
-            bkgGetData.Stopwork = StopChart;
-            bkgPlot1.Stopwork = StopChart;
+            WaveformReq.StopGenerate = StopChart;
+            if(!StopChart)
+            {
+                BkgDataGenerate bkgGetData = new BkgDataGenerate(WaveformReq.SampleRate, rxData);
+                if (!bkgGetData.IsBusy)
+                {
+                    bkgGetData.RunWorkerAsync();
+                }
+
+                BkgDataPlot bkgPlot1 = new BkgDataPlot(rxData, chartWaveform, checkBoxFreq1, "Series1");
+                if (!bkgPlot1.IsBusy)
+                {
+                    bkgPlot1.RunWorkerAsync();
+                }
+
+                //BkgDataPlot bkgPlot = new BkgDataPlot(rxData, chartWaveform, checkBoxWaveform, "Waveform");
+                //if (!bkgPlot.IsBusy)
+                {
+                    //bkgPlot.RunWorkerAsync();
+                }
+
+            }
+
+            
+           // bkgPlot1.Stopwork = StopChart;
         }
 
  
