@@ -43,21 +43,13 @@ namespace RealtimeChartDemo
             Button startBtn = sender as Button;
             rxData = new List<RxDataContainer>();
         
-            //BkgDataPlot bkgPlot = new BkgDataPlot(rxData, chartWaveform, checkBoxWaveform,"Waveform");
-            
-            //BkgDataPlot bkgPlot1 = new BkgDataPlot(rxData, chartWaveform, checkBoxFreq1, "Series1");
-
             if (startBtn.Text == "Start")
             {
                 startBtn.Text = "Stop";
                 StopChart = false;
-                rxData.Clear();
                 UpdateWaveformReq();
-
-
                 //chartUpdateTimer.Interval = 1000;
                 //chartUpdateTimer.Start();
-
             }
             else
             {
@@ -74,18 +66,11 @@ namespace RealtimeChartDemo
                     bkgGetData.RunWorkerAsync();
                 }
 
-                BkgDataPlot bkgPlot1 = new BkgDataPlot(rxData, chartWaveform, checkBoxFreq1, "Series1");
+                BkgDataPlot bkgPlot1 = new BkgDataPlot(rxData, chartWaveform);
                 if (!bkgPlot1.IsBusy)
                 {
                     bkgPlot1.RunWorkerAsync();
                 }
-
-                //BkgDataPlot bkgPlot = new BkgDataPlot(rxData, chartWaveform, checkBoxWaveform, "Waveform");
-                //if (!bkgPlot.IsBusy)
-                {
-                    //bkgPlot.RunWorkerAsync();
-                }
-
             }
 
             
@@ -119,6 +104,22 @@ namespace RealtimeChartDemo
             labelPlotLength.Text = trackPlotLength.Value.ToString();
             WaveformReq.SampleNum = trackPlotLength.Value * WaveformReq.SampleRate;
 
+            if (radioButtonWaveform.Checked)
+            {
+                WaveformReq.WaveSelected = "Waveform";
+            }
+            else if(radioButtonFreq1.Checked)
+            {
+                WaveformReq.WaveSelected = "Series1";
+            }
+            else if(radioButtonFreq2.Checked)
+            {
+                WaveformReq.WaveSelected = "Series2";
+            }
+            else if(radioButtonFreq3.Checked)
+            {
+                WaveformReq.WaveSelected = "Series3";
+            }
         }
 
         private void trackBarAmp1_Scroll(object sender, EventArgs e)
@@ -135,6 +136,7 @@ namespace RealtimeChartDemo
         {
 
         }
+
 
     }
 }

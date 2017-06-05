@@ -25,5 +25,7 @@ namespace RealtimeChartDemo
         public static int SampleRate;
         public static bool StopGenerate;
         public static int PlotLength { get; set; }
+
+        public static string WaveSelected { get; set; }
     }
 }
