@@ -15,87 +15,48 @@ namespace RealtimeChartDemo
     {
         private List<RxDataContainer> rxData;
         private List<RxDataContainer> rxDataBackup;
-        private List<Complex> bufferComplex;
-        private List<double> bufferFreq1;
-        private List<double> bufferFreq2;
-        private List<double> bufferFreq3;
-        private List<DateTime> plotTimeStamp;
         private Chart chartWaveform;
         private int count;
-        private List<double> bufferWaveform;
 
+        private int maxPlotSize = WaveformReq.SampleRate * 60;
+        
         public BkgDataPlot(List<RxDataContainer> rxData, Chart chartWaveform)
         {
-            // TODO: Complete member initialization
             this.rxData = rxData;
             this.chartWaveform = chartWaveform;
 
             InitChartAreas();
-            InitBuffers();
 
             this.WorkerReportsProgress = true;
             this.WorkerSupportsCancellation = true;
 
             this.DoWork += BkgDataPlot_DoWork;
             this.ProgressChanged += BkgDataPlot_ProgressChanged;
-
-        }
-
-        private void InitBuffers()
-        {
             rxDataBackup = new List<RxDataContainer>();
-            plotTimeStamp = new List<DateTime>();
-            bufferComplex = new List<Complex>();
-            bufferFreq1 = new List<double>();
-            bufferFreq2 = new List<double>();
-            bufferFreq3 = new List<double>();
-            bufferWaveform = new List<double>();
+
         }
 
         private void InitChartAreas()
         {
-            chartWaveform.ChartAreas[0].AxisX.MajorGrid.Interval = WaveformReq.SampleNum / 6;
-            chartWaveform.ChartAreas[0].AxisX.Interval = WaveformReq.SampleNum / 6;
+            chartWaveform.ChartAreas[0].AxisX.MajorGrid.Interval = maxPlotSize / 6;
+            chartWaveform.ChartAreas[0].AxisX.MinorGrid.Interval = maxPlotSize / 6;
+            chartWaveform.ChartAreas[0].AxisX.Interval = maxPlotSize / 6;
 
-            //chartWaveform.ChartAreas[0].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
-            //chartWaveform.ChartAreas[0].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
-            //chartWaveform.ChartAreas[0].RecalculateAxesScale();
-
-            int totalLength = WaveformReq.SampleNum / WaveformReq.SampleRate;
-            totalLength = 0;
+            int totalLength = maxPlotSize / WaveformReq.SampleRate;
+            //totalLength = 0;
             DateTime timeStamp = DateTime.Now.AddMilliseconds(1000 * totalLength * (-1));
             double timeSplite = 1000 / WaveformReq.SampleRate;
-            for (int i = 0; i < WaveformReq.SampleNum; i++)
+            for (int i = 0; i < maxPlotSize; i++)
             {
                 DateTime t = timeStamp.AddMilliseconds(timeSplite);
                 chartWaveform.Series[0].Points.AddXY(t.ToString("HH:mm:ss"), 0);
-                chartWaveform.Series[1].Points.AddY( 0);
-                chartWaveform.Series[2].Points.AddY( 0);
-                chartWaveform.Series[3].Points.AddY( 0);
             }
         }
 
         void BkgDataPlot_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int rmSize = (int)e.ProgressPercentage;
-            
-            
-            //DoPlot("Waveform",true);
             DoPlot(WaveformReq.WaveSelected, true);
-            //DoPlot("Series1",true);
-
-            CleanupBuffer();
-            //DoPlot();
-        }
-
-        private void CleanupBuffer()
-        {
-            bufferFreq1.Clear();
-            bufferFreq2.Clear();
-            bufferFreq3.Clear();
-            bufferWaveform.Clear();
-            plotTimeStamp.Clear();
-            bufferComplex.Clear();
         }
 
         void BkgDataPlot_DoWork(object sender, DoWorkEventArgs e)
@@ -109,16 +70,15 @@ namespace RealtimeChartDemo
 
                 if (rxData.Count <= 0)
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep(200);
                     continue;
                 }
-                MakePlotBuffer();
-                //DoPlot();
                 this.ReportProgress(1);
             }
         }
 
-        private void MakePlotBuffer()
+        
+        private void DoPlot(String serieName, bool show)
         {
             lock (rxData)
             {
@@ -126,124 +86,69 @@ namespace RealtimeChartDemo
                 rxDataBackup.AddRange(rxData);
                 rxData.Clear();
             }
-
-            foreach (var rx in rxDataBackup)
+            
+            int total =0;
+            foreach (var item in rxDataBackup)
             {
-                bufferFreq1.AddRange(rx.value1);
-                bufferFreq2.AddRange(rx.value2);
-                bufferFreq3.AddRange(rx.value3);
-                bufferComplex.AddRange(ConvToComplex(rx.value1, rx.value2, rx.value3));
-                bufferWaveform.AddRange(ConvComplexToDouble(bufferComplex));
-
-                DateTime timeStamp = rx.dateEnd.AddMilliseconds(1000 * (-1));
-                double timeSplite = 1000 / WaveformReq.SampleRate;
-                for (int i = 0; i < rx.value1.Length; i++)
-                {
-                    DateTime t = timeStamp.AddMilliseconds(timeSplite);
-                    plotTimeStamp.Add(t);
-                }
-            }
-        }
-
-        List<double> ConvComplexToDouble(List<Complex> bufferComplex)
-        {
-            List<double> tmp = new List<double>();
-            foreach (var com in bufferComplex)
-            {
-                tmp.Add(com.Real);
-            }
-            return tmp;
-        }
-
-        private List<Complex> ConvToComplex(double[] p1, double[] p2, double[] p3)
-        {
-            List<Complex> sample = new List<Complex>();
-
-            for (int i = 0; i < p1.Length; i++)
-            {
-                Complex var = new Complex(p1[i] + p2[i] + p3[i], 0);
-                sample.Add(var);
-            }
-            return sample;
-        }
-
-
-        private void DoPlot(String serieName, bool show)
-        {
-            //if (chart1.InvokeRequired)
-            {
-                //chart1.Invoke(new Action(DoPlot));
-                //return;
+                total += item.value1.Length;
             }
 
-            int diff = chartWaveform.Series[serieName].Points.Count - WaveformReq.SampleNum + bufferWaveform.Count;
-
-            Process proc = Process.GetCurrentProcess();
-            Debug.WriteLine("Plot: " + serieName + " " + count++ + "--- " + bufferComplex.Count + "--" + diff + "==" + proc.PrivateMemorySize64);
-
+            int diff = chartWaveform.Series[serieName].Points.Count - maxPlotSize + total;
             if (diff > 0)
             {
                 for (int j = 0; j < diff; j++)
                 {
                     chartWaveform.Series[0].Points.RemoveAt(0);
-                    chartWaveform.Series[1].Points.RemoveAt(0);
-                    chartWaveform.Series[2].Points.RemoveAt(0);
-                    chartWaveform.Series[3].Points.RemoveAt(0);
                 }
             }
-
-            //chart1.Series[serieName].Points.Clear();
-
-            chartWaveform.ChartAreas[0].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
-            chartWaveform.ChartAreas[0].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
-            chartWaveform.ChartAreas[0].RecalculateAxesScale();
-            //DateTime timeStamp = plotTimeEnd.AddMilliseconds(1000 * (-1));
-            //double timeSplite = 1000 / WaveformReq.SampleRate;
-
-            for (int i = 0; i < bufferWaveform.Count; i++)
+            var dot = chartWaveform.Series[0].Points;
+            dot.SuspendUpdates();
+            foreach (var item in rxDataBackup)
             {
-                //DateTime t = timeStamp.AddMilliseconds(timeSplite);
-                //sample[i] = new Complex(rx.value1[i] + rx.value2[i] + rx.value3[i], 0);
-                //double var = sample[i].Real;
-                var t = plotTimeStamp[i];
 
-                double w = 0;
-                double f1 = 0;
-                double f2 = 0;
-                double f3 = 0;
-                switch (serieName)
+                DateTime timeStamp = item.dateEnd.AddMilliseconds(1000 * (-1));
+                double timeSplite = 1000 / WaveformReq.SampleRate;
+
+                for (int i = 0; i < item.value1.Length; i++)
                 {
-                    case "Waveform":
-                        w = bufferWaveform[i];
-                        break;
-                    case "Series1":
-                        f1 = bufferFreq1[i];
-                        break;
-                    case "Series2":
-                        f2 = bufferFreq2[i];
-                        break;
-                    case "Series3":
-                        f3 = bufferFreq3[i];
-                        break;
-                    default:
-                        break;
+                    DateTime t = timeStamp.AddMilliseconds(timeSplite);
+                    Complex samp = new Complex(item.value1[i] + item.value2[i] + item.value3[i], 0);
+                    double w = samp.Real;
 
+                    double f1 = 0;
+                    double f2 = 0;
+                    double f3 = 0;
+                    switch (serieName)
+                    {
+                        case "Series1":
+                            f1 = item.value1[i];
+                            break;
+                        case "Series2":
+                            f2 = item.value2[i];
+                            break;
+                        case "Series3":
+                            f3 = item.value3[i];
+                            break;
+                        default:
+                            break;
+
+                    }
+                    dot.AddXY(t.ToString("HH:mm:ss"), w);
+                    chartWaveform.Series[1].Points.AddXY(t.ToString("HH:mm:ss"), f1);
+                    //chartWaveform.Series[3].Points.AddXY(t.ToString("HH:mm:ss"), f3);
                 }
-                chartWaveform.Series[0].Points.AddXY(t.ToString("HH:mm:ss"), w);
-                chartWaveform.Series[1].Points.AddXY(t.ToString("HH:mm:ss"), f1);
-                chartWaveform.Series[2].Points.AddXY(t.ToString("HH:mm:ss"), f2);
-                chartWaveform.Series[3].Points.AddXY(t.ToString("HH:mm:ss"), f3);
+                Process proc = Process.GetCurrentProcess();
+                Debug.WriteLine("Plot: " + serieName + "--" + count++ + "->" + proc.PrivateMemorySize64);
+
+                chartWaveform.ChartAreas[0].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
+                chartWaveform.ChartAreas[0].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
+                chartWaveform.ChartAreas[0].RecalculateAxesScale();
+
+
             }
+            dot.ResumeUpdates();
+            
         }
-
-
-
-
-
-
-
-
-
 
 
 

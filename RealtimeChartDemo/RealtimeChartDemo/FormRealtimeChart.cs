@@ -37,8 +37,11 @@ namespace RealtimeChartDemo
             WaveformReq.SampleRate = SampleRate;
         }
 
+        BkgDataGenerate bkgGetData;
+        //BkgDataPlot bkgPlot1;
         private void button1_Click(object sender, EventArgs e)
         {
+            
             
             Button startBtn = sender as Button;
             rxData = new List<RxDataContainer>();
@@ -60,19 +63,15 @@ namespace RealtimeChartDemo
             WaveformReq.StopGenerate = StopChart;
             if(!StopChart)
             {
-                BkgDataGenerate bkgGetData = new BkgDataGenerate(WaveformReq.SampleRate, rxData);
+                bkgGetData = new BkgDataGenerate(WaveformReq.SampleRate, rxData);
                 if (!bkgGetData.IsBusy)
                 {
                     bkgGetData.RunWorkerAsync();
                 }
+                BkgDataPlot bkg1 = new BkgDataPlot(rxData, chartWaveform);
+                bkg1.RunWorkerAsync();
 
-                BkgDataPlot bkgPlot1 = new BkgDataPlot(rxData, chartWaveform);
-                if (!bkgPlot1.IsBusy)
-                {
-                    bkgPlot1.RunWorkerAsync();
-                }
             }
-
             
            // bkgPlot1.Stopwork = StopChart;
         }
@@ -133,6 +132,11 @@ namespace RealtimeChartDemo
         }
 
         private void DrawChart(System.Windows.Forms.DataVisualization.Charting.Chart chartWaveform)
+        {
+
+        }
+
+        private void chartWaveform_Click(object sender, EventArgs e)
         {
 
         }

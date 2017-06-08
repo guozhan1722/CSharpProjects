@@ -79,6 +79,7 @@
     <Compile Include="InnerReceiverContainer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskDataPlot.cs" />
     <Compile Include="WaveformGenerator.cs" />
     <Compile Include="WaveformReq.cs" />
     <EmbeddedResource Include="FormRealtimeChart.resx">
