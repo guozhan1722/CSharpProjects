@@ -27,7 +27,7 @@ namespace RealtimeChartDemo
         {
             int SampleRate = Convert.ToInt16(AppSettings.ReadSetting("sampleRate"));
             //int PlotLength = Convert.ToInt16(AppSettings.ReadSetting("plotLengthSecond"));
-            int PlotLength = this.trackPlotLength.Value;
+            int PlotLength = 60;
 
             SampleRate = (SampleRate == 0) ? 2000 : SampleRate;
             PlotLength = (PlotLength == 0) ? 30 : PlotLength;
@@ -63,14 +63,18 @@ namespace RealtimeChartDemo
             WaveformReq.StopGenerate = StopChart;
             if(!StopChart)
             {
-                bkgGetData = new BkgDataGenerate(WaveformReq.SampleRate, rxData);
-                if (!bkgGetData.IsBusy)
+                TaskDataRx taskRx = new TaskDataRx(rxData);
+                taskRx.StartRx();
+                //bkgGetData = new BkgDataGenerate(WaveformReq.SampleRate, rxData);
+                //if (!bkgGetData.IsBusy)
                 {
-                    bkgGetData.RunWorkerAsync();
+                //    bkgGetData.RunWorkerAsync();
                 }
-                BkgDataPlot bkg1 = new BkgDataPlot(rxData, chartWaveform);
-                bkg1.RunWorkerAsync();
+                //BkgDataPlot bkg1 = new BkgDataPlot(rxData, chartWaveform);
+                //bkg1.RunWorkerAsync();
 
+                TaskDataPlot tp = new TaskDataPlot(rxData, chartWaveform);
+                tp.StartPlot();
             }
             
            // bkgPlot1.Stopwork = StopChart;
@@ -99,9 +103,6 @@ namespace RealtimeChartDemo
             labelPha1.Text = trackBarPha1.Value.ToString();
             labelPha2.Text = trackBarPha2.Value.ToString();
             labelPha3.Text = trackBarPha3.Value.ToString();
-            WaveformReq.PlotLength = trackPlotLength.Value;
-            labelPlotLength.Text = trackPlotLength.Value.ToString();
-            WaveformReq.SampleNum = trackPlotLength.Value * WaveformReq.SampleRate;
 
             if (radioButtonWaveform.Checked)
             {

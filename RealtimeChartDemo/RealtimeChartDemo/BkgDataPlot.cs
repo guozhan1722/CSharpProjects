@@ -135,7 +135,7 @@ namespace RealtimeChartDemo
                     }
                     dot.AddXY(t.ToString("HH:mm:ss"), w);
                     chartWaveform.Series[1].Points.AddXY(t.ToString("HH:mm:ss"), f1);
-                    //chartWaveform.Series[3].Points.AddXY(t.ToString("HH:mm:ss"), f3);
+                    chartWaveform.Series[3].Points.AddXY(t.ToString("HH:mm:ss"), f3);
                 }
                 Process proc = Process.GetCurrentProcess();
                 Debug.WriteLine("Plot: " + serieName + "--" + count++ + "->" + proc.PrivateMemorySize64);
