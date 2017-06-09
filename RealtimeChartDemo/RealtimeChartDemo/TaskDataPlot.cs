@@ -15,6 +15,10 @@ namespace RealtimeChartDemo
         private List<RxDataContainer> rxData;
         private Chart chartWaveform;
         private List<RxDataContainer> rxDataBackup;
+        private Series waveSeries;
+        private Series freq1Series;
+        private Series freq2Series;
+        private Series freq3Series;
         private DataPointCollection ddd;
 
         private int maxPlotSize = WaveformReq.SampleRate * 60;
@@ -43,7 +47,26 @@ namespace RealtimeChartDemo
 
         private void InitSeries()
         {
-            var series = chartWaveform.Series;
+            waveSeries = new Series();
+            waveSeries.ChartType = SeriesChartType.FastLine;
+            waveSeries.Points.SuspendUpdates();
+
+
+            freq1Series = new Series();
+            freq1Series.ChartType = SeriesChartType.FastLine;
+            freq1Series.Points.SuspendUpdates();
+
+            freq2Series = new Series();
+            freq2Series.ChartType = SeriesChartType.FastLine;
+            freq2Series.Points.SuspendUpdates();
+
+            freq3Series = new Series();
+            freq3Series.ChartType = SeriesChartType.FastLine;
+            freq3Series.Points.SuspendUpdates();
+
+            chartWaveform.Series.Clear();
+            chartWaveform.Series.SuspendUpdates();
+
             int totalLength = maxPlotSize / WaveformReq.SampleRate;
             //totalLength = 0;
             DateTime timeStamp = DateTime.Now.AddMilliseconds(1000 * totalLength * (-1));
@@ -51,11 +74,10 @@ namespace RealtimeChartDemo
             for (int i = 0; i < maxPlotSize; i++)
             {
                 timeStamp = timeStamp.AddMilliseconds(timeSplite);
-                foreach (var item in series)
-            	{
-                    var dots = item.Points;
-                    dots.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
-	            }
+                waveSeries.Points.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
+                freq1Series.Points.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
+                freq2Series.Points.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
+                freq3Series.Points.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
             }
         }
 
@@ -79,44 +101,17 @@ namespace RealtimeChartDemo
                         rxDataBackup.AddRange(rxData);
                         rxData.Clear();
                     }
-                    CalNeedRemovedDots();
+                    RemoveOldPoints();
+                    UpdateSeries();
+
                     Debug.WriteLine("Task Plot: " + CCC++);
                     
                 });
             DrawDotsOnUI();
         }
-        
-        private void CalNeedRemovedDots()
+
+        private void UpdateSeries()
         {
-            int total = 0;
-            var dots =chartWaveform.Series[0].Points;
-            foreach (var item in rxDataBackup)
-            {
-                total += item.value1.Length;
-            }
-
-            totalDotsForRemove = dots.Count - maxPlotSize + total;
-        }
-       
-        private void DrawDotsOnUI()
-        {
-            var sers = chartWaveform.Series;
-            var dot00 = chartWaveform.Series[0].Points;
-            var dot01 = chartWaveform.Series[1].Points;
-            var dot02 = chartWaveform.Series[2].Points;
-            var dot03 = chartWaveform.Series[3].Points;
-            foreach (var item in sers)
-            {
-                var dot = item.Points;
-                dot.SuspendUpdates();
-            }
-
-            if (totalDotsForRemove >= 0)
-            {
-                RemoveDotsFromChart(totalDotsForRemove);
-            }
-
-            int count=0;
             foreach (var item in rxDataBackup)
             {
                 for (int i = 0; i < item.value1.Length; i++)
@@ -128,7 +123,7 @@ namespace RealtimeChartDemo
                     switch (WaveformReq.WaveSelected)
                     {
                         case "Waveform":
-                            w =item.comSample[i].Real;
+                            w = item.comSample[i].Real;
                             break;
                         case "Series1":
                             f1 = item.value1[i];
@@ -142,36 +137,51 @@ namespace RealtimeChartDemo
                         default:
                             break;
                     }
-                    dot00.AddXY(item.tmStamp[i].ToString("HH:mm:ss"), w);
-                    dot01.AddY(f1);
-                    dot02.AddY(f2);
-                    dot03.AddY(f3);
+                    waveSeries.Points.AddXY(item.tmStamp[i].ToString("HH:mm:ss"), w);
+                    freq1Series.Points.AddY(f1);
+                    freq2Series.Points.AddY(f2);
+                    freq3Series.Points.AddY(f3);
                 }
             }
+        }
+        
+        private void RemoveOldPoints()
+        {
+            int total = 0;
+            var dots = waveSeries.Points;
+            foreach (var item in rxDataBackup)
+            {
+                total += item.value1.Length;
+            }
+
+            totalDotsForRemove = dots.Count - maxPlotSize + total;
+
+            if(totalDotsForRemove >=0)
+            {
+                for (int i = 0; i < totalDotsForRemove; i++)
+                {
+                    waveSeries.Points.RemoveAt(0);
+                    freq1Series.Points.RemoveAt(0);
+                    freq1Series.Points.RemoveAt(0);
+                    freq1Series.Points.RemoveAt(0);
+                }
+
+            }
+        }
+
+        private void DrawDotsOnUI()
+        {
+            chartWaveform.Series.Clear();
+            chartWaveform.Series.Add(waveSeries);
+            chartWaveform.Series.Add(freq1Series);
+            chartWaveform.Series.Add(freq2Series);
+            chartWaveform.Series.Add(freq3Series);
             chartWaveform.ChartAreas[0].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
             chartWaveform.ChartAreas[0].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
             chartWaveform.ChartAreas[0].RecalculateAxesScale();
-
-            foreach (var item in sers)
-            {
-                var dot = item.Points;
-                dot.ResumeUpdates();
-            }
             plotAsync();
         }
 
-        private void RemoveDotsFromChart(int totalDotsForRemove)
-        {
-            var sers = chartWaveform.Series;
-            for (int i = 0; i < totalDotsForRemove; i++)
-            {
-                foreach (var item in sers)
-                {
-                    var dot = item.Points;
-                    dot.RemoveAt(0);
-                }
-            }
-        }
         
     }
 }
