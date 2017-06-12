@@ -77,9 +77,11 @@
       <DependentUpon>FormRealtimeChart.cs</DependentUpon>
     </Compile>
     <Compile Include="InnerReceiverContainer.cs" />
+    <Compile Include="PlotLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskDataPlot.cs" />
+    <Compile Include="TaskDataPlotBak.cs" />
     <Compile Include="TaskDataRx.cs" />
     <Compile Include="WaveformGenerator.cs" />
     <Compile Include="WaveformReq.cs" />

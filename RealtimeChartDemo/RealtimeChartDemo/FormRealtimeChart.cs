@@ -25,7 +25,7 @@ namespace RealtimeChartDemo
 
         private void GetSettings()
         {
-            int SampleRate = Convert.ToInt16(AppSettings.ReadSetting("sampleRate"));
+            int SampleRate = Convert.ToInt32(AppSettings.ReadSetting("sampleRate"));
             //int PlotLength = Convert.ToInt16(AppSettings.ReadSetting("plotLengthSecond"));
             int PlotLength = 60;
 
@@ -73,8 +73,8 @@ namespace RealtimeChartDemo
                 //BkgDataPlot bkg1 = new BkgDataPlot(rxData, chartWaveform);
                 //bkg1.RunWorkerAsync();
 
-                TaskDataPlot tp = new TaskDataPlot(rxData, chartWaveform);
-                tp.StartPlot();
+                TaskDataPlotBak tp = new TaskDataPlotBak(rxData, chartWaveform);
+                tp.StartPlotAsyn();
             }
             
            // bkgPlot1.Stopwork = StopChart;

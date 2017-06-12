@@ -43,7 +43,7 @@ namespace RealtimeChartDemo
                     double[] ser3Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, WaveformReq.FreqSeriel3, WaveformReq.AmpSeriel3, WaveformReq.PhaSeriel3);
 
                     rxData.Add(new RxDataContainer(ser1Part, ser2Part, ser3Part));
-                    Debug.WriteLine("TaskRx: " + count++);
+                    Debug.WriteLine("TaskRx: " + count++ + "SampleRate = "+ SampleRate);
                 }
              });
         }

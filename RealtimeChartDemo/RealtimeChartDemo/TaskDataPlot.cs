@@ -15,28 +15,27 @@ namespace RealtimeChartDemo
         private List<RxDataContainer> rxData;
         private Chart chartWaveform;
         private List<RxDataContainer> rxDataBackup;
-        private Series waveSeries;
-        private Series freq1Series;
-        private Series freq2Series;
-        private Series freq3Series;
-        private DataPointCollection ddd;
+        private Series listSeries;
 
         private int maxPlotSize = WaveformReq.SampleRate * 60;
-        private int totalDotsForRemove;
         private int CCC;
+        private int totalRxSize;
+
+        private DataPoint wavePoint;
 
         public TaskDataPlot(List<RxDataContainer> rxData, Chart chartWaveform)
         {
             this.rxData = rxData;
             this.chartWaveform = chartWaveform;
             rxDataBackup = new List<RxDataContainer>();
+            listSeries = new Series();
+
             InitChartAreas();
             InitSeries();
         }
 
         private void InitChartAreas()
         {
-            var dots2 = chartWaveform.Series[2].Points;
             var area = chartWaveform.ChartAreas[0];
             int interval = maxPlotSize / 6;
 
@@ -47,23 +46,6 @@ namespace RealtimeChartDemo
 
         private void InitSeries()
         {
-            waveSeries = new Series();
-            waveSeries.ChartType = SeriesChartType.FastLine;
-            waveSeries.Points.SuspendUpdates();
-
-
-            freq1Series = new Series();
-            freq1Series.ChartType = SeriesChartType.FastLine;
-            freq1Series.Points.SuspendUpdates();
-
-            freq2Series = new Series();
-            freq2Series.ChartType = SeriesChartType.FastLine;
-            freq2Series.Points.SuspendUpdates();
-
-            freq3Series = new Series();
-            freq3Series.ChartType = SeriesChartType.FastLine;
-            freq3Series.Points.SuspendUpdates();
-
             chartWaveform.Series.Clear();
             chartWaveform.Series.SuspendUpdates();
 
@@ -74,23 +56,27 @@ namespace RealtimeChartDemo
             for (int i = 0; i < maxPlotSize; i++)
             {
                 timeStamp = timeStamp.AddMilliseconds(timeSplite);
-                waveSeries.Points.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
-                freq1Series.Points.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
-                freq2Series.Points.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
-                freq3Series.Points.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
+                listSeries.Points.AddXY(timeStamp.ToString("HH:mm:ss"),0);
+                
+            }
+            
+        }
+
+        public async void StartPlotAsyn()
+        {
+            while (true)
+            {
+                await GetRxData();
+                await plotAsync();
+                DrawDotsOnUI();
             }
         }
 
-        public void StartPlot()
+        private async Task GetRxData()
         {
-            plotAsync();
-        }
-        
-        private async void plotAsync()
-        {
-            await Task.Run(()=>
-                {
-                    while (rxData.Count <= 0)
+            await Task.Run(()=>{
+
+                while (rxData.Count <= 0)
                     {
                         Thread.Sleep(100);
                     }
@@ -101,85 +87,62 @@ namespace RealtimeChartDemo
                         rxDataBackup.AddRange(rxData);
                         rxData.Clear();
                     }
-                    RemoveOldPoints();
+
+                    totalRxSize = 0;
+                    foreach (var item in rxDataBackup)
+                    {
+                        totalRxSize += item.value1.Length;
+                    }
+                    Debug.WriteLine("Task Plot First Step: " + CCC);
+          
+            });
+        }
+
+        private async Task plotAsync()
+        {
+            await Task.Run(()=>
+                {
+                    //listWave.RemoveRange(0, totalRxSize);
+                    ///listTmStamp.RemoveRange(0, totalRxSize);
                     UpdateSeries();
 
                     Debug.WriteLine("Task Plot: " + CCC++);
                     
                 });
-            DrawDotsOnUI();
         }
-
+        Series wav;
         private void UpdateSeries()
         {
             foreach (var item in rxDataBackup)
             {
-                for (int i = 0; i < item.value1.Length; i++)
-                {
-                    double w = 0;
-                    double f1 = 0;
-                    double f2 = 0;
-                    double f3 = 0;
-                    switch (WaveformReq.WaveSelected)
-                    {
-                        case "Waveform":
-                            w = item.comSample[i].Real;
-                            break;
-                        case "Series1":
-                            f1 = item.value1[i];
-                            break;
-                        case "Series2":
-                            f2 = item.value2[i];
-                            break;
-                        case "Series3":
-                            f3 = item.value3[i];
-                            break;
-                        default:
-                            break;
-                    }
-                    waveSeries.Points.AddXY(item.tmStamp[i].ToString("HH:mm:ss"), w);
-                    freq1Series.Points.AddY(f1);
-                    freq2Series.Points.AddY(f2);
-                    freq3Series.Points.AddY(f3);
-                }
+                //listWave.AddRange(item.value1);
+                //listTmStamp.AddRange(item.tmStamp);
             }
+            wav = new Series();
+            wav.Points.SuspendUpdates();
+            wav.ChartType = SeriesChartType.FastLine;
+            
+            //for (int i = 0; i < listWave.Count; i++)
+            {
+                //wav.Points.AddXY(listTmStamp[i], listWave[i]);
+            }
+            //wav.Points.DataBindXY(listTmStamp,listWave);
         }
         
-        private void RemoveOldPoints()
-        {
-            int total = 0;
-            var dots = waveSeries.Points;
-            foreach (var item in rxDataBackup)
-            {
-                total += item.value1.Length;
-            }
-
-            totalDotsForRemove = dots.Count - maxPlotSize + total;
-
-            if(totalDotsForRemove >=0)
-            {
-                for (int i = 0; i < totalDotsForRemove; i++)
-                {
-                    waveSeries.Points.RemoveAt(0);
-                    freq1Series.Points.RemoveAt(0);
-                    freq1Series.Points.RemoveAt(0);
-                    freq1Series.Points.RemoveAt(0);
-                }
-
-            }
-        }
 
         private void DrawDotsOnUI()
         {
-            chartWaveform.Series.Clear();
-            chartWaveform.Series.Add(waveSeries);
-            chartWaveform.Series.Add(freq1Series);
-            chartWaveform.Series.Add(freq2Series);
-            chartWaveform.Series.Add(freq3Series);
+            //chartWaveform.Series.Clear();
+
+            //chartWaveform.Series.Add(wav);
+            //chartWaveform.Series.Add(freq1Series);
+            //chartWaveform.Series.Add(freq2Series);
+            //chartWaveform.Series.Add(freq3Series);
             chartWaveform.ChartAreas[0].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
             chartWaveform.ChartAreas[0].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
             chartWaveform.ChartAreas[0].RecalculateAxesScale();
-            plotAsync();
+            //await GetRxData();
+            //plotAsync();
         }
 
         

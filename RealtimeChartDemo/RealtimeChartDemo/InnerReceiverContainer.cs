@@ -31,12 +31,12 @@ namespace RealtimeChartDemo
 
         private void SetTimpStampBuf()
         {
-            tmStamp = new DateTime[value1.Length];
+            tmStamp = new String[value1.Length];
             DateTime tm = dateEnd.AddMilliseconds(1000 * (-1));
             double tmSplite = 1000 / WaveformReq.SampleRate;
             for (int i = 0; i < value1.Length; i++)
             {
-                tmStamp[i] = tm.AddMilliseconds(tmSplite);
+                tmStamp[i] = tm.AddMilliseconds(tmSplite).ToString("HH:mm:ss");
             }
         }
  
@@ -44,7 +44,7 @@ namespace RealtimeChartDemo
         public double[] value1;
         public double[] value2;
         public double[] value3;
-        public DateTime[] tmStamp;
+        public String[] tmStamp;
         public Complex[] comSample;
     }
 }
