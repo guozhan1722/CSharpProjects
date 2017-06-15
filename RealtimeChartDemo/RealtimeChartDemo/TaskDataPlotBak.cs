@@ -141,7 +141,6 @@ namespace RealtimeChartDemo
                     double w = 0;
                     double f1 = 0;
                     double f2 = 0;
-                    double f3 = 0;
                     switch (WaveformReq.WaveSelected)
                     {
                         case "Waveform":
@@ -152,9 +151,6 @@ namespace RealtimeChartDemo
                             break;
                         case "Series2":
                             f2 = item.value2[i];
-                            break;
-                        case "Series3":
-                            f3 = item.value3[i];
                             break;
                         default:
                             break;

@@ -112,7 +112,7 @@ namespace RealtimeChartDemo
                 for (int i = 0; i < item.value1.Length; i++)
                 {
                     DateTime t = timeStamp.AddMilliseconds(timeSplite);
-                    Complex samp = new Complex(item.value1[i] + item.value2[i] + item.value3[i], 0);
+                    Complex samp = new Complex(item.value1[i] + item.value2[i], 0);
                     double w = samp.Real;
 
                     double f1 = 0;
@@ -125,9 +125,6 @@ namespace RealtimeChartDemo
                             break;
                         case "Series2":
                             f2 = item.value2[i];
-                            break;
-                        case "Series3":
-                            f3 = item.value3[i];
                             break;
                         default:
                             break;

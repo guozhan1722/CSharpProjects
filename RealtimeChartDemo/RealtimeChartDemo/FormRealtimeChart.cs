@@ -73,8 +73,11 @@ namespace RealtimeChartDemo
                 //BkgDataPlot bkg1 = new BkgDataPlot(rxData, chartWaveform);
                 //bkg1.RunWorkerAsync();
 
-                TaskDataPlotBak tp = new TaskDataPlotBak(rxData, chartWaveform);
+                TaskDataPlot tp = new TaskDataPlot(rxData, chartWaveform);
                 tp.StartPlotAsyn();
+
+                //TaskDataPlotBak tp = new TaskDataPlotBak(rxData, chartWaveform);
+                //tp.StartPlotAsyn();
             }
             
            // bkgPlot1.Stopwork = StopChart;
@@ -85,24 +88,18 @@ namespace RealtimeChartDemo
         {
             WaveformReq.FreqSeriel1 = trackBarFreq1.Value;
             WaveformReq.FreqSeriel2 = trackBarFreq2.Value;
-            WaveformReq.FreqSeriel3 = trackBarFreq3.Value;
             labelFreq1.Text = trackBarFreq1.Value.ToString();
             labelFreq2.Text = trackBarFreq2.Value.ToString();
-            labelFreq3.Text = trackBarFreq3.Value.ToString();
 
             WaveformReq.AmpSeriel1 = trackBarAmp1.Value;
             WaveformReq.AmpSeriel2 = trackBarAmp2.Value;
-            WaveformReq.AmpSeriel3 = trackBarAmp3.Value;
             labelAmp1.Text = trackBarAmp1.Value.ToString();
             labelAmp2.Text = trackBarAmp2.Value.ToString();
-            labelAmp3.Text = trackBarAmp3.Value.ToString();
 
             WaveformReq.PhaSeriel1 = trackBarPha1.Value;
             WaveformReq.PhaSeriel2 = trackBarPha2.Value;
-            WaveformReq.PhaSeriel3 = trackBarPha3.Value;
             labelPha1.Text = trackBarPha1.Value.ToString();
             labelPha2.Text = trackBarPha2.Value.ToString();
-            labelPha3.Text = trackBarPha3.Value.ToString();
 
             if (radioButtonWaveform.Checked)
             {
@@ -115,10 +112,6 @@ namespace RealtimeChartDemo
             else if(radioButtonFreq2.Checked)
             {
                 WaveformReq.WaveSelected = "Series2";
-            }
-            else if(radioButtonFreq3.Checked)
-            {
-                WaveformReq.WaveSelected = "Series3";
             }
         }
 

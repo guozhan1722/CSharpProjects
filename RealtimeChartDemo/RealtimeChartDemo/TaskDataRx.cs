@@ -40,9 +40,8 @@ namespace RealtimeChartDemo
                     Thread.Sleep(1000);
                     double[] ser1Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, WaveformReq.FreqSeriel1, WaveformReq.AmpSeriel1, WaveformReq.PhaSeriel1);
                     double[] ser2Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, WaveformReq.FreqSeriel2, WaveformReq.AmpSeriel2, WaveformReq.PhaSeriel2);
-                    double[] ser3Part = WaveformGenerator.Sinusoidal(SampleRate, (double)SampleRate, WaveformReq.FreqSeriel3, WaveformReq.AmpSeriel3, WaveformReq.PhaSeriel3);
 
-                    rxData.Add(new RxDataContainer(ser1Part, ser2Part, ser3Part));
+                    rxData.Add(new RxDataContainer(ser1Part, ser2Part));
                     Debug.WriteLine("TaskRx: " + count++ + "SampleRate = "+ SampleRate);
                 }
              });

@@ -9,12 +9,11 @@ namespace RealtimeChartDemo
 {
     public class RxDataContainer
     {
-        public RxDataContainer(double[] data1,double[] data2, double[] data3)
+        public RxDataContainer(double[] data1,double[] data2)
         {
             this.dateEnd = DateTime.Now;
             this.value1 = data1;
             this.value2 = data2;
-            this.value3 = data3;
             SetTimpStampBuf();
             SetCompSample();
         }
@@ -22,10 +21,12 @@ namespace RealtimeChartDemo
         private void SetCompSample()
         {
             comSample = new Complex[value1.Length];
+            comValue = new double[value1.Length];
 
             for (int i = 0; i < value1.Length; i++)
             {
-                comSample[i] = new Complex(value1[i] + value2[i] + value3[i],0);
+                comSample[i] = new Complex(value1[i] + value2[i],0);
+                comValue[i] = comSample[i].Real;
             }
         }
 
@@ -36,15 +37,18 @@ namespace RealtimeChartDemo
             double tmSplite = 1000 / WaveformReq.SampleRate;
             for (int i = 0; i < value1.Length; i++)
             {
-                tmStamp[i] = tm.AddMilliseconds(tmSplite).ToString("HH:mm:ss");
+                tm = tm.AddMilliseconds(tmSplite);
+                tmStamp[i] = tm.ToString("HH:mm:ss");
+                
+                //tmStamp[i] = tm.AddMilliseconds(tmSplite).ToString("HH:mm:ss");
             }
         }
  
         public DateTime dateEnd;
         public double[] value1;
         public double[] value2;
-        public double[] value3;
         public String[] tmStamp;
         public Complex[] comSample;
+        public double[] comValue;
     }
 }
