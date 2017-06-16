@@ -75,9 +75,6 @@ namespace RealtimeChartDemo
 
                 TaskDataPlot tp = new TaskDataPlot(rxData, chartWaveform);
                 tp.StartPlotAsyn();
-
-                //TaskDataPlotBak tp = new TaskDataPlotBak(rxData, chartWaveform);
-                //tp.StartPlotAsyn();
             }
             
            // bkgPlot1.Stopwork = StopChart;

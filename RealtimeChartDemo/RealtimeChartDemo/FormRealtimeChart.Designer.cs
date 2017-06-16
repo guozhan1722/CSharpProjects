@@ -30,14 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.trackBarFreq1 = new System.Windows.Forms.TrackBar();
             this.trackBarAmp1 = new System.Windows.Forms.TrackBar();
@@ -62,7 +58,6 @@
             this.radioButtonFreq1 = new System.Windows.Forms.RadioButton();
             this.radioButtonFreq2 = new System.Windows.Forms.RadioButton();
             this.chartWaveform = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartFreq = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFreq1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAmp1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPha1)).BeginInit();
@@ -70,7 +65,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAmp2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPha2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartWaveform)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartFreq)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -317,7 +311,11 @@
             chartArea1.InnerPlotPosition.X = 6.66014F;
             chartArea1.InnerPlotPosition.Y = 5.76923F;
             chartArea1.Name = "ChartArea1";
+            chartArea2.AxisX.Title = "Freq";
+            chartArea2.BackColor = System.Drawing.Color.Teal;
+            chartArea2.Name = "ChartArea2";
             this.chartWaveform.ChartAreas.Add(chartArea1);
+            this.chartWaveform.ChartAreas.Add(chartArea2);
             legend1.Enabled = false;
             legend1.Name = "Legend1";
             this.chartWaveform.Legends.Add(legend1);
@@ -328,69 +326,16 @@
             series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             series1.Legend = "Legend1";
             series1.Name = "Waveform";
-            series2.ChartArea = "ChartArea1";
+            series2.ChartArea = "ChartArea2";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series3.Legend = "Legend1";
-            series3.Name = "Series2";
+            series2.Name = "Series2";
             this.chartWaveform.Series.Add(series1);
             this.chartWaveform.Series.Add(series2);
-            this.chartWaveform.Series.Add(series3);
-            this.chartWaveform.Size = new System.Drawing.Size(710, 195);
+            this.chartWaveform.Size = new System.Drawing.Size(710, 377);
             this.chartWaveform.TabIndex = 0;
             this.chartWaveform.Text = "chart1";
             this.chartWaveform.Click += new System.EventHandler(this.chartWaveform_Click);
-            // 
-            // chartFreq
-            // 
-            chartArea2.AxisX.LineColor = System.Drawing.Color.White;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            chartArea2.AxisX.MinorGrid.Enabled = true;
-            chartArea2.AxisX.MinorGrid.Interval = double.NaN;
-            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.PeachPuff;
-            chartArea2.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.DashDot;
-            chartArea2.AxisX.ScrollBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            chartArea2.AxisX.ScrollBar.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            chartArea2.AxisX.ScrollBar.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            chartArea2.AxisX.Title = "Freqency";
-            chartArea2.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea2.AxisX.TitleForeColor = System.Drawing.Color.Blue;
-            chartArea2.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea2.AxisY.ScaleBreakStyle.Enabled = true;
-            chartArea2.AxisY.ScaleView.SizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea2.BackColor = System.Drawing.Color.Black;
-            chartArea2.CursorX.IsUserSelectionEnabled = true;
-            chartArea2.InnerPlotPosition.Auto = false;
-            chartArea2.InnerPlotPosition.Height = 61.91277F;
-            chartArea2.InnerPlotPosition.Width = 92.22284F;
-            chartArea2.InnerPlotPosition.X = 6.66014F;
-            chartArea2.InnerPlotPosition.Y = 5.76923F;
-            chartArea2.Name = "ChartArea1";
-            this.chartFreq.ChartAreas.Add(chartArea2);
-            legend2.Enabled = false;
-            legend2.Name = "Legend1";
-            this.chartFreq.Legends.Add(legend2);
-            this.chartFreq.Location = new System.Drawing.Point(361, 255);
-            this.chartFreq.Name = "chartFreq";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series5.Legend = "Legend1";
-            series5.Name = "Series2";
-            this.chartFreq.Series.Add(series4);
-            this.chartFreq.Series.Add(series5);
-            this.chartFreq.Size = new System.Drawing.Size(710, 195);
-            this.chartFreq.TabIndex = 0;
-            this.chartFreq.Text = "chart1";
-            this.chartFreq.Click += new System.EventHandler(this.chartWaveform_Click);
             // 
             // FormRealtimeChart
             // 
@@ -419,7 +364,6 @@
             this.Controls.Add(this.trackBarAmp1);
             this.Controls.Add(this.trackBarFreq1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.chartFreq);
             this.Controls.Add(this.chartWaveform);
             this.Name = "FormRealtimeChart";
             this.Text = "Realtime Chart";
@@ -430,7 +374,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAmp2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPha2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartWaveform)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartFreq)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -462,7 +405,6 @@
         private System.Windows.Forms.RadioButton radioButtonFreq1;
         private System.Windows.Forms.RadioButton radioButtonFreq2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartWaveform;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartFreq;
     }
 }
 

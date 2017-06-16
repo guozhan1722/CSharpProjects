@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -20,7 +21,8 @@ namespace RealtimeChartDemo
 
         private int CCC;
         private int totalRxSize;
-        private ChartArea chartArea;
+        private ChartArea chartArea0;
+        private ChartArea chartArea1;
         private SeriesCollection series;
 
 
@@ -36,12 +38,18 @@ namespace RealtimeChartDemo
 
         private void InitChartAreas()
         {
-            chartArea = chartWaveform.ChartAreas[0];
+            chartArea0 = chartWaveform.ChartAreas[0];
             int interval = maxPlotSize / 6;
 
-            chartArea.AxisX.MajorGrid.Interval = interval;
-            chartArea.AxisX.MinorGrid.Interval = interval;
-            chartArea.AxisX.Interval = interval;
+            chartArea0.AxisX.MajorGrid.Interval = interval;
+            chartArea0.AxisX.MinorGrid.Interval = interval;
+            chartArea0.AxisX.Interval = interval;
+
+            chartArea1 = chartWaveform.ChartAreas[1];
+            chartArea1.AxisX.MajorGrid.Interval = interval;
+            chartArea1.AxisX.MinorGrid.Interval = interval;
+            chartArea1.AxisX.Interval = interval;
+
         }
 
         private void InitSeries()
@@ -58,7 +66,7 @@ namespace RealtimeChartDemo
                 timeStamp = timeStamp.AddMilliseconds(timeSplite);
                 foreach (var serie in series)
                 {
-                    serie.Points.AddXY(timeStamp.ToString("HH:mm:ss"),0);
+                    serie.Points.AddXY(timeStamp.ToString("HH:mm:ss"), 0);
                 }
             }
             
@@ -70,6 +78,7 @@ namespace RealtimeChartDemo
             {
                 await GetRxData();
                 DrawDotsOnUI();
+                Debug.WriteLine("Task Plot: " + CCC++);
             }
         }
 
@@ -94,20 +103,45 @@ namespace RealtimeChartDemo
 
         private void DrawDotsOnUI()
         {
-
-            foreach (var rdata in rxDataBackup)
+            var fp = series[1].Points;
+            try
             {
-                for (int i = 0; i < rdata.value1.Length; i++)
+                foreach (var rdata in rxDataBackup)
                 {
-                    series[0].Points.RemoveAt(0);
-                    series[0].Points.AddXY(rdata.tmStamp[i],rdata.comValue[i]);
-                    
+                    for (int i = 0; i < rdata.value1.Length; i++)
+                    {
+                        series[0].Points.RemoveAt(0);
+                        series[0].Points.AddXY(rdata.tmStamp[i], rdata.comValue[i]);
+
+                        fp.RemoveAt(0);
+                        //series[2].Points.RemoveAt(0);
+                        
+                        double val = rdata.value1[i];
+                        Color cl = Color.Red;
+                        if (WaveformReq.WaveSelected == "Series2")
+                        {
+                            cl = Color.Yellow;
+                            val = rdata.value2[i];
+                        }
+                        series[1].Points.AddXY(rdata.tmStamp[i], val);
+                        fp[fp.Count - 1].Color = cl;
+                    }
+
                 }
-                
+
+                chartArea0.AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
+                chartArea0.AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
+                chartArea0.RecalculateAxesScale();
+                chartArea1.AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
+                chartArea1.AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
+                chartArea1.RecalculateAxesScale();
+                chartWaveform.Invalidate();
             }
-            chartWaveform.ChartAreas[0].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
-            chartWaveform.ChartAreas[0].AxisY.Minimum = Double.NaN; // sets the Minimum to NaN
-            chartWaveform.ChartAreas[0].RecalculateAxesScale();
+            catch (Exception e)
+            {
+                
+                Debug.WriteLine(e.Message);
+            }
         }
 
         
