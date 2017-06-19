@@ -13,8 +13,6 @@ namespace DrawLineTest1
     public partial class Form1 : Form
     {
         Graphics serieGraphic = null;
-        private double[] data;
-        private List<PointF> points;
         Graphics mainGraphic = null;
         Pen myPen = new Pen(Color.Red);
         private List<RxDataContainer> rxData;
@@ -24,7 +22,7 @@ namespace DrawLineTest1
         {
             InitializeComponent();
             updateGlobalVar();
-            GlobalVar.SampleRate = 60;
+            GlobalVar.SampleRate = 200;
             rxData = new List<RxDataContainer>();            
         }
 
@@ -52,6 +50,7 @@ namespace DrawLineTest1
             label2.Text = trackBar1.Value.ToString();
             label3.Text = trackBar2.Value.ToString();
             label4.Text = trackBar3.Value.ToString();
+            label5.Text = trackBar2.Value.ToString();
         }
 
 

@@ -24,7 +24,6 @@ namespace DrawLineTest1
         public void StartRx()
         {
             GenerateData();
-
         }
 
         private async void GenerateData()
