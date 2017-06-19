@@ -16,16 +16,14 @@ namespace DrawLineTest1
         Graphics mainGraphic = null;
         Pen myPen = new Pen(Color.Red);
         private List<RxDataContainer> rxData;
-        PlotArea plotArea;
-
+        
 
         public Form1()
         {
             InitializeComponent();
             updateGlobalVar();
-            GlobalVar.SampleRate = 2000;
-            rxData = new List<RxDataContainer>();
-            
+            GlobalVar.SampleRate = 200;
+            rxData = new List<RxDataContainer>();            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -52,6 +50,7 @@ namespace DrawLineTest1
             label2.Text = trackBar1.Value.ToString();
             label3.Text = trackBar2.Value.ToString();
             label4.Text = trackBar3.Value.ToString();
+            label5.Text = trackBar2.Value.ToString();
         }
 
 
@@ -59,36 +58,17 @@ namespace DrawLineTest1
         {
             updateGlobalVar();
         }
-        
-        private void panelBase_Paint(object sender, PaintEventArgs e)
+        PlotArea plotArea;
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
             var panel = sender as Panel;
+            serieGraphic = panel.CreateGraphics();
 
-            if (panel.Name == "panelBase")
-            {
-                var baseGraphic = panelBase.CreateGraphics();
-                plotArea = new PlotArea(panelBase, baseGraphic);
-                plotArea.Width = GlobalVar.Zoom;
-                plotArea.AxInterval = GlobalVar.Zoom / 10;
-                //plotArea.CreatArea();
-            }
-            else if (panel.Name == "panelFirst")
-            {
-                plotArea.firstPanel = panel;
-                plotArea.firstGraphic = panel.CreateGraphics();
+            plotArea = new PlotArea(panel, serieGraphic);
+            plotArea.Width = GlobalVar.Zoom;
+            plotArea.AxInterval = plotArea.Width / 5;
+            plotArea.CreatArea();
 
-            }
-            else if (panel.Name == "panelSecond")
-            {
-                plotArea.secondGraphic = panel.CreateGraphics(); ;
-                plotArea.secondPanel = panel;
-            }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            panelFirst.Width = panelBase.Width;
-            panelSecond.Width = panelBase.Width;
         }
 
 

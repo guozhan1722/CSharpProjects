@@ -36,5 +36,13 @@ namespace DrawLineTest1
             }
         }
 
+
+        public System.Windows.Forms.Panel firstPanel { get; set; }
+
+        public Graphics firstGraphic { get; set; }
+
+        public Graphics secondGraphic { get; set; }
+
+        public System.Windows.Forms.Panel secondPanel { get; set; }
     }
 }
