@@ -23,7 +23,7 @@ namespace DrawLineTest1
         {
             InitializeComponent();
             updateGlobalVar();
-            GlobalVar.SampleRate = 2000;
+            GlobalVar.SampleRate = 200;
             rxData = new List<RxDataContainer>();
             
         }
