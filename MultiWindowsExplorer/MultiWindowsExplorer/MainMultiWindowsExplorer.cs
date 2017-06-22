@@ -107,8 +107,10 @@ namespace MultiWindowsExplorer
         {
             Button searchBtn = GetControlByName("btnSearch" + section) as Button;
             CheckBox matchCkb = GetControlByName("ckboxMatchCase" + section) as CheckBox;
+            CheckBox textCkb = GetControlByName("ckboxFindText" + section) as CheckBox;
             searchBtn.Enabled = enabled;
             matchCkb.Enabled = enabled;
+            textCkb.Enabled = enabled;
         }
 
         private void RefreshProgressBar(int section, int max, int current)
@@ -129,7 +131,7 @@ namespace MultiWindowsExplorer
             }
         }
 
-        private void InitSearchControls(int section)
+        private void InitSearchControls(int section,String pattern)
         {
             EnableSearchButton(section, false);
 
@@ -141,20 +143,21 @@ namespace MultiWindowsExplorer
             conTab.SelectedTab = conTab.TabPages[1];
 
             ListView view = GetControlByName("listView" + section) as ListView;
+
             ListView.ListViewItemCollection items = view.Items;
             items.Clear();
-            ListViewItem item = new ListViewItem("Searching ...");
+            ListViewItem item = new ListViewItem("Searching patten: " + pattern + " ...");
             view.Items.Add(item);
         }
 
-        private void ShowSearchedResult(List<FileInfo> list, ListView listView)
+        private void ShowSearchedResult(List<SearchedResult> list, ListView listView, bool isFinal)
         {
             ListView.ListViewItemCollection items = listView.Items;
             items.Clear();
 
             try
             {
-                if (list.Count == 0)
+                if (list.Count == 0 && isFinal)
                 {
                     ListViewItem item = new ListViewItem("");
                     item.SubItems.Add("Could not Find This File");
@@ -164,8 +167,9 @@ namespace MultiWindowsExplorer
                 {
                     foreach (var file in list)
                     {
-                        ListViewItem item = new ListViewItem(file.Name);
-                        item.SubItems.Add(file.Directory.FullName);
+                        ListViewItem item = new ListViewItem(file.file.Name);
+                        item.SubItems.Add(file.file.Directory.FullName);
+                        item.SubItems.Add(file.p);
                         listView.Items.Add(item);
                     }
                 }
@@ -258,12 +262,14 @@ namespace MultiWindowsExplorer
             }
             TextBox pathTxt = GetControlBySenderAndName(sender, "txtPath") as TextBox;
             CheckBox matchCkb = GetControlBySenderAndName(sender, "ckboxMatchCase") as CheckBox;
+            CheckBox findTextCkb = GetControlBySenderAndName(sender, "ckboxFindText") as CheckBox;
 
             searchFile[section].DirName = pathTxt.Text;
             searchFile[section].FileName = searchTxt.Text;
             searchFile[section].isMatch = matchCkb.Checked;
+            searchFile[section].isFindText = findTextCkb.Checked;
 
-            InitSearchControls(section);
+            InitSearchControls(section, searchTxt.Text);
 
             bgSearcher[section].RunWorkerAsync();
         }
@@ -281,7 +287,10 @@ namespace MultiWindowsExplorer
 
             int idx = view.SelectedItems[0].Index;
 
-            String dirName = searchFile[section].listSearchedFiles[idx].Directory.FullName;
+            //String dirName = searchFile[section].listSearchedResult[idx].Directory.FullName;
+          
+            String dirName = searchFile[section].listResult[idx].file.Directory.FullName;
+            
             TextBox pathTxt = GetControlByName("txtPath" + section) as TextBox;
             pathTxt.Text = dirName;
             WebBrowser browser = GetControlBySenderAndName(sender, "webBrowser") as WebBrowser;
@@ -312,7 +321,7 @@ namespace MultiWindowsExplorer
             RefreshProgressBar(section, searchFile[worker.Section].TotalNumberFiles, progress);
 
             ListView listView = GetControlByName("listView" + worker.Section) as ListView;
-            ShowSearchedResult(searchFile[worker.Section].listSearchedFiles, listView);
+            ShowSearchedResult(searchFile[worker.Section].listResult, listView,false);
         }
 
         public void bgSearch_RunWorkerCompeted(object sender, RunWorkerCompletedEventArgs e)
@@ -324,7 +333,7 @@ namespace MultiWindowsExplorer
             RefreshProgressBar(worker.Section, maxVal, maxVal);
 
             ListView listView = GetControlByName("listView" + worker.Section) as ListView;
-            ShowSearchedResult(searchFile[worker.Section].listSearchedFiles, listView);
+            ShowSearchedResult(searchFile[worker.Section].listResult, listView, true);
         }
 
         private void toolStripButtonExit_Click(object sender, EventArgs e)

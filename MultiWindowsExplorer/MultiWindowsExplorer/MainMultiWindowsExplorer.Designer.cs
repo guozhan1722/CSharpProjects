@@ -124,6 +124,11 @@ namespace MultiWindowsExplorer
             this.listView3 = new System.Windows.Forms.ListView();
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ckboxFindText0 = new System.Windows.Forms.CheckBox();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ckboxFindText1 = new System.Windows.Forms.CheckBox();
+            this.ckboxFindText3 = new System.Windows.Forms.CheckBox();
+            this.ckboxFindText2 = new System.Windows.Forms.CheckBox();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOut)).BeginInit();
@@ -174,7 +179,7 @@ namespace MultiWindowsExplorer
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(717, 32);
+            this.menuStrip.Size = new System.Drawing.Size(703, 32);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -217,7 +222,7 @@ namespace MultiWindowsExplorer
             this.toolStripButtonExit});
             this.toolStrip.Location = new System.Drawing.Point(0, 32);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(717, 32);
+            this.toolStrip.Size = new System.Drawing.Size(703, 32);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -257,8 +262,8 @@ namespace MultiWindowsExplorer
             // splitContainerOut.Panel2
             // 
             this.splitContainerOut.Panel2.Controls.Add(this.splitContainerDown);
-            this.splitContainerOut.Size = new System.Drawing.Size(717, 388);
-            this.splitContainerOut.SplitterDistance = 188;
+            this.splitContainerOut.Size = new System.Drawing.Size(703, 438);
+            this.splitContainerOut.SplitterDistance = 212;
             this.splitContainerOut.TabIndex = 2;
             // 
             // splitContainerUp
@@ -275,8 +280,8 @@ namespace MultiWindowsExplorer
             // splitContainerUp.Panel2
             // 
             this.splitContainerUp.Panel2.Controls.Add(this.tableLayoutPanel4);
-            this.splitContainerUp.Size = new System.Drawing.Size(717, 188);
-            this.splitContainerUp.SplitterDistance = 348;
+            this.splitContainerUp.Size = new System.Drawing.Size(703, 212);
+            this.splitContainerUp.SplitterDistance = 341;
             this.splitContainerUp.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -293,7 +298,7 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(344, 184);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(337, 208);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -315,7 +320,7 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(338, 44);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(331, 44);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // btnOpen0
@@ -394,29 +399,31 @@ namespace MultiWindowsExplorer
             this.txtPath0.Location = new System.Drawing.Point(203, 3);
             this.txtPath0.Multiline = true;
             this.txtPath0.Name = "txtPath0";
-            this.txtPath0.Size = new System.Drawing.Size(132, 38);
+            this.txtPath0.Size = new System.Drawing.Size(125, 38);
             this.txtPath0.TabIndex = 1;
             this.txtPath0.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 5;
+            this.tableLayoutPanel3.ColumnCount = 6;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel3.Controls.Add(this.btnSearch0, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.txtSearch0, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.ckboxMatchCase0, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.progressBar0, 3, 0);
-            this.tableLayoutPanel3.Controls.Add(this.labelProgress0, 4, 0);
+            this.tableLayoutPanel3.Controls.Add(this.progressBar0, 4, 0);
+            this.tableLayoutPanel3.Controls.Add(this.labelProgress0, 5, 0);
+            this.tableLayoutPanel3.Controls.Add(this.ckboxFindText0, 3, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 137);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 161);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(338, 44);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(331, 44);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // btnSearch0
@@ -424,7 +431,7 @@ namespace MultiWindowsExplorer
             this.btnSearch0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSearch0.ImageIndex = 0;
             this.btnSearch0.ImageList = this.imageList;
-            this.btnSearch0.Location = new System.Drawing.Point(81, 3);
+            this.btnSearch0.Location = new System.Drawing.Point(37, 3);
             this.btnSearch0.Name = "btnSearch0";
             this.btnSearch0.Size = new System.Drawing.Size(44, 38);
             this.btnSearch0.TabIndex = 0;
@@ -437,7 +444,7 @@ namespace MultiWindowsExplorer
             this.txtSearch0.Font = new System.Drawing.Font("Consolas", 12F);
             this.txtSearch0.Location = new System.Drawing.Point(3, 3);
             this.txtSearch0.Name = "txtSearch0";
-            this.txtSearch0.Size = new System.Drawing.Size(72, 38);
+            this.txtSearch0.Size = new System.Drawing.Size(28, 38);
             this.txtSearch0.TabIndex = 1;
             this.txtSearch0.Text = "";
             // 
@@ -445,7 +452,7 @@ namespace MultiWindowsExplorer
             // 
             this.ckboxMatchCase0.AutoSize = true;
             this.ckboxMatchCase0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ckboxMatchCase0.Location = new System.Drawing.Point(131, 3);
+            this.ckboxMatchCase0.Location = new System.Drawing.Point(87, 3);
             this.ckboxMatchCase0.Name = "ckboxMatchCase0";
             this.ckboxMatchCase0.Size = new System.Drawing.Size(74, 38);
             this.ckboxMatchCase0.TabIndex = 2;
@@ -455,9 +462,9 @@ namespace MultiWindowsExplorer
             // progressBar0
             // 
             this.progressBar0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar0.Location = new System.Drawing.Point(211, 3);
+            this.progressBar0.Location = new System.Drawing.Point(247, 3);
             this.progressBar0.Name = "progressBar0";
-            this.progressBar0.Size = new System.Drawing.Size(72, 38);
+            this.progressBar0.Size = new System.Drawing.Size(28, 38);
             this.progressBar0.TabIndex = 3;
             // 
             // labelProgress0
@@ -465,9 +472,9 @@ namespace MultiWindowsExplorer
             this.labelProgress0.AutoSize = true;
             this.labelProgress0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelProgress0.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelProgress0.Location = new System.Drawing.Point(289, 0);
+            this.labelProgress0.Location = new System.Drawing.Point(281, 0);
             this.labelProgress0.Name = "labelProgress0";
-            this.labelProgress0.Size = new System.Drawing.Size(46, 44);
+            this.labelProgress0.Size = new System.Drawing.Size(47, 44);
             this.labelProgress0.TabIndex = 4;
             this.labelProgress0.Text = "100 %";
             this.labelProgress0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -481,7 +488,7 @@ namespace MultiWindowsExplorer
             this.tabControl0.Location = new System.Drawing.Point(3, 53);
             this.tabControl0.Name = "tabControl0";
             this.tabControl0.SelectedIndex = 0;
-            this.tabControl0.Size = new System.Drawing.Size(338, 78);
+            this.tabControl0.Size = new System.Drawing.Size(331, 102);
             this.tabControl0.TabIndex = 2;
             // 
             // tabBrowser0
@@ -511,7 +518,7 @@ namespace MultiWindowsExplorer
             this.tabListView0.Location = new System.Drawing.Point(4, 29);
             this.tabListView0.Name = "tabListView0";
             this.tabListView0.Padding = new System.Windows.Forms.Padding(3);
-            this.tabListView0.Size = new System.Drawing.Size(330, 45);
+            this.tabListView0.Size = new System.Drawing.Size(323, 69);
             this.tabListView0.TabIndex = 1;
             this.tabListView0.Text = "Search Result";
             this.tabListView0.UseVisualStyleBackColor = true;
@@ -520,13 +527,14 @@ namespace MultiWindowsExplorer
             // 
             this.listView0.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader7});
             this.listView0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView0.FullRowSelect = true;
             this.listView0.GridLines = true;
             this.listView0.Location = new System.Drawing.Point(3, 3);
             this.listView0.Name = "listView0";
-            this.listView0.Size = new System.Drawing.Size(324, 39);
+            this.listView0.Size = new System.Drawing.Size(317, 63);
             this.listView0.TabIndex = 0;
             this.listView0.UseCompatibleStateImageBehavior = false;
             this.listView0.View = System.Windows.Forms.View.Details;
@@ -556,7 +564,7 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(361, 184);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(354, 208);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // tableLayoutPanel5
@@ -578,7 +586,7 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(355, 44);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(348, 44);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // btnOpen1
@@ -638,29 +646,31 @@ namespace MultiWindowsExplorer
             this.txtPath1.Location = new System.Drawing.Point(203, 3);
             this.txtPath1.Multiline = true;
             this.txtPath1.Name = "txtPath1";
-            this.txtPath1.Size = new System.Drawing.Size(149, 38);
+            this.txtPath1.Size = new System.Drawing.Size(142, 38);
             this.txtPath1.TabIndex = 1;
             this.txtPath1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
             // tableLayoutPanel6
             // 
-            this.tableLayoutPanel6.ColumnCount = 5;
+            this.tableLayoutPanel6.ColumnCount = 6;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
             this.tableLayoutPanel6.Controls.Add(this.btnSearch1, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.txtSearch1, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.ckboxMatchCase1, 2, 0);
-            this.tableLayoutPanel6.Controls.Add(this.progressBar1, 3, 0);
-            this.tableLayoutPanel6.Controls.Add(this.labelProgress1, 4, 0);
+            this.tableLayoutPanel6.Controls.Add(this.progressBar1, 4, 0);
+            this.tableLayoutPanel6.Controls.Add(this.labelProgress1, 5, 0);
+            this.tableLayoutPanel6.Controls.Add(this.ckboxFindText1, 3, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 137);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 161);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(355, 44);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(348, 44);
             this.tableLayoutPanel6.TabIndex = 1;
             // 
             // btnSearch1
@@ -668,7 +678,7 @@ namespace MultiWindowsExplorer
             this.btnSearch1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSearch1.ImageIndex = 0;
             this.btnSearch1.ImageList = this.imageList;
-            this.btnSearch1.Location = new System.Drawing.Point(89, 3);
+            this.btnSearch1.Location = new System.Drawing.Point(45, 3);
             this.btnSearch1.Name = "btnSearch1";
             this.btnSearch1.Size = new System.Drawing.Size(44, 38);
             this.btnSearch1.TabIndex = 0;
@@ -681,7 +691,7 @@ namespace MultiWindowsExplorer
             this.txtSearch1.Font = new System.Drawing.Font("Consolas", 12F);
             this.txtSearch1.Location = new System.Drawing.Point(3, 3);
             this.txtSearch1.Name = "txtSearch1";
-            this.txtSearch1.Size = new System.Drawing.Size(80, 38);
+            this.txtSearch1.Size = new System.Drawing.Size(36, 38);
             this.txtSearch1.TabIndex = 1;
             this.txtSearch1.Text = "";
             // 
@@ -689,7 +699,7 @@ namespace MultiWindowsExplorer
             // 
             this.ckboxMatchCase1.AutoSize = true;
             this.ckboxMatchCase1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ckboxMatchCase1.Location = new System.Drawing.Point(139, 3);
+            this.ckboxMatchCase1.Location = new System.Drawing.Point(95, 3);
             this.ckboxMatchCase1.Name = "ckboxMatchCase1";
             this.ckboxMatchCase1.Size = new System.Drawing.Size(74, 38);
             this.ckboxMatchCase1.TabIndex = 2;
@@ -699,9 +709,9 @@ namespace MultiWindowsExplorer
             // progressBar1
             // 
             this.progressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar1.Location = new System.Drawing.Point(219, 3);
+            this.progressBar1.Location = new System.Drawing.Point(255, 3);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(80, 38);
+            this.progressBar1.Size = new System.Drawing.Size(36, 38);
             this.progressBar1.TabIndex = 3;
             // 
             // labelProgress1
@@ -709,9 +719,9 @@ namespace MultiWindowsExplorer
             this.labelProgress1.AutoSize = true;
             this.labelProgress1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelProgress1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelProgress1.Location = new System.Drawing.Point(305, 0);
+            this.labelProgress1.Location = new System.Drawing.Point(297, 0);
             this.labelProgress1.Name = "labelProgress1";
-            this.labelProgress1.Size = new System.Drawing.Size(47, 44);
+            this.labelProgress1.Size = new System.Drawing.Size(48, 44);
             this.labelProgress1.TabIndex = 4;
             this.labelProgress1.Text = "100 %";
             this.labelProgress1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -725,7 +735,7 @@ namespace MultiWindowsExplorer
             this.tabControl1.Location = new System.Drawing.Point(3, 53);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(355, 78);
+            this.tabControl1.Size = new System.Drawing.Size(348, 102);
             this.tabControl1.TabIndex = 2;
             // 
             // tabBrowser1
@@ -755,7 +765,7 @@ namespace MultiWindowsExplorer
             this.tabListView1.Location = new System.Drawing.Point(4, 29);
             this.tabListView1.Name = "tabListView1";
             this.tabListView1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabListView1.Size = new System.Drawing.Size(347, 45);
+            this.tabListView1.Size = new System.Drawing.Size(340, 69);
             this.tabListView1.TabIndex = 1;
             this.tabListView1.Text = "Search Result";
             this.tabListView1.UseVisualStyleBackColor = true;
@@ -770,7 +780,7 @@ namespace MultiWindowsExplorer
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(3, 3);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(341, 39);
+            this.listView1.Size = new System.Drawing.Size(334, 63);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -800,8 +810,8 @@ namespace MultiWindowsExplorer
             // splitContainerDown.Panel2
             // 
             this.splitContainerDown.Panel2.Controls.Add(this.tableLayoutPanel10);
-            this.splitContainerDown.Size = new System.Drawing.Size(717, 196);
-            this.splitContainerDown.SplitterDistance = 348;
+            this.splitContainerDown.Size = new System.Drawing.Size(703, 222);
+            this.splitContainerDown.SplitterDistance = 341;
             this.splitContainerDown.TabIndex = 0;
             // 
             // tableLayoutPanel7
@@ -818,7 +828,7 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(344, 192);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(337, 218);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
             // tableLayoutPanel8
@@ -840,7 +850,7 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(338, 44);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(331, 44);
             this.tableLayoutPanel8.TabIndex = 0;
             // 
             // btnOpen2
@@ -900,29 +910,31 @@ namespace MultiWindowsExplorer
             this.txtPath2.Location = new System.Drawing.Point(203, 3);
             this.txtPath2.Multiline = true;
             this.txtPath2.Name = "txtPath2";
-            this.txtPath2.Size = new System.Drawing.Size(132, 38);
+            this.txtPath2.Size = new System.Drawing.Size(125, 38);
             this.txtPath2.TabIndex = 1;
             this.txtPath2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
             // tableLayoutPanel9
             // 
-            this.tableLayoutPanel9.ColumnCount = 5;
+            this.tableLayoutPanel9.ColumnCount = 6;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel9.Controls.Add(this.btnSearch2, 1, 0);
             this.tableLayoutPanel9.Controls.Add(this.txtSearch2, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.ckboxMatchCase2, 2, 0);
-            this.tableLayoutPanel9.Controls.Add(this.progressBar2, 3, 0);
-            this.tableLayoutPanel9.Controls.Add(this.labelProgress2, 4, 0);
+            this.tableLayoutPanel9.Controls.Add(this.progressBar2, 4, 0);
+            this.tableLayoutPanel9.Controls.Add(this.labelProgress2, 5, 0);
+            this.tableLayoutPanel9.Controls.Add(this.ckboxFindText2, 3, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 145);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 171);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 1;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(338, 44);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(331, 44);
             this.tableLayoutPanel9.TabIndex = 1;
             // 
             // btnSearch2
@@ -930,7 +942,7 @@ namespace MultiWindowsExplorer
             this.btnSearch2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSearch2.ImageIndex = 0;
             this.btnSearch2.ImageList = this.imageList;
-            this.btnSearch2.Location = new System.Drawing.Point(80, 3);
+            this.btnSearch2.Location = new System.Drawing.Point(36, 3);
             this.btnSearch2.Name = "btnSearch2";
             this.btnSearch2.Size = new System.Drawing.Size(44, 38);
             this.btnSearch2.TabIndex = 0;
@@ -943,7 +955,7 @@ namespace MultiWindowsExplorer
             this.txtSearch2.Font = new System.Drawing.Font("Consolas", 12F);
             this.txtSearch2.Location = new System.Drawing.Point(3, 3);
             this.txtSearch2.Name = "txtSearch2";
-            this.txtSearch2.Size = new System.Drawing.Size(71, 38);
+            this.txtSearch2.Size = new System.Drawing.Size(27, 38);
             this.txtSearch2.TabIndex = 1;
             this.txtSearch2.Text = "";
             // 
@@ -951,7 +963,7 @@ namespace MultiWindowsExplorer
             // 
             this.ckboxMatchCase2.AutoSize = true;
             this.ckboxMatchCase2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ckboxMatchCase2.Location = new System.Drawing.Point(130, 3);
+            this.ckboxMatchCase2.Location = new System.Drawing.Point(86, 3);
             this.ckboxMatchCase2.Name = "ckboxMatchCase2";
             this.ckboxMatchCase2.Size = new System.Drawing.Size(74, 38);
             this.ckboxMatchCase2.TabIndex = 2;
@@ -961,9 +973,9 @@ namespace MultiWindowsExplorer
             // progressBar2
             // 
             this.progressBar2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar2.Location = new System.Drawing.Point(210, 3);
+            this.progressBar2.Location = new System.Drawing.Point(246, 3);
             this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(71, 38);
+            this.progressBar2.Size = new System.Drawing.Size(27, 38);
             this.progressBar2.TabIndex = 3;
             // 
             // labelProgress2
@@ -971,9 +983,9 @@ namespace MultiWindowsExplorer
             this.labelProgress2.AutoSize = true;
             this.labelProgress2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelProgress2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelProgress2.Location = new System.Drawing.Point(287, 0);
+            this.labelProgress2.Location = new System.Drawing.Point(279, 0);
             this.labelProgress2.Name = "labelProgress2";
-            this.labelProgress2.Size = new System.Drawing.Size(48, 44);
+            this.labelProgress2.Size = new System.Drawing.Size(49, 44);
             this.labelProgress2.TabIndex = 4;
             this.labelProgress2.Text = "100 %";
             this.labelProgress2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -987,7 +999,7 @@ namespace MultiWindowsExplorer
             this.tabControl2.Location = new System.Drawing.Point(3, 53);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(338, 86);
+            this.tabControl2.Size = new System.Drawing.Size(331, 112);
             this.tabControl2.TabIndex = 2;
             // 
             // tabBrowser2
@@ -996,7 +1008,7 @@ namespace MultiWindowsExplorer
             this.tabBrowser2.Location = new System.Drawing.Point(4, 29);
             this.tabBrowser2.Name = "tabBrowser2";
             this.tabBrowser2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBrowser2.Size = new System.Drawing.Size(330, 53);
+            this.tabBrowser2.Size = new System.Drawing.Size(323, 79);
             this.tabBrowser2.TabIndex = 0;
             this.tabBrowser2.Text = "Browser";
             this.tabBrowser2.UseVisualStyleBackColor = true;
@@ -1007,7 +1019,7 @@ namespace MultiWindowsExplorer
             this.webBrowser2.Location = new System.Drawing.Point(3, 3);
             this.webBrowser2.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser2.Name = "webBrowser2";
-            this.webBrowser2.Size = new System.Drawing.Size(324, 47);
+            this.webBrowser2.Size = new System.Drawing.Size(317, 73);
             this.webBrowser2.TabIndex = 0;
             this.webBrowser2.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPathText);
             // 
@@ -1062,7 +1074,7 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(361, 192);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(354, 218);
             this.tableLayoutPanel10.TabIndex = 0;
             // 
             // tableLayoutPanel11
@@ -1084,7 +1096,7 @@ namespace MultiWindowsExplorer
             this.tableLayoutPanel11.RowCount = 1;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(355, 44);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(348, 44);
             this.tableLayoutPanel11.TabIndex = 0;
             // 
             // btnOpen3
@@ -1144,29 +1156,31 @@ namespace MultiWindowsExplorer
             this.txtPath3.Location = new System.Drawing.Point(203, 3);
             this.txtPath3.Multiline = true;
             this.txtPath3.Name = "txtPath3";
-            this.txtPath3.Size = new System.Drawing.Size(149, 38);
+            this.txtPath3.Size = new System.Drawing.Size(142, 38);
             this.txtPath3.TabIndex = 1;
             this.txtPath3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OntxtPathKeyDown);
             // 
             // tableLayoutPanel12
             // 
-            this.tableLayoutPanel12.ColumnCount = 5;
+            this.tableLayoutPanel12.ColumnCount = 6;
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
             this.tableLayoutPanel12.Controls.Add(this.btnSearch3, 1, 0);
             this.tableLayoutPanel12.Controls.Add(this.txtSearch3, 0, 0);
             this.tableLayoutPanel12.Controls.Add(this.ckboxMatchCase3, 2, 0);
-            this.tableLayoutPanel12.Controls.Add(this.progressBar3, 3, 0);
-            this.tableLayoutPanel12.Controls.Add(this.labelProgress3, 4, 0);
+            this.tableLayoutPanel12.Controls.Add(this.progressBar3, 4, 0);
+            this.tableLayoutPanel12.Controls.Add(this.labelProgress3, 5, 0);
+            this.tableLayoutPanel12.Controls.Add(this.ckboxFindText3, 3, 0);
             this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 145);
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 171);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 1;
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(355, 44);
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(348, 44);
             this.tableLayoutPanel12.TabIndex = 1;
             // 
             // btnSearch3
@@ -1174,7 +1188,7 @@ namespace MultiWindowsExplorer
             this.btnSearch3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSearch3.ImageIndex = 0;
             this.btnSearch3.ImageList = this.imageList;
-            this.btnSearch3.Location = new System.Drawing.Point(89, 3);
+            this.btnSearch3.Location = new System.Drawing.Point(45, 3);
             this.btnSearch3.Name = "btnSearch3";
             this.btnSearch3.Size = new System.Drawing.Size(44, 38);
             this.btnSearch3.TabIndex = 0;
@@ -1187,7 +1201,7 @@ namespace MultiWindowsExplorer
             this.txtSearch3.Font = new System.Drawing.Font("Consolas", 12F);
             this.txtSearch3.Location = new System.Drawing.Point(3, 3);
             this.txtSearch3.Name = "txtSearch3";
-            this.txtSearch3.Size = new System.Drawing.Size(80, 38);
+            this.txtSearch3.Size = new System.Drawing.Size(36, 38);
             this.txtSearch3.TabIndex = 1;
             this.txtSearch3.Text = "";
             // 
@@ -1195,7 +1209,7 @@ namespace MultiWindowsExplorer
             // 
             this.ckboxMatchCase3.AutoSize = true;
             this.ckboxMatchCase3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ckboxMatchCase3.Location = new System.Drawing.Point(139, 3);
+            this.ckboxMatchCase3.Location = new System.Drawing.Point(95, 3);
             this.ckboxMatchCase3.Name = "ckboxMatchCase3";
             this.ckboxMatchCase3.Size = new System.Drawing.Size(74, 38);
             this.ckboxMatchCase3.TabIndex = 2;
@@ -1205,9 +1219,9 @@ namespace MultiWindowsExplorer
             // progressBar3
             // 
             this.progressBar3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar3.Location = new System.Drawing.Point(219, 3);
+            this.progressBar3.Location = new System.Drawing.Point(255, 3);
             this.progressBar3.Name = "progressBar3";
-            this.progressBar3.Size = new System.Drawing.Size(80, 38);
+            this.progressBar3.Size = new System.Drawing.Size(36, 38);
             this.progressBar3.TabIndex = 3;
             // 
             // labelProgress3
@@ -1215,9 +1229,9 @@ namespace MultiWindowsExplorer
             this.labelProgress3.AutoSize = true;
             this.labelProgress3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelProgress3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelProgress3.Location = new System.Drawing.Point(305, 0);
+            this.labelProgress3.Location = new System.Drawing.Point(297, 0);
             this.labelProgress3.Name = "labelProgress3";
-            this.labelProgress3.Size = new System.Drawing.Size(47, 44);
+            this.labelProgress3.Size = new System.Drawing.Size(48, 44);
             this.labelProgress3.TabIndex = 4;
             this.labelProgress3.Text = "100 %";
             this.labelProgress3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1231,7 +1245,7 @@ namespace MultiWindowsExplorer
             this.tabControl3.Location = new System.Drawing.Point(3, 53);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(355, 86);
+            this.tabControl3.Size = new System.Drawing.Size(348, 112);
             this.tabControl3.TabIndex = 2;
             // 
             // tabBrowser3
@@ -1240,7 +1254,7 @@ namespace MultiWindowsExplorer
             this.tabBrowser3.Location = new System.Drawing.Point(4, 29);
             this.tabBrowser3.Name = "tabBrowser3";
             this.tabBrowser3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBrowser3.Size = new System.Drawing.Size(347, 53);
+            this.tabBrowser3.Size = new System.Drawing.Size(340, 79);
             this.tabBrowser3.TabIndex = 0;
             this.tabBrowser3.Text = "Browser";
             this.tabBrowser3.UseVisualStyleBackColor = true;
@@ -1251,7 +1265,7 @@ namespace MultiWindowsExplorer
             this.webBrowser3.Location = new System.Drawing.Point(3, 3);
             this.webBrowser3.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser3.Name = "webBrowser3";
-            this.webBrowser3.Size = new System.Drawing.Size(341, 47);
+            this.webBrowser3.Size = new System.Drawing.Size(334, 73);
             this.webBrowser3.TabIndex = 0;
             this.webBrowser3.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.OnShowPathText);
             // 
@@ -1292,11 +1306,60 @@ namespace MultiWindowsExplorer
             this.columnHeader10.Text = "Directory(ies)";
             this.columnHeader10.Width = 400;
             // 
+            // ckboxFindText0
+            // 
+            this.ckboxFindText0.AutoSize = true;
+            this.ckboxFindText0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ckboxFindText0.Location = new System.Drawing.Point(167, 3);
+            this.ckboxFindText0.Name = "ckboxFindText0";
+            this.ckboxFindText0.Size = new System.Drawing.Size(74, 38);
+            this.ckboxFindText0.TabIndex = 2;
+            this.ckboxFindText0.Text = "Find\r\nText";
+            this.ckboxFindText0.UseVisualStyleBackColor = true;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Text";
+            this.columnHeader7.Width = 42;
+            // 
+            // ckboxFindText1
+            // 
+            this.ckboxFindText1.AutoSize = true;
+            this.ckboxFindText1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ckboxFindText1.Location = new System.Drawing.Point(175, 3);
+            this.ckboxFindText1.Name = "ckboxFindText1";
+            this.ckboxFindText1.Size = new System.Drawing.Size(74, 38);
+            this.ckboxFindText1.TabIndex = 2;
+            this.ckboxFindText1.Text = "Find\r\nText";
+            this.ckboxFindText1.UseVisualStyleBackColor = true;
+            // 
+            // ckboxFindText3
+            // 
+            this.ckboxFindText3.AutoSize = true;
+            this.ckboxFindText3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ckboxFindText3.Location = new System.Drawing.Point(175, 3);
+            this.ckboxFindText3.Name = "ckboxFindText3";
+            this.ckboxFindText3.Size = new System.Drawing.Size(74, 38);
+            this.ckboxFindText3.TabIndex = 2;
+            this.ckboxFindText3.Text = "Find\r\nText";
+            this.ckboxFindText3.UseVisualStyleBackColor = true;
+            // 
+            // ckboxFindText2
+            // 
+            this.ckboxFindText2.AutoSize = true;
+            this.ckboxFindText2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ckboxFindText2.Location = new System.Drawing.Point(166, 3);
+            this.ckboxFindText2.Name = "ckboxFindText2";
+            this.ckboxFindText2.Size = new System.Drawing.Size(74, 38);
+            this.ckboxFindText2.TabIndex = 2;
+            this.ckboxFindText2.Text = "Find\r\nText";
+            this.ckboxFindText2.UseVisualStyleBackColor = true;
+            // 
             // MainMultiWindowsExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 452);
+            this.ClientSize = new System.Drawing.Size(703, 502);
             this.Controls.Add(this.splitContainerOut);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuStrip);
@@ -1453,6 +1516,11 @@ namespace MultiWindowsExplorer
         private TextBox txtPath1;
         private TextBox txtPath2;
         private TextBox txtPath3;
+        private CheckBox ckboxFindText0;
+        private ColumnHeader columnHeader7;
+        private CheckBox ckboxFindText1;
+        private CheckBox ckboxFindText2;
+        private CheckBox ckboxFindText3;
 
     }
 }
