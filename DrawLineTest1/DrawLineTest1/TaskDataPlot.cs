@@ -24,6 +24,8 @@ namespace DrawLineTest1
         
         private bool DrawSection1;
         private int totalPoints;
+        private bool flipPanel;
+        private int TotalPanelWidth;
         
 
         public TaskDataPlot(List<RxDataContainer> rxData, PlotArea plotArea)
@@ -37,14 +39,12 @@ namespace DrawLineTest1
 
         private void InitPlotArea()
         {
-            plotArea.firstPanel.Width = plotArea.panel.Width;
-            plotArea.secondPanel.Width = plotArea.panel.Width;
+            TotalPanelWidth = plotArea.panel.Width ;
+            plotArea.firstPanel.Width = 0;
 
             plotArea.firstPanel.Height = plotArea.panel.Height;
-            plotArea.secondPanel.Height = plotArea.panel.Height;
 
-            plotArea.firstPanel.Location = new Point(0, 0);
-            plotArea.secondPanel.Location = new Point(plotArea.panel.Width, 0);
+            plotArea.firstPanel.Location = new Point(plotArea.panel.Location.X + TotalPanelWidth, plotArea.panel.Location.Y+200);
 
             
         }
@@ -54,9 +54,8 @@ namespace DrawLineTest1
 
             totalPoints = GlobalVar.Zoom * GlobalVar.SampleRate;
             linePen = new Pen(Color.Green, 2);
-            AxStep = (float)plotArea.panel.Width / (float)totalPoints;
+            AxStep = (float)TotalPanelWidth / (float)totalPoints;
             BaseY = plotArea.panel.Height / 2;
-            DrawSection1 = false;
 
             List<PointF> initPoint = new List<PointF>();
             float xStep = 0;
@@ -65,8 +64,8 @@ namespace DrawLineTest1
                 initPoint.Add(new PointF(xStep, BaseY));
                 xStep += AxStep;
             }
-            plotArea.firstGraphic.DrawLines(linePen, initPoint.ToArray<PointF>());
-
+            plotArea.serieGraphic.DrawLines(linePen, initPoint.ToArray<PointF>());
+            flipPanel = true;
         }
 
         public async void StartPlotAsyn()
@@ -82,15 +81,11 @@ namespace DrawLineTest1
         private void DrawDotsOnUI()
         {
             List<PointF> newline = new List<PointF>();
-            float nAxStep = (float)plotArea.panel.Width / (float)(GlobalVar.Zoom * GlobalVar.SampleRate);
 
-            plotArea.firstPanel.SuspendLayout();
-            plotArea.secondPanel.SuspendLayout();
-       
+            float nAxStep = (float)TotalPanelWidth / (float)(GlobalVar.Zoom * GlobalVar.SampleRate);
             foreach (var rx in rxDataBackup)
 	        {
-                movePanels(plotArea.firstPanel);
-                movePanels(plotArea.secondPanel);
+                movePanels(flipPanel);
                 for (int i = 0; i < rx.value1.Length; i++)
                 {
                     float Yval = (float)(BaseY + rx.value1[i] * (BaseY / 3));
@@ -99,59 +94,68 @@ namespace DrawLineTest1
                     newline.Add(p);
                 }
 
-                DrawLineFromPoints(newline, DrawSection1);
+                DrawLineFromPoints(newline);
             }
         }
 
-        private void movePanels(Panel panel)
+        private void movePanels(bool flipP)
         {
-            int movePanelStep = plotArea.panel.Width / GlobalVar.Zoom;
-            var curLocation = panel.Location;
+            PictureBox pBox;
+            if(flipP)
+            {
+                pBox = plotArea.firstPanel;
+            }
+            else{
+                pBox = plotArea.panel;
+            }
+
+            int movePanelStep = TotalPanelWidth / GlobalVar.Zoom;
+            var curLocation = pBox.Location;
 
             curLocation.X -= movePanelStep;
-            if((curLocation.X * -1) > plotArea.panel.Width)
+            if(curLocation.X < 0)
             {
-                curLocation.X = plotArea.panel.Width - movePanelStep;
-                lastPointX = 0;
-                panel.Refresh();
-                if (panel.Name == "panelFirst")
+                if(pBox.Name == "panelFirst")
                 {
-                    DrawSection1 = true;
+                    pBox = plotArea.panel;
                 }
                 else
                 {
-                    DrawSection1 = false;
+                    pBox = plotArea.firstPanel;
                 }
+                
+                flipPanel = !flipPanel;
 
+                curLocation.X = TotalPanelWidth - movePanelStep;
+                lastPointX = 0;
+                pBox.Refresh();
             }
-            
-            panel.Location = curLocation;
-
+            //pBox.Width = pBox.Location.X - curLocation.X;
+            pBox.Width = TotalPanelWidth;
+            pBox.Location = curLocation;
         }
 
-        private void DrawLineFromPoints(List<PointF> points, bool DrawSection1)
+        private void DrawLineFromPoints(List<PointF> points)
         {
-            Graphics ser;
+
             
-            
-            if (DrawSection1)
+            plotArea.panel.SuspendLayout();
+            plotArea.firstPanel.SuspendLayout();
+            //if (flipPanel)
             {
-                ser = plotArea.firstGraphic;
+               plotArea.firstGraphic.DrawLines(linePen, points.ToArray<PointF>());
             }
-            else
+            //else
             {
-                ser = plotArea.secondGraphic;
-               
+                //plotArea.serieGraphic.DrawLines(linePen, points.ToArray<PointF>());
             }
-            
-            ser.DrawLines(linePen, points.ToArray<PointF>());
-            
+            //plotArea.serieGraphic.DrawLines(linePen, backpoints.ToArray<PointF>());
+            plotArea.panel.ResumeLayout();
             plotArea.firstPanel.ResumeLayout();
-            plotArea.secondPanel.ResumeLayout();
             Debug.WriteLine("isp1:{0} p1-->{1}:{2}, p2-->{3}:{4} line-->{5}:{7}:{6} zoom-->{8}"
-                , DrawSection1,
+                , flipPanel,
                 plotArea.firstPanel.Location.X, plotArea.firstPanel.Width,
-                plotArea.secondPanel.Location.X,  plotArea.secondPanel.Width,
+                plotArea.panel.Location.X, plotArea.panel.Width,
                 points[0].X, points.Count, lastPointX,GlobalVar.Zoom);
         }
 

@@ -21,6 +21,7 @@ namespace DrawLineTest1
 
         public Form1()
         {
+            plotArea = new PlotArea();
             InitializeComponent();
             updateGlobalVar();
             GlobalVar.SampleRate = 200;
@@ -62,33 +63,29 @@ namespace DrawLineTest1
         
         private void panelBase_Paint(object sender, PaintEventArgs e)
         {
-            var panel = sender as Panel;
+            var panel = sender as PictureBox;
 
-            if (panel.Name == "panelBase")
+            if(panel.Name == "panelFirst")
             {
-                var baseGraphic = panelBase.CreateGraphics();
-                plotArea = new PlotArea(panelBase, baseGraphic);
+
+                plotArea.firstPanel = panel;
+                plotArea.firstGraphic = panel.CreateGraphics();
+            }
+
+            else if (panel.Name == "panelBase")
+            {
+
+                plotArea.panel = panel;
+                plotArea.serieGraphic = panel.CreateGraphics();
                 plotArea.Width = GlobalVar.Zoom;
                 plotArea.AxInterval = GlobalVar.Zoom / 10;
                 //plotArea.CreatArea();
-            }
-            else if (panel.Name == "panelFirst")
-            {
-                plotArea.firstPanel = panel;
-                plotArea.firstGraphic = panel.CreateGraphics();
-
-            }
-            else if (panel.Name == "panelSecond")
-            {
-                plotArea.secondGraphic = panel.CreateGraphics(); ;
-                plotArea.secondPanel = panel;
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             panelFirst.Width = panelBase.Width;
-            panelSecond.Width = panelBase.Width;
         }
 
 

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
@@ -37,30 +36,19 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panelBase = new System.Windows.Forms.Panel();
-            this.panelSecond = new System.Windows.Forms.Panel();
-            this.panelFirst = new System.Windows.Forms.Panel();
+            this.panelFirst = new System.Windows.Forms.PictureBox();
+            this.panelBase = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
-            this.panelBase.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelFirst)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelBase)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Location = new System.Drawing.Point(101, 218);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(925, 122);
-            this.panel1.TabIndex = 0;
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(752, 71);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 1;
@@ -71,7 +59,7 @@
             // trackBar1
             // 
             this.trackBar1.Location = new System.Drawing.Point(141, 28);
-            this.trackBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.trackBar1.Margin = new System.Windows.Forms.Padding(4);
             this.trackBar1.Maximum = 1000;
             this.trackBar1.Minimum = 3;
             this.trackBar1.Name = "trackBar1";
@@ -83,7 +71,7 @@
             // trackBar2
             // 
             this.trackBar2.Location = new System.Drawing.Point(156, 91);
-            this.trackBar2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.trackBar2.Margin = new System.Windows.Forms.Padding(4);
             this.trackBar2.Minimum = 1;
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(227, 56);
@@ -94,7 +82,7 @@
             // trackBar3
             // 
             this.trackBar3.Location = new System.Drawing.Point(141, 154);
-            this.trackBar3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.trackBar3.Margin = new System.Windows.Forms.Padding(4);
             this.trackBar3.Maximum = 120;
             this.trackBar3.Minimum = 1;
             this.trackBar3.Name = "trackBar3";
@@ -143,44 +131,25 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "label4";
             // 
-            // panel2
+            // panelFirst
             // 
-            this.panel2.Location = new System.Drawing.Point(12, 218);
-            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(91, 123);
-            this.panel2.TabIndex = 12;
+            this.panelFirst.BackColor = System.Drawing.Color.DimGray;
+            this.panelFirst.Location = new System.Drawing.Point(187, 217);
+            this.panelFirst.Name = "panelFirst";
+            this.panelFirst.Size = new System.Drawing.Size(793, 162);
+            this.panelFirst.TabIndex = 12;
+            this.panelFirst.TabStop = false;
+            this.panelFirst.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBase_Paint);
             // 
             // panelBase
             // 
-            this.panelBase.Controls.Add(this.panelSecond);
-            this.panelBase.Controls.Add(this.panelFirst);
-            this.panelBase.Location = new System.Drawing.Point(101, 389);
-            this.panelBase.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelBase.BackColor = System.Drawing.Color.DimGray;
+            this.panelBase.Location = new System.Drawing.Point(141, 258);
             this.panelBase.Name = "panelBase";
-            this.panelBase.Size = new System.Drawing.Size(881, 178);
+            this.panelBase.Size = new System.Drawing.Size(793, 162);
             this.panelBase.TabIndex = 13;
+            this.panelBase.TabStop = false;
             this.panelBase.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBase_Paint);
-            // 
-            // panelSecond
-            // 
-            this.panelSecond.BackColor = System.Drawing.Color.Black;
-            this.panelSecond.Location = new System.Drawing.Point(447, 5);
-            this.panelSecond.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.panelSecond.Name = "panelSecond";
-            this.panelSecond.Size = new System.Drawing.Size(431, 170);
-            this.panelSecond.TabIndex = 1;
-            this.panelSecond.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBase_Paint);
-            // 
-            // panelFirst
-            // 
-            this.panelFirst.BackColor = System.Drawing.Color.DarkGoldenrod;
-            this.panelFirst.Location = new System.Drawing.Point(5, 4);
-            this.panelFirst.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.panelFirst.Name = "panelFirst";
-            this.panelFirst.Size = new System.Drawing.Size(433, 170);
-            this.panelFirst.TabIndex = 0;
-            this.panelFirst.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBase_Paint);
             // 
             // Form1
             // 
@@ -188,7 +157,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1075, 679);
             this.Controls.Add(this.panelBase);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelFirst);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -197,8 +166,7 @@
             this.Controls.Add(this.trackBar2);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -206,7 +174,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
-            this.panelBase.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelFirst)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelBase)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,7 +183,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.TrackBar trackBar2;
@@ -223,10 +191,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panelBase;
-        private System.Windows.Forms.Panel panelSecond;
-        private System.Windows.Forms.Panel panelFirst;
+        private System.Windows.Forms.PictureBox panelFirst;
+        private System.Windows.Forms.PictureBox panelBase;
     }
 }
 

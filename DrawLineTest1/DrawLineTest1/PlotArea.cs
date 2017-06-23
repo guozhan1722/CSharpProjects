@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace DrawLineTest1
 {
     class PlotArea
     {
-        public System.Windows.Forms.Panel panel;
+        public PictureBox panel;
         public System.Drawing.Graphics serieGraphic;
+        
+        public PlotArea()
+        {
+        }
 
-
-        public PlotArea(System.Windows.Forms.Panel panel, System.Drawing.Graphics serieGraphic)
+        public PlotArea(PictureBox panel, System.Drawing.Graphics serieGraphic)
         {
             // TODO: Complete member initialization
             this.panel = panel;
@@ -37,7 +41,7 @@ namespace DrawLineTest1
         }
 
 
-        public System.Windows.Forms.Panel firstPanel { get; set; }
+        public PictureBox firstPanel { get; set; }
 
         public Graphics firstGraphic { get; set; }
 
